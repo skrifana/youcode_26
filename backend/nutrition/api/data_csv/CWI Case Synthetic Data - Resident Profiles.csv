@@ -1,0 +1,501 @@
+resident_id,shelter_id,length_of_stay_days,primary_language,digital_familiarity,mobility_level,has_children,dietary_restrictions,cultural_background,gender_identity
+R001,S132,282,Arabic,medium,full,yes,vegetarian,Middle Eastern,Cisgender woman
+R002,S051,299,Cantonese,low,full,no,none,East Asian,Cisgender woman
+R003,S014,45,English,medium,full,yes,vegetarian,Black,Cisgender woman
+R004,S128,110,Hindi,low,full,yes,halal,South Asian,Transgender woman
+R005,S139,200,English,medium,full,no,other,White,Prefer not to say
+R006,S025,222,Punjabi,medium,full,no,gluten-free,South Asian,Two-Spirit
+R007,S120,301,Mandarin,high,limited,no,vegetarian,East Asian,Prefer not to say
+R008,S069,194,English,medium,limited,yes,none,White,Cisgender woman
+R009,S078,207,English,medium,full,yes,none,Latin American,Cisgender woman
+R010,S094,236,English,low,wheelchair,yes,none,Black,Two-Spirit
+R011,S090,219,English,low,limited,no,gluten-free,White,Cisgender woman
+R012,S024,223,English,medium,wheelchair,yes,gluten-free,Indigenous,Two-Spirit
+R013,S045,271,English,low,limited,yes,vegetarian,White,Cisgender woman
+R014,S097,250,English,low,full,no,gluten-free,White,Non-binary
+R015,S123,71,Spanish,low,full,no,halal,Latin American,Cisgender woman
+R016,S144,232,English,medium,full,no,vegan,Latin American,Two-Spirit
+R017,S131,51,English,low,full,no,vegetarian,White,Cisgender woman
+R018,S134,267,English,low,full,yes,none,White,Cisgender woman
+R019,S041,277,English,high,full,yes,vegan,Indigenous,Two-Spirit
+R020,S044,157,English,low,full,no,none,Indigenous,Two-Spirit
+R021,S040,32,English,low,full,yes,none,White,Cisgender woman
+R022,S055,140,English,low,limited,yes,none,White,Cisgender woman
+R023,S013,280,English,medium,wheelchair,yes,halal,Middle Eastern,Cisgender woman
+R024,S087,177,Cantonese,medium,limited,yes,vegan,East Asian,Cisgender woman
+R025,S041,141,English,medium,full,yes,none,Indigenous,Two-Spirit
+R026,S009,42,Spanish,medium,full,no,gluten-free,Latin American,Cisgender woman
+R027,S034,47,English,medium,limited,yes,other,White,Non-binary
+R028,S077,178,English,high,wheelchair,yes,none,East Asian,Cisgender woman
+R029,S068,289,Mandarin,high,full,yes,none,East Asian,Cisgender woman
+R030,S061,46,Indigenous language,low,limited,no,vegan,Indigenous,Two-Spirit
+R031,S021,134,English,medium,wheelchair,no,other,White,Cisgender woman
+R032,S033,294,English,high,full,no,none,White,Two-Spirit
+R033,S090,170,English,medium,full,yes,halal,Middle Eastern,Cisgender woman
+R034,S009,42,Cantonese,low,full,yes,vegetarian,East Asian,Cisgender woman
+R035,S033,174,Japanese,medium,full,yes,none,East Asian,Cisgender woman
+R036,S116,243,Punjabi,low,wheelchair,no,halal,South Asian,Cisgender woman
+R037,S012,250,Mandarin,high,wheelchair,no,vegan,East Asian,Cisgender woman
+R038,S134,230,Mandarin,high,wheelchair,yes,vegan,East Asian,Cisgender woman
+R039,S142,314,Farsi,low,wheelchair,yes,halal,Middle Eastern,Cisgender woman
+R040,S074,140,English,low,wheelchair,yes,vegan,Black,Cisgender woman
+R041,S032,39,English,medium,limited,no,none,White,Transgender woman
+R042,S002,286,English,medium,limited,yes,none,White,Cisgender woman
+R043,S042,48,Indigenous language,medium,wheelchair,yes,none,Indigenous,Two-Spirit
+R044,S017,251,Mandarin,medium,full,no,none,East Asian,Cisgender woman
+R045,S009,44,Indigenous language,low,full,no,none,Indigenous,Cisgender woman
+R046,S018,48,English,low,full,yes,none,Indigenous,Cisgender woman
+R047,S092,128,Hindi,medium,full,no,vegetarian,South Asian,Non-binary
+R048,S134,269,Tagalog,medium,full,yes,none,Filipino,Cisgender woman
+R049,S024,172,Hindi,high,full,yes,vegan,South Asian,Transgender woman
+R050,S034,32,English,medium,full,no,halal,Indigenous,Transgender woman
+R051,S036,203,English,medium,full,no,vegan,Filipino,Prefer not to say
+R052,S093,211,Tagalog,high,full,yes,none,Filipino,Transgender woman
+R053,S087,230,Vietnamese,low,full,yes,halal,Southeast Asian,Two-Spirit
+R054,S145,367,Spanish,medium,full,yes,other,Latin American,Gender non-conforming
+R055,S052,37,English,high,full,yes,gluten-free,South Asian,Cisgender woman
+R056,S077,291,English,low,full,yes,halal,Black,Cisgender woman
+R057,S025,127,English,medium,limited,yes,other,Indigenous,Cisgender woman
+R058,S137,354,English,low,wheelchair,no,halal,Black,Cisgender woman
+R059,S141,214,Mandarin,low,wheelchair,yes,gluten-free,East Asian,Non-binary
+R060,S124,385,Spanish,low,wheelchair,yes,gluten-free,Latin American,Gender non-conforming
+R061,S129,260,Spanish,medium,full,no,other,Latin American,Non-binary
+R062,S142,343,English,medium,full,no,other,White,Cisgender woman
+R063,S061,48,Indigenous language,medium,full,no,other,Indigenous,Non-binary
+R064,S121,53,English,low,full,yes,vegan,Latin American,Cisgender woman
+R065,S144,181,English,high,full,no,other,White,Transgender woman
+R066,S083,253,English,low,full,no,other,East Asian,Cisgender woman
+R067,S061,40,English,low,full,no,vegetarian,Indigenous,Cisgender woman
+R068,S106,123,English,low,wheelchair,yes,other,White,Cisgender woman
+R069,S013,173,English,medium,full,no,vegetarian,East Asian,Cisgender woman
+R070,S074,265,English,low,full,no,gluten-free,White,Cisgender woman
+R071,S124,223,English,low,wheelchair,yes,other,Indigenous,Cisgender woman
+R072,S014,32,English,low,full,yes,vegetarian,Indigenous,Prefer not to say
+R073,S035,133,English,medium,full,yes,other,Southeast Asian,Cisgender woman
+R074,S041,214,Indigenous language,medium,full,yes,gluten-free,Indigenous,Two-Spirit
+R075,S118,227,Arabic,medium,full,no,gluten-free,Middle Eastern,Cisgender woman
+R076,S125,181,Cantonese,low,limited,yes,vegetarian,East Asian,Gender non-conforming
+R077,S144,194,Indigenous language,low,wheelchair,yes,vegetarian,Indigenous,Cisgender woman
+R078,S068,159,English,medium,limited,no,other,East Asian,Transgender woman
+R079,S101,201,English,medium,wheelchair,yes,vegan,White,Two-Spirit
+R080,S013,230,English,medium,limited,no,none,East Asian,Transgender woman
+R081,S069,172,Mandarin,medium,limited,yes,vegan,East Asian,Cisgender woman
+R082,S093,143,English,medium,wheelchair,yes,vegan,Black,Cisgender woman
+R083,S033,273,English,low,limited,yes,gluten-free,White,Cisgender woman
+R084,S108,109,Tagalog,medium,full,no,vegetarian,Filipino,Cisgender woman
+R085,S128,90,English,low,wheelchair,no,none,East Asian,Cisgender woman
+R086,S017,276,Cantonese,low,full,yes,other,East Asian,Cisgender woman
+R087,S021,134,English,medium,full,yes,vegan,Black,Cisgender woman
+R088,S003,164,English,medium,full,yes,vegan,East Asian,Cisgender woman
+R089,S025,184,English,medium,limited,no,vegetarian,Indigenous,Cisgender woman
+R090,S061,37,English,medium,full,yes,none,Indigenous,Two-Spirit
+R091,S055,128,English,low,full,no,vegetarian,East Asian,Two-Spirit
+R092,S023,207,English,low,limited,yes,none,White,Cisgender woman
+R093,S137,308,Mandarin,medium,limited,no,other,East Asian,Cisgender woman
+R094,S135,315,English,high,full,yes,vegetarian,Indigenous,Prefer not to say
+R095,S138,395,Tagalog,medium,full,no,other,Filipino,Cisgender woman
+R096,S051,182,English,low,full,yes,other,Latin American,Cisgender woman
+R097,S090,258,Arabic,low,full,yes,other,Middle Eastern,Non-binary
+R098,S122,260,Mandarin,medium,wheelchair,no,gluten-free,East Asian,Gender non-conforming
+R099,S041,255,English,medium,full,yes,gluten-free,Indigenous,Cisgender woman
+R100,S018,33,English,low,limited,yes,other,Black,Cisgender woman
+R101,S126,342,English,medium,full,yes,vegan,Indigenous,Two-Spirit
+R102,S122,212,English,medium,limited,no,none,White,Cisgender woman
+R103,S075,242,Tagalog,medium,full,yes,other,Filipino,Cisgender woman
+R104,S044,124,Indigenous language,low,full,no,vegan,Indigenous,Two-Spirit
+R105,S120,220,English,medium,wheelchair,no,vegetarian,White,Cisgender woman
+R106,S093,147,English,medium,limited,no,none,White,Cisgender woman
+R107,S055,254,Mandarin,low,full,yes,none,East Asian,Transgender woman
+R108,S056,191,Hindi,medium,limited,yes,halal,South Asian,Cisgender woman
+R109,S126,191,Tagalog,medium,wheelchair,no,halal,Filipino,Cisgender woman
+R110,S063,281,English,medium,full,yes,vegetarian,White,Cisgender woman
+R111,S119,212,English,medium,limited,yes,other,White,Cisgender woman
+R112,S129,227,Hindi,medium,full,yes,vegetarian,South Asian,Gender non-conforming
+R113,S137,330,English,low,limited,yes,halal,Black,Cisgender woman
+R114,S003,181,Cantonese,low,limited,no,none,East Asian,Cisgender woman
+R115,S145,395,English,low,full,yes,gluten-free,East Asian,Transgender woman
+R116,S077,156,English,medium,full,yes,vegan,Indigenous,Cisgender woman
+R117,S081,218,Tagalog,high,limited,yes,gluten-free,Filipino,Non-binary
+R118,S028,42,English,medium,limited,yes,none,Black,Gender non-conforming
+R119,S074,223,English,medium,full,no,vegetarian,Indigenous,Cisgender woman
+R120,S044,154,English,medium,limited,yes,vegan,Indigenous,Two-Spirit
+R121,S090,220,Punjabi,medium,full,yes,halal,South Asian,Non-binary
+R122,S051,294,Punjabi,medium,wheelchair,no,none,South Asian,Non-binary
+R123,S127,385,Punjabi,low,wheelchair,no,none,South Asian,Cisgender woman
+R124,S092,250,Tagalog,high,limited,yes,none,Filipino,Cisgender woman
+R125,S031,120,Farsi,medium,full,no,halal,Middle Eastern,Cisgender woman
+R126,S092,124,English,medium,full,yes,gluten-free,White,Non-binary
+R127,S077,261,English,high,wheelchair,no,vegan,White,Cisgender woman
+R128,S044,222,English,high,full,no,vegan,Indigenous,Two-Spirit
+R129,S063,146,English,low,wheelchair,yes,none,Black,Prefer not to say
+R130,S092,256,English,medium,limited,yes,vegan,White,Gender non-conforming
+R131,S044,134,Indigenous language,low,full,yes,vegan,Indigenous,Two-Spirit
+R132,S017,209,English,medium,full,yes,other,Indigenous,Cisgender woman
+R133,S075,161,Punjabi,medium,wheelchair,no,halal,South Asian,Non-binary
+R134,S004,243,English,high,limited,yes,other,Black,Cisgender woman
+R135,S061,43,English,medium,full,yes,none,Indigenous,Non-binary
+R136,S143,358,English,low,limited,yes,halal,White,Cisgender woman
+R137,S032,37,English,high,full,yes,halal,Middle Eastern,Cisgender woman
+R138,S070,47,English,low,full,yes,none,Southeast Asian,Gender non-conforming
+R139,S136,231,English,medium,full,no,gluten-free,South Asian,Cisgender woman
+R140,S053,34,English,medium,full,no,vegan,East Asian,Cisgender woman
+R141,S116,330,Punjabi,low,full,no,halal,South Asian,Cisgender woman
+R142,S132,322,Mandarin,medium,wheelchair,yes,none,East Asian,Prefer not to say
+R143,S093,290,Indigenous language,medium,limited,yes,none,Indigenous,Two-Spirit
+R144,S125,354,Somali,medium,wheelchair,yes,vegan,Black,Cisgender woman
+R145,S124,208,English,low,wheelchair,yes,none,White,Gender non-conforming
+R146,S082,155,English,medium,full,yes,vegan,Indigenous,Two-Spirit
+R147,S111,235,English,low,full,yes,none,South Asian,Cisgender woman
+R148,S053,43,Indigenous language,medium,full,no,gluten-free,Indigenous,Cisgender woman
+R149,S018,37,English,low,full,yes,vegan,White,Cisgender woman
+R150,S113,366,English,low,limited,yes,gluten-free,Filipino,Cisgender woman
+R151,S068,205,Cantonese,high,full,yes,none,East Asian,Cisgender woman
+R152,S045,147,English,low,full,yes,none,Southeast Asian,Cisgender woman
+R153,S058,185,Hindi,low,wheelchair,yes,vegetarian,South Asian,Cisgender woman
+R154,S135,349,Cantonese,medium,limited,yes,other,East Asian,Cisgender woman
+R155,S101,164,Mandarin,medium,limited,yes,none,East Asian,Cisgender woman
+R156,S145,241,Mandarin,high,limited,no,other,East Asian,Cisgender woman
+R157,S014,51,Hindi,medium,full,yes,gluten-free,South Asian,Cisgender woman
+R158,S053,36,Hindi,medium,full,yes,vegan,South Asian,Cisgender woman
+R159,S096,147,Mandarin,low,limited,yes,none,East Asian,Cisgender woman
+R160,S002,147,Indigenous language,low,full,yes,none,Indigenous,Cisgender woman
+R161,S138,287,Hindi,low,full,yes,none,South Asian,Cisgender woman
+R162,S121,93,English,low,full,yes,halal,Southeast Asian,Cisgender woman
+R163,S068,203,English,medium,full,no,gluten-free,White,Prefer not to say
+R164,S018,41,English,medium,full,yes,vegan,Indigenous,Cisgender woman
+R165,S109,37,English,medium,limited,no,none,Latin American,Cisgender woman
+R166,S046,31,English,low,full,yes,none,White,Cisgender woman
+R167,S093,248,English,medium,full,yes,none,Indigenous,Cisgender woman
+R168,S094,240,English,medium,full,yes,halal,Indigenous,Two-Spirit
+R169,S004,146,English,medium,limited,yes,gluten-free,Indigenous,Transgender woman
+R170,S061,50,English,low,full,yes,halal,White,Cisgender woman
+R171,S041,122,Indigenous language,medium,wheelchair,no,none,Indigenous,Non-binary
+R172,S025,222,English,high,full,yes,none,Indigenous,Non-binary
+R173,S063,274,English,medium,limited,yes,vegan,White,Cisgender woman
+R174,S042,39,English,medium,full,yes,gluten-free,Indigenous,Cisgender woman
+R175,S125,165,English,medium,wheelchair,yes,none,White,Transgender woman
+R176,S003,181,Hindi,medium,full,no,other,South Asian,Cisgender woman
+R177,S060,284,English,low,full,yes,gluten-free,Filipino,Cisgender woman
+R178,S120,230,Punjabi,high,full,yes,halal,South Asian,Non-binary
+R179,S140,93,English,medium,full,yes,none,East Asian,Cisgender woman
+R180,S056,271,Indigenous language,low,limited,no,vegetarian,Indigenous,Cisgender woman
+R181,S009,45,Tagalog,medium,full,no,vegetarian,Filipino,Two-Spirit
+R182,S029,178,English,low,full,yes,vegetarian,White,Cisgender woman
+R183,S119,297,Spanish,medium,limited,yes,halal,Latin American,Cisgender woman
+R184,S012,279,English,low,full,yes,halal,Middle Eastern,Cisgender woman
+R185,S069,215,English,medium,full,no,vegan,Black,Cisgender woman
+R186,S096,299,Hindi,low,full,yes,vegan,South Asian,Cisgender woman
+R187,S114,292,Farsi,medium,full,no,halal,Middle Eastern,Prefer not to say
+R188,S095,181,Tagalog,medium,wheelchair,yes,halal,Filipino,Transgender woman
+R189,S146,365,Tagalog,high,full,yes,halal,Southeast Asian,Cisgender woman
+R190,S061,50,Mandarin,medium,wheelchair,yes,gluten-free,East Asian,Cisgender woman
+R191,S084,131,English,medium,limited,yes,none,White,Cisgender woman
+R192,S009,37,English,low,full,yes,none,White,Cisgender woman
+R193,S127,309,English,low,full,yes,none,Black,Cisgender woman
+R194,S043,250,Cantonese,medium,full,yes,none,East Asian,Cisgender woman
+R195,S075,232,Vietnamese,high,full,no,none,Southeast Asian,Cisgender woman
+R196,S052,35,English,medium,full,yes,none,Indigenous,Cisgender woman
+R197,S108,105,English,low,full,yes,gluten-free,White,Two-Spirit
+R198,S023,200,Korean,medium,full,yes,gluten-free,East Asian,Cisgender woman
+R199,S065,232,Spanish,medium,full,yes,none,Latin American,Cisgender woman
+R200,S129,181,Punjabi,high,full,yes,other,South Asian,Transgender woman
+R201,S106,249,Punjabi,low,limited,yes,none,South Asian,Cisgender woman
+R202,S125,298,English,high,wheelchair,yes,vegetarian,White,Transgender woman
+R203,S106,173,Indigenous language,medium,full,no,vegetarian,Indigenous,Cisgender woman
+R204,S029,206,Cantonese,medium,limited,no,none,East Asian,Cisgender woman
+R205,S082,248,English,medium,full,yes,none,Indigenous,Cisgender woman
+R206,S094,266,English,medium,full,no,vegetarian,Indigenous,Non-binary
+R207,S093,245,English,low,full,yes,vegetarian,Filipino,Non-binary
+R208,S122,309,Tagalog,medium,full,yes,vegetarian,Filipino,Cisgender woman
+R209,S125,200,English,low,full,no,none,Latin American,Cisgender woman
+R210,S097,172,Tagalog,low,limited,no,other,Filipino,Transgender woman
+R211,S037,291,Hindi,low,limited,no,none,South Asian,Cisgender woman
+R212,S035,279,Punjabi,high,full,no,halal,South Asian,Gender non-conforming
+R213,S145,377,Tagalog,medium,wheelchair,yes,halal,Filipino,Non-binary
+R214,S056,279,English,medium,limited,yes,none,Indigenous,Cisgender woman
+R215,S090,187,English,high,full,yes,none,Latin American,Cisgender woman
+R216,S094,242,Tagalog,medium,limited,no,none,Filipino,Cisgender woman
+R217,S110,66,English,medium,full,yes,halal,East Asian,Gender non-conforming
+R218,S004,157,English,medium,full,no,gluten-free,South Asian,Non-binary
+R219,S024,143,English,high,full,yes,gluten-free,Filipino,Cisgender woman
+R220,S092,188,English,low,full,yes,vegan,White,Cisgender woman
+R221,S134,295,English,medium,full,yes,none,Indigenous,Transgender woman
+R222,S024,217,English,medium,full,no,other,East Asian,Cisgender woman
+R223,S081,258,English,medium,wheelchair,yes,none,South Asian,Cisgender woman
+R224,S008,46,Mandarin,medium,full,yes,none,East Asian,Cisgender woman
+R225,S004,263,Cantonese,medium,limited,no,gluten-free,East Asian,Cisgender woman
+R226,S058,216,English,low,full,no,none,White,Cisgender woman
+R227,S145,380,English,medium,full,no,none,Indigenous,Non-binary
+R228,S129,303,English,medium,full,yes,gluten-free,Latin American,Gender non-conforming
+R229,S055,189,English,high,full,yes,none,White,Cisgender woman
+R230,S031,212,Spanish,high,limited,yes,vegetarian,Latin American,Non-binary
+R231,S017,122,English,low,full,yes,halal,Black,Cisgender woman
+R232,S090,267,English,low,full,yes,other,White,Non-binary
+R233,S098,283,English,high,full,yes,none,White,Prefer not to say
+R234,S049,266,English,medium,full,no,none,White,Transgender woman
+R235,S140,116,Mandarin,medium,wheelchair,no,vegan,East Asian,Gender non-conforming
+R236,S090,266,Mandarin,high,full,yes,gluten-free,East Asian,Gender non-conforming
+R237,S139,327,English,medium,limited,yes,other,White,Non-binary
+R238,S133,120,Mandarin,low,wheelchair,no,vegan,East Asian,Cisgender woman
+R239,S032,50,English,medium,full,yes,none,White,Cisgender woman
+R240,S123,82,Farsi,low,limited,yes,halal,Middle Eastern,Cisgender woman
+R241,S043,287,Arabic,low,wheelchair,yes,halal,Middle Eastern,Non-binary
+R242,S145,307,English,low,full,no,halal,Black,Cisgender woman
+R243,S061,37,Cantonese,high,wheelchair,no,vegetarian,East Asian,Prefer not to say
+R244,S092,201,English,low,limited,yes,none,South Asian,Cisgender woman
+R245,S132,283,Cantonese,low,full,yes,vegetarian,East Asian,Cisgender woman
+R246,S145,308,English,low,full,yes,none,Indigenous,Transgender woman
+R247,S025,130,English,low,full,no,halal,Filipino,Cisgender woman
+R248,S086,297,Mandarin,low,limited,yes,none,East Asian,Cisgender woman
+R249,S015,270,Mandarin,low,full,yes,halal,East Asian,Cisgender woman
+R250,S145,338,Indigenous language,low,full,yes,vegetarian,Indigenous,Cisgender woman
+R251,S003,161,Punjabi,medium,full,no,vegan,South Asian,Cisgender woman
+R252,S143,278,English,low,full,yes,none,East Asian,Gender non-conforming
+R253,S082,126,English,low,wheelchair,yes,vegetarian,Indigenous,Non-binary
+R254,S142,323,Mandarin,medium,full,yes,none,East Asian,Cisgender woman
+R255,S041,209,English,medium,full,yes,vegan,Indigenous,Cisgender woman
+R256,S082,231,English,medium,full,yes,other,Indigenous,Cisgender woman
+R257,S081,179,Punjabi,medium,limited,no,other,South Asian,Cisgender woman
+R258,S056,232,Mandarin,high,full,no,vegetarian,East Asian,Cisgender woman
+R259,S069,121,Arabic,low,limited,yes,halal,Middle Eastern,Cisgender woman
+R260,S109,31,Cantonese,high,full,yes,vegetarian,East Asian,Cisgender woman
+R261,S125,296,English,medium,full,yes,vegan,East Asian,Cisgender woman
+R262,S008,46,English,high,full,yes,other,Indigenous,Non-binary
+R263,S087,259,Vietnamese,low,wheelchair,yes,halal,Southeast Asian,Transgender woman
+R264,S070,35,English,low,full,yes,other,Filipino,Cisgender woman
+R265,S109,35,English,low,full,yes,none,South Asian,Transgender woman
+R266,S109,39,Mandarin,medium,limited,yes,none,East Asian,Cisgender woman
+R267,S145,278,Vietnamese,medium,full,yes,gluten-free,Southeast Asian,Cisgender woman
+R268,S016,266,Tagalog,medium,wheelchair,no,none,Filipino,Cisgender woman
+R269,S072,167,English,low,full,no,vegan,White,Gender non-conforming
+R270,S146,387,Spanish,low,wheelchair,yes,vegetarian,Latin American,Cisgender woman
+R271,S061,33,English,high,limited,no,none,Indigenous,Non-binary
+R272,S146,327,English,medium,limited,yes,none,Indigenous,Gender non-conforming
+R273,S113,331,Korean,medium,wheelchair,yes,other,East Asian,Cisgender woman
+R274,S056,173,English,medium,wheelchair,yes,vegan,Latin American,Cisgender woman
+R275,S120,299,English,medium,limited,yes,none,White,Cisgender woman
+R276,S069,280,Indigenous language,low,full,yes,gluten-free,Indigenous,Cisgender woman
+R277,S096,271,English,low,full,yes,other,White,Transgender woman
+R278,S109,50,Tagalog,medium,wheelchair,yes,none,Filipino,Cisgender woman
+R279,S033,194,Japanese,low,full,yes,halal,East Asian,Cisgender woman
+R280,S131,85,Indigenous language,medium,wheelchair,yes,gluten-free,Indigenous,Cisgender woman
+R281,S072,285,Tagalog,low,full,yes,other,Filipino,Cisgender woman
+R282,S108,74,Punjabi,low,full,no,gluten-free,South Asian,Cisgender woman
+R283,S132,272,Indigenous language,low,full,yes,vegetarian,Indigenous,Non-binary
+R284,S118,325,English,medium,wheelchair,no,none,White,Cisgender woman
+R285,S024,247,English,medium,limited,yes,none,Indigenous,Non-binary
+R286,S115,289,Mandarin,low,wheelchair,yes,vegan,East Asian,Cisgender woman
+R287,S096,201,Vietnamese,medium,full,no,gluten-free,Southeast Asian,Cisgender woman
+R288,S005,173,English,medium,full,yes,vegan,South Asian,Cisgender woman
+R289,S110,84,Korean,low,limited,yes,vegan,East Asian,Cisgender woman
+R290,S065,288,English,medium,limited,yes,vegetarian,Indigenous,Cisgender woman
+R291,S120,340,Tagalog,medium,full,no,gluten-free,Filipino,Cisgender woman
+R292,S014,34,English,medium,wheelchair,no,none,White,Cisgender woman
+R293,S036,152,English,medium,full,yes,vegan,Indigenous,Gender non-conforming
+R294,S118,321,English,medium,full,no,none,Indigenous,Cisgender woman
+R295,S055,140,Cantonese,low,full,yes,gluten-free,East Asian,Prefer not to say
+R296,S112,97,Vietnamese,low,full,no,halal,Southeast Asian,Cisgender woman
+R297,S101,267,Tagalog,medium,full,yes,gluten-free,Filipino,Cisgender woman
+R298,S051,247,Vietnamese,low,wheelchair,yes,gluten-free,Southeast Asian,Prefer not to say
+R299,S116,315,Vietnamese,low,full,yes,vegan,Southeast Asian,Cisgender woman
+R300,S056,254,English,low,limited,yes,halal,Middle Eastern,Cisgender woman
+R301,S004,264,English,low,full,yes,none,Indigenous,Two-Spirit
+R302,S134,307,English,medium,full,yes,vegetarian,Indigenous,Cisgender woman
+R303,S139,212,Farsi,low,full,yes,halal,Middle Eastern,Two-Spirit
+R304,S064,295,English,medium,full,yes,gluten-free,Black,Cisgender woman
+R305,S115,383,English,high,limited,yes,none,Black,Gender non-conforming
+R306,S095,234,English,high,full,no,halal,South Asian,Two-Spirit
+R307,S083,238,English,high,limited,yes,gluten-free,Filipino,Two-Spirit
+R308,S093,141,Somali,medium,full,yes,none,Black,Cisgender woman
+R309,S053,44,English,high,limited,no,none,White,Cisgender woman
+R310,S043,277,Arabic,low,wheelchair,no,halal,Middle Eastern,Cisgender woman
+R311,S063,157,English,low,full,no,other,White,Transgender woman
+R312,S127,288,English,medium,full,yes,other,White,Cisgender woman
+R313,S093,170,Spanish,low,full,yes,none,Latin American,Transgender woman
+R314,S093,127,English,medium,wheelchair,yes,vegan,White,Transgender woman
+R315,S141,206,English,low,wheelchair,yes,gluten-free,White,Cisgender woman
+R316,S068,146,English,low,full,yes,none,Indigenous,Non-binary
+R317,S142,200,English,medium,limited,no,none,Filipino,Cisgender woman
+R318,S141,209,English,medium,full,yes,none,Black,Gender non-conforming
+R319,S114,276,English,high,limited,yes,halal,South Asian,Cisgender woman
+R320,S061,45,English,low,full,yes,none,White,Cisgender woman
+R321,S118,371,Indigenous language,medium,full,yes,none,Indigenous,Gender non-conforming
+R322,S093,180,English,medium,full,yes,vegetarian,Indigenous,Two-Spirit
+R323,S049,167,Tagalog,low,full,no,vegetarian,Filipino,Transgender woman
+R324,S041,266,Indigenous language,low,limited,yes,none,Indigenous,Two-Spirit
+R325,S017,123,English,medium,full,yes,vegetarian,Latin American,Cisgender woman
+R326,S097,154,Punjabi,low,full,no,halal,South Asian,Cisgender woman
+R327,S043,168,Cantonese,medium,limited,yes,none,East Asian,Cisgender woman
+R328,S087,136,Arabic,medium,wheelchair,yes,halal,Middle Eastern,Cisgender woman
+R329,S036,291,Punjabi,high,wheelchair,yes,vegetarian,South Asian,Cisgender woman
+R330,S012,277,Farsi,low,full,yes,halal,Middle Eastern,Cisgender woman
+R331,S069,165,English,medium,wheelchair,yes,gluten-free,Indigenous,Transgender woman
+R332,S142,296,English,medium,wheelchair,yes,none,Black,Cisgender woman
+R333,S120,185,English,low,full,no,vegetarian,Latin American,Transgender woman
+R334,S144,278,English,medium,wheelchair,yes,none,Indigenous,Cisgender woman
+R335,S040,39,Vietnamese,medium,full,yes,none,Southeast Asian,Non-binary
+R336,S145,216,Cantonese,low,full,yes,gluten-free,East Asian,Non-binary
+R337,S111,104,English,medium,full,no,vegan,Black,Cisgender woman
+R338,S029,143,English,medium,wheelchair,yes,none,White,Non-binary
+R339,S093,212,Cantonese,low,full,yes,none,East Asian,Gender non-conforming
+R340,S013,165,English,low,limited,yes,other,Filipino,Two-Spirit
+R341,S045,300,English,medium,full,yes,vegetarian,Filipino,Cisgender woman
+R342,S090,214,English,medium,full,yes,gluten-free,White,Transgender woman
+R343,S033,218,English,low,full,yes,halal,South Asian,Cisgender woman
+R344,S140,109,Indigenous language,medium,wheelchair,yes,other,Indigenous,Cisgender woman
+R345,S124,295,Mandarin,low,wheelchair,no,gluten-free,East Asian,Cisgender woman
+R346,S130,370,English,high,wheelchair,yes,none,East Asian,Cisgender woman
+R347,S033,279,Punjabi,low,full,yes,halal,South Asian,Cisgender woman
+R348,S002,280,English,low,full,no,none,White,Cisgender woman
+R349,S074,186,Indigenous language,low,full,no,none,Indigenous,Cisgender woman
+R350,S074,247,Arabic,medium,full,no,halal,Middle Eastern,Cisgender woman
+R351,S123,67,Tagalog,low,wheelchair,no,none,Filipino,Cisgender woman
+R352,S008,40,Tagalog,low,full,no,gluten-free,Filipino,Cisgender woman
+R353,S007,173,Tagalog,low,full,no,none,Filipino,Cisgender woman
+R354,S114,237,Punjabi,high,wheelchair,yes,halal,South Asian,Cisgender woman
+R355,S043,186,Hindi,low,wheelchair,no,none,South Asian,Non-binary
+R356,S096,223,English,low,full,no,none,Black,Cisgender woman
+R357,S142,353,Mandarin,high,full,yes,none,East Asian,Cisgender woman
+R358,S054,48,English,medium,full,yes,none,South Asian,Cisgender woman
+R359,S036,151,English,low,wheelchair,yes,vegetarian,White,Cisgender woman
+R360,S032,45,Mandarin,low,wheelchair,no,none,East Asian,Cisgender woman
+R361,S037,205,Hindi,medium,limited,no,halal,South Asian,Cisgender woman
+R362,S017,270,English,low,wheelchair,yes,vegetarian,Black,Cisgender woman
+R363,S096,246,Hindi,medium,full,yes,vegan,South Asian,Cisgender woman
+R364,S106,274,Spanish,medium,wheelchair,yes,other,Latin American,Non-binary
+R365,S002,249,English,low,wheelchair,yes,none,White,Cisgender woman
+R366,S093,136,English,low,wheelchair,no,vegetarian,Indigenous,Two-Spirit
+R367,S134,283,Punjabi,medium,full,yes,vegan,South Asian,Cisgender woman
+R368,S135,340,Somali,high,limited,yes,gluten-free,Black,Two-Spirit
+R369,S139,316,Tagalog,medium,wheelchair,yes,none,Filipino,Gender non-conforming
+R370,S003,162,English,high,wheelchair,yes,other,Latin American,Cisgender woman
+R371,S128,97,English,medium,full,yes,vegan,Indigenous,Cisgender woman
+R372,S092,158,English,low,full,yes,other,Black,Gender non-conforming
+R373,S144,349,Tagalog,medium,full,yes,none,Filipino,Cisgender woman
+R374,S024,145,English,medium,full,no,other,White,Cisgender woman
+R375,S122,278,English,medium,full,no,gluten-free,White,Transgender woman
+R376,S069,169,English,low,full,yes,other,White,Transgender woman
+R377,S004,272,English,high,limited,yes,gluten-free,White,Cisgender woman
+R378,S072,271,English,low,limited,no,none,Filipino,Cisgender woman
+R379,S028,43,Mandarin,high,full,no,none,East Asian,Cisgender woman
+R380,S025,179,Cantonese,medium,wheelchair,yes,vegetarian,East Asian,Cisgender woman
+R381,S075,254,Tagalog,medium,wheelchair,no,vegan,Filipino,Cisgender woman
+R382,S118,236,English,low,full,yes,vegan,Latin American,Two-Spirit
+R383,S143,215,Arabic,low,full,yes,halal,Middle Eastern,Cisgender woman
+R384,S003,292,Tagalog,medium,limited,no,vegan,Filipino,Prefer not to say
+R385,S042,50,English,low,full,no,none,Indigenous,Cisgender woman
+R386,S124,244,Korean,low,full,no,none,East Asian,Cisgender woman
+R387,S113,187,Vietnamese,high,limited,no,vegan,Southeast Asian,Cisgender woman
+R388,S016,263,Mandarin,low,full,yes,none,East Asian,Cisgender woman
+R389,S137,321,Vietnamese,medium,full,yes,none,Southeast Asian,Two-Spirit
+R390,S145,383,Somali,medium,full,yes,other,Black,Transgender woman
+R391,S082,234,English,medium,full,yes,none,Indigenous,Cisgender woman
+R392,S082,262,Indigenous language,high,limited,no,vegetarian,Indigenous,Two-Spirit
+R393,S081,211,English,medium,wheelchair,no,vegan,White,Non-binary
+R394,S115,277,English,medium,full,no,none,White,Prefer not to say
+R395,S053,32,Cantonese,medium,full,no,vegan,East Asian,Cisgender woman
+R396,S064,151,Farsi,low,wheelchair,yes,none,Middle Eastern,Non-binary
+R397,S108,112,English,high,limited,no,other,White,Cisgender woman
+R398,S077,205,Hindi,medium,wheelchair,yes,vegetarian,South Asian,Cisgender woman
+R399,S094,170,English,low,full,yes,none,Indigenous,Two-Spirit
+R400,S012,272,English,medium,full,yes,none,White,Two-Spirit
+R401,S042,47,Indigenous language,low,wheelchair,yes,other,Indigenous,Cisgender woman
+R402,S005,299,English,medium,full,no,vegetarian,South Asian,Cisgender woman
+R403,S019,289,Mandarin,medium,wheelchair,no,vegan,East Asian,Non-binary
+R404,S122,249,English,medium,wheelchair,yes,other,White,Gender non-conforming
+R405,S051,134,Punjabi,low,full,yes,other,South Asian,Cisgender woman
+R406,S131,103,Cantonese,high,wheelchair,no,vegetarian,East Asian,Cisgender woman
+R407,S040,41,English,high,full,no,gluten-free,Indigenous,Cisgender woman
+R408,S093,220,Vietnamese,low,wheelchair,yes,gluten-free,Southeast Asian,Cisgender woman
+R409,S029,127,Tagalog,medium,wheelchair,yes,vegan,Filipino,Cisgender woman
+R410,S065,172,Tagalog,medium,full,yes,other,Filipino,Cisgender woman
+R411,S093,179,English,high,limited,yes,vegan,Indigenous,Two-Spirit
+R412,S024,227,Hindi,low,full,yes,vegan,South Asian,Cisgender woman
+R413,S046,35,Mandarin,medium,full,yes,none,East Asian,Non-binary
+R414,S123,117,Farsi,high,full,yes,none,Middle Eastern,Cisgender woman
+R415,S041,125,English,high,wheelchair,yes,other,Indigenous,Two-Spirit
+R416,S095,228,English,high,full,no,gluten-free,South Asian,Cisgender woman
+R417,S117,295,Indigenous language,medium,limited,no,other,Indigenous,Cisgender woman
+R418,S090,213,English,high,limited,yes,vegan,White,Cisgender woman
+R419,S034,45,English,medium,full,yes,none,Indigenous,Cisgender woman
+R420,S035,218,Somali,medium,full,yes,halal,Black,Cisgender woman
+R421,S145,234,Spanish,high,full,no,none,Latin American,Cisgender woman
+R422,S040,38,English,low,limited,no,vegan,White,Cisgender woman
+R423,S046,50,Korean,low,wheelchair,no,vegetarian,East Asian,Cisgender woman
+R424,S075,263,Hindi,medium,wheelchair,yes,gluten-free,South Asian,Cisgender woman
+R425,S123,62,English,medium,full,yes,none,Indigenous,Cisgender woman
+R426,S118,293,English,medium,wheelchair,no,none,Black,Cisgender woman
+R427,S116,303,Hindi,medium,full,yes,none,South Asian,Cisgender woman
+R428,S031,225,English,medium,full,yes,halal,Southeast Asian,Cisgender woman
+R429,S113,337,English,medium,full,yes,other,White,Cisgender woman
+R430,S098,266,Hindi,low,full,yes,halal,South Asian,Cisgender woman
+R431,S003,264,English,medium,full,no,none,White,Two-Spirit
+R432,S146,299,English,low,full,no,none,White,Transgender woman
+R433,S090,182,English,medium,limited,no,other,Filipino,Transgender woman
+R434,S029,138,English,medium,wheelchair,yes,none,White,Cisgender woman
+R435,S017,211,Punjabi,medium,full,no,none,South Asian,Transgender woman
+R436,S025,177,English,low,full,yes,other,White,Cisgender woman
+R437,S123,104,English,medium,limited,yes,other,Indigenous,Cisgender woman
+R438,S117,269,Cantonese,low,limited,yes,none,East Asian,Prefer not to say
+R439,S004,236,English,low,wheelchair,yes,none,Indigenous,Cisgender woman
+R440,S044,181,English,medium,full,yes,none,Indigenous,Two-Spirit
+R441,S068,142,English,medium,full,yes,other,East Asian,Prefer not to say
+R442,S013,246,English,high,full,yes,other,Indigenous,Cisgender woman
+R443,S045,256,Mandarin,medium,full,no,none,East Asian,Cisgender woman
+R444,S069,259,English,high,limited,no,none,Latin American,Two-Spirit
+R445,S072,248,Farsi,medium,full,no,halal,Middle Eastern,Non-binary
+R446,S127,237,English,low,limited,yes,vegetarian,Filipino,Cisgender woman
+R447,S063,241,Indigenous language,medium,limited,yes,none,Indigenous,Cisgender woman
+R448,S112,50,Vietnamese,medium,limited,yes,none,Southeast Asian,Cisgender woman
+R449,S090,153,English,medium,wheelchair,no,gluten-free,Indigenous,Cisgender woman
+R450,S113,275,English,medium,full,yes,none,White,Cisgender woman
+R451,S031,245,English,medium,full,no,none,Black,Gender non-conforming
+R452,S053,46,Mandarin,medium,wheelchair,yes,none,East Asian,Two-Spirit
+R453,S051,208,English,low,full,yes,vegetarian,White,Cisgender woman
+R454,S060,236,English,low,full,yes,other,White,Cisgender woman
+R455,S031,248,English,medium,full,yes,none,Black,Cisgender woman
+R456,S054,46,Punjabi,low,wheelchair,yes,gluten-free,South Asian,Transgender woman
+R457,S024,188,English,low,full,no,vegetarian,White,Cisgender woman
+R458,S077,141,Mandarin,medium,full,yes,none,East Asian,Cisgender woman
+R459,S033,212,English,medium,wheelchair,yes,vegan,Indigenous,Two-Spirit
+R460,S003,195,English,medium,limited,yes,halal,South Asian,Cisgender woman
+R461,S064,273,English,medium,full,yes,none,Black,Cisgender woman
+R462,S008,46,English,medium,full,no,halal,East Asian,Cisgender woman
+R463,S143,358,English,high,full,yes,none,East Asian,Cisgender woman
+R464,S025,205,English,low,wheelchair,yes,vegetarian,Indigenous,Two-Spirit
+R465,S052,44,English,medium,full,no,none,South Asian,Cisgender woman
+R466,S140,118,English,medium,limited,no,none,South Asian,Cisgender woman
+R467,S037,166,English,medium,full,yes,halal,South Asian,Cisgender woman
+R468,S090,213,English,medium,full,yes,halal,Black,Non-binary
+R469,S074,263,English,medium,full,no,halal,Black,Cisgender woman
+R470,S143,355,English,low,wheelchair,yes,none,White,Transgender woman
+R471,S124,264,English,medium,full,no,none,White,Cisgender woman
+R472,S109,37,English,medium,limited,no,none,Black,Cisgender woman
+R473,S056,219,English,low,wheelchair,no,gluten-free,Indigenous,Cisgender woman
+R474,S136,212,English,low,full,no,other,White,Cisgender woman
+R475,S080,220,English,high,wheelchair,yes,vegetarian,White,Cisgender woman
+R476,S037,142,English,medium,full,yes,none,Indigenous,Cisgender woman
+R477,S093,129,English,medium,wheelchair,no,vegan,Indigenous,Two-Spirit
+R478,S044,188,Mandarin,medium,full,yes,none,East Asian,Cisgender woman
+R479,S054,34,English,low,wheelchair,yes,none,White,Cisgender woman
+R480,S019,153,Korean,medium,wheelchair,yes,none,East Asian,Transgender woman
+R481,S135,359,English,low,full,no,none,White,Cisgender woman
+R482,S042,40,English,low,wheelchair,no,vegan,White,Cisgender woman
+R483,S098,266,English,medium,wheelchair,yes,none,White,Cisgender woman
+R484,S080,215,Spanish,low,limited,yes,other,Latin American,Non-binary
+R485,S127,180,English,medium,limited,no,none,Black,Cisgender woman
+R486,S072,188,English,low,full,yes,other,East Asian,Cisgender woman
+R487,S032,43,Cantonese,low,full,yes,none,East Asian,Cisgender woman
+R488,S144,183,English,medium,limited,no,vegetarian,White,Non-binary
+R489,S110,65,Cantonese,medium,limited,yes,none,East Asian,Transgender woman
+R490,S132,203,English,low,full,yes,none,White,Cisgender woman
+R491,S082,199,English,low,wheelchair,no,gluten-free,Indigenous,Cisgender woman
+R492,S127,181,English,medium,limited,yes,other,White,Cisgender woman
+R493,S002,247,Vietnamese,low,limited,yes,other,Southeast Asian,Cisgender woman
+R494,S114,339,Tagalog,medium,full,yes,none,Filipino,Prefer not to say
+R495,S126,263,Hindi,low,wheelchair,yes,other,South Asian,Cisgender woman
+R496,S094,271,Indigenous language,medium,full,no,vegetarian,Indigenous,Two-Spirit
+R497,S116,319,Mandarin,medium,full,yes,vegan,East Asian,Cisgender woman
+R498,S061,48,Indigenous language,low,wheelchair,no,none,Indigenous,Cisgender woman
+R499,S077,282,Indigenous language,medium,limited,no,none,Indigenous,Cisgender woman
+R500,S069,243,Arabic,low,full,yes,halal,Middle Eastern,Cisgender woman

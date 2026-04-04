@@ -1,0 +1,147 @@
+shelter_id,name,city,organization,phone,type,lat,lng,pets,accessibility,childrens_programming
+S001,100 Mile House Safe Home,100 Mile House,Canadian Mental Health Association - South Cariboo Branch,1-800-563-0808,safe_home,unknown,unknown,unknown,unknown,unknown
+S002,Abbotsford Transition House,Abbotsford,SARA for Women Society,604-852-6008,transition_house,49.0495106,-122.3349203,none,unknown,offsite
+S003,Libra Transition House,Aldergrove,Ishtar Women's Resource Society,604-857-5797,transition_house,49.1181204,-122.6588398,onsite,fully,onsite
+S004,Snxlhh or Nuxalk Transition House,Bella Coola,Nuxalk Transition House Society,1-877-799-0070,transition_house,52.372895,-126.7625759,none,partly,offsite
+S005,Dixon Transition House,Burnaby,Dixon Transition Society,604-298-3454,transition_house,49.275356,-122.9913249,none,partly,offsite
+S006,Eagle's Nest Transition House,Burns Lake,Prince George and District Elizabeth Fry Society,250-692-5720,transition_house,54.6856375,-125.3478586,offsite,partly,offsite
+S007,Ann Elmore Transition House,Campbell River,Campbell River and North Island Transition Society,250-286-3666,transition_house,50.0198244,-125.2412805,onsite,partly,onsite
+S008,Castlegar Safe Home,Castlegar,Castlegar Community Services Society,250-608-3710,safe_home,55.69538,-121.6295029,none,partly,onsite
+S009,Chetwynd Safe Home,Chetwynd,South Peace Community Resources Society,250-788-1976,safe_home,55.71926,-121.633911,none,unknown,onsite
+S010,Linda Krystina Safe House,Chetwynd,The Linda Krystina Housing Society,250-401-8079,safe_home,unknown,unknown,unknown,unknown,unknown
+S011,Ann Davis Transition House,Chilliwack,Ann Davis Transition Society,604-792-3116,transition_house,49.176738,-121.9628433,onsite,unknown,onsite
+S012,Ann Davis Women's Centre,Chilliwack,Ann Davis Transition Society,604-391-1993,transition_house,49.166738,-121.9528433,onsite,fully,onsite
+S013,Wilma's Transition House,Chilliwack,Wilma's Transition Society,604-858-0468,transition_house,49.130906,-122.0139109,none,unknown,onsite
+S014,Clearwater Safe Home,Clearwater,Yellowhead Community Services Society,250-674-2135,safe_home,51.656452,-120.033213,offsite,fully,offsite
+S015,Joy's Place,Coquitlam,Tri-City Transitions Society,604-492-1700,transition_house,49.2615252,-122.781942,none,partly,onsite
+S016,Lilli House,Courtenay,Comox Valley Transition Society,250-338-1227,transition_house,49.6899546,-124.9993879,none,fully,onsite
+S017,Kootenay Haven Transition House,Cranbrook,Canadian Mental Health Association for the Kootenays,250-426-4887,transition_house,49.5217833,-115.751547,onsite,partly,offsite
+S018,Irvine House Safe Home Program,Creston,Kootenai Community Centre Society,250-428-6856,safe_home,49.0644511,-116.872542,offsite,unknown,offsite
+S019,Mizpah Transition House,Dawson Creek,South Peace Community Resources Society,250-782-9176,transition_house,55.7561634,-120.2426322,offsite,fully,offsite
+S020,Azure Place,Delta,W.I.N.G.S. Fellowship Ministries,604-957-1556,transition_house,unknown,unknown,unknown,unknown,unknown
+S021,Somenos Transition House,Duncan,Cowichan Women Against Violence Society,250-748-8544,transition_house,48.77849,-123.7124669,onsite,partly,onsite
+S022,Lelum 'u tu S'tsa'-elh teyt-en,Duncan,Hiiye'yu Lelum Society,250-732-7788,transition_house,unknown,unknown,unknown,unknown,unknown
+S023,Elk Valley Women's Transition House,Elkford,Elkford Women's Task Force Society,250-946-6004,transition_house,49.4455151,-114.751544,offsite,partly,offsite
+S024,FNAFS Women's Transition House,Fort Nelson,Fort Nelson Aboriginal Friendship Society,250-774-4742,transition_house,58.842527,-122.5752589,offsite,partly,offsite
+S025,Fireweed Safe Haven,Fort St. James,Fireweed Collective Society,250-996-8000,transition_house,54.464698,-124.1723879,onsite,partly,none
+S026,Meaope Transition House,Fort St. John,North Peace Community Resources Society,250-785-5208,transition_house,unknown,unknown,unknown,unknown,unknown
+S027,Gold River Safe Home,Gold River,Campbell River and North Island Transition Society,250-286-3666,safe_home,unknown,unknown,unknown,unknown,unknown
+S028,Golden Safe Home,Golden,Golden Women's Centre Society,250-344-2101,safe_home,51.3001116,-116.966529,none,unknown,none
+S029,Boundary Women's Transition House,Grand Forks,Boundary Women's Coalition,250-442-3131,transition_house,49.1732432,-123.1470865,onsite,unknown,onsite
+S030,Cedar Rose,Hazelton,Northern Society for Domestic Peace,778-641-4445,transition_house,unknown,unknown,unknown,unknown,unknown
+S031,Jean Scott Transition House,Hope,Cedar Strong Prevention and Intervention Society,604-869-5191,transition_house,49.3331426,-121.215742,onsite,partly,offsite
+S032,Women's Information and Safe Home (WISH),Invermere,Family Dynamix Association,250-342-5566,safe_home,50.6021404,-115.8214025,offsite,partly,offsite
+S033,Y Women's Emergency Shelter,Kamloops,YWCA BC,250-374-6162,transition_house,50.6181326,-120.1505066,onsite,partly,onsite
+S034,Kaslo Safe Home,Kaslo,Kaslo Community Services Society,250-353-7691,safe_home,49.899302,-116.9116684,onsite,fully,offsite
+S035,Kelowna Women's Shelter,Kelowna,Central Okanagan Emergency Shelter Society,250-763-1040,transition_house,49.890457,-119.469223,onsite,partly,onsite
+S036,Dunmore Place,Kitimat,The Tamitik Status of Women Association,250-632-6070,transition_house,54.0535935,-128.65344,offsite,partly,offsite
+S037,Ishtar Transition House,Langley,Ishtar Women's Resource Society,604-530-9442,transition_house,49.1080376,-122.678928,onsite,partly,offsite
+S038,Sa-Koh Housing,Lower Post,Lower Post Housing Society,250-779-3078,transition_house,unknown,unknown,unknown,unknown,unknown
+S039,Lil'wat Nation Transition House,Lil'wat Nation,Stqaka7stúmc,604-384-7247,transition_house,unknown,unknown,unknown,unknown,unknown
+S040,Lillooet Safe Home,Lillooet,Lillooet Friendship Centre Society,250-256-4146,safe_home,50.6902203,-121.9344796,none,partly,onsite
+S041,Helping Hands Transition House,Lytton,Hans Knakst Tsitxw Society,778-254-0217,transition_house,50.2283622,-121.8562684,none,fully,none
+S042,Jonduh Wuts'uh Safe Home,Mackenzie,Mackenzie Counselling Services Society,250-997-6595,safe_home,55.3282106,-123.0925637,onsite,partly,offsite
+S043,Cythera Transition House,Maple Ridge,Cythera Transition House Society,604-467-9966,transition_house,49.2192557,-122.6026195,none,unknown,onsite
+S044,Tlaa Juuhldaa Naay Transition House,Massett,Haida Gwaii Society for Community Peace,250-626-4666,transition_house,54.022776,-132.09902,onsite,fully,onsite
+S045,Mission Transition House,Mission,SARA for Women Society,604-826-7800,transition_house,49.1790916,-122.2372572,none,unknown,onsite
+S046,Nakusp Safe Home,Nakusp,Arrow and Slocan Lakes Community Services,250-265-1843,safe_home,50.3063162,-118.06693,onsite,fully,offsite
+S047,Haven House,Nanaimo,Haven Society,250-756-0616,transition_house,unknown,unknown,unknown,unknown,unknown
+S048,Cedar Woman House,Nanaimo,Snuneymuxw First Nation,250-591-5580,transition_house,unknown,unknown,unknown,unknown,unknown
+S049,Aimee Beaulieu Transition House,Nelson,The Nelson Community Service Society,250-354-4357,transition_house,49.493668,-117.2951325,offsite,fully,offsite
+S050,Monarch Place,New Westminster,W.I.N.G.S. Fellowship Ministries,604-521-1888,transition_house,49.2006835,-122.916252,offsite,partly,offsite
+S051,Sage Transition House,North Vancouver,North Shore Crisis Services Society,604-987-3374,transition_house,49.3229223,-123.0740419,onsite,partly,onsite
+S052,Cindy Taylor Safe Home,Oliver,Desert Sun Counselling & Resource Centre Society,250-485-7777,safe_home,49.188634,-119.565618,onsite,partly,offsite
+S053,Parksville Safe Home,Parksville,Haven Society,250-586-4718,safe_home,49.3179194,-124.3078683,offsite,fully,offsite
+S054,Pearl's Safe Home,Pemberton,PearlSpace Support Services Society,604-892-5711,safe_home,50.510851,-123.0112056,onsite,unknown,onsite
+S055,Hughes House,Penticton,South Okanagan Women in Need Society,250-493-7233,transition_house,49.4964222,-119.612815,onsite,fully,onsite
+S056,Okanagan Nation Emergency Transition House,Penticton (on-reserve),Okanagan Nation Family Intervention and Services Society,250-493-4902,transition_house,49.4844799,-119.6020271,none,partly,offsite
+S057,Oomiiqsu,Port Alberni,Huu-ay-aht First Nations,250-736-5066,transition_house,unknown,unknown,unknown,unknown,unknown
+S058,Port Alberni Transition House,Port Alberni,Sage Haven Society,250-724-2223,transition_house,49.267927,-124.7858807,onsite,fully,offsite
+S059,Port Hardy Safe Home,Port Hardy,North Island Crisis and Counselling Centre Society,250-230-1647,safe_home,unknown,unknown,unknown,unknown,unknown
+S060,Grace House,Powell River,Powell River and Region Transition House Society,604-485-9773,transition_house,49.8478892,-124.5232893,onsite,fully,offsite
+S061,Dzee Ba'yugh Safe House (Heart House),Prince George,Carrier Sekani Family Services,778-924-0004,safe_home,51.484824,-120.716617,none,partly,none
+S062,Harmony House Prince George,Prince George,Phoenix Transition Society,236-423-3335,transition_house,unknown,unknown,unknown,unknown,unknown
+S063,Phoenix Transition House,Prince George,Phoenix Transition Society,250-563-7305,transition_house,53.9128663,-122.7573216,offsite,fully,onsite
+S064,Amber House,Prince George,Prince George and District Elizabeth Fry Society,250-562-5868,transition_house,53.9164675,-122.7514761,onsite,partly,offsite
+S065,Ravens Keep Transition House,Prince Rupert,North Coast Transition Society,250-627-8588,transition_house,54.3041521,-130.3371012,offsite,fully,onsite
+S066,Cindy Parolin Safe Home,Princeton,Princeton Family Services Society,250-295-8211,safe_home,unknown,unknown,unknown,unknown,unknown
+S067,Amata Transition House,Quesnel,Amata Transition House Society,250-992-3385,transition_house,unknown,unknown,unknown,unknown,unknown
+S068,Forsythe House - A Safe Place,Revelstoke,Revelstoke Women's Shelter Society,250-837-1111,transition_house,50.998529,-118.1986729,none,fully,offsite
+S069,Nova Transition House,Richmond,Chimo Community Services Society,604-270-4911,transition_house,49.1609272,-123.1401688,offsite,fully,onsite
+S070,Salmo Safe Home,Salmo,Salmo Community Resource Society,250-357-2277,safe_home,49.177759,-117.271221,onsite,unknown,offsite
+S071,Shuswap & Area Women's Shelter,Salmon Arm,Shuswap Area Family Emergency Society,250-832-9616,transition_house,unknown,unknown,unknown,unknown,unknown
+S072,Salt Spring Island Transition House,Salt Spring Island,Islanders Working Against Violence Society,250-537-0735,transition_house,48.8612069,-123.5105379,offsite,partly,offsite
+S073,Yew Transition House,Sechelt,Sunshine Coast Community Services Society,604-885-2944,transition_house,unknown,unknown,unknown,unknown,unknown
+S074,Passage Transition House,Smithers,Northern Society for Domestic Peace,250-847-2595,transition_house,54.4206886,-127.8779524,onsite,partly,offsite
+S075,Annie's Place,Sooke,Sooke Transition House Society,250-642-2591,transition_house,48.4151176,-123.7684701,onsite,unknown,offsite
+S076,Ama House for Older Women,South Surrey,Atira Women's Resource Society,604-542-5992,transition_house,unknown,unknown,unknown,unknown,unknown
+S077,Pearl's Place Transition House,Squamish,PearlSpace Support Services Society,604-892-5711,transition_house,49.6989762,-123.152538,onsite,unknown,onsite
+S078,Shimai Transition House,Surrey,Atira Women's Resource Society,604-581-9100,transition_house,49.192124,-122.8563663,none,unknown,offsite
+S079,Maxxine Wright Shelter,Surrey,Atira Women's Resource Society,604-619-9188,transition_house,unknown,unknown,unknown,unknown,unknown
+S080,Virginia Sam Transition House,Surrey/Newton,Options Community Services Society,604-572-5116,transition_house,49.1282672,-122.8446204,onsite,unknown,onsite
+S081,Evergreen Transition House,Surrey/Whalley,Options Community Services Society,604-584-3301,transition_house,49.1382672,-122.8546204,onsite,unknown,onsite
+S082,Three Sisters Haven House,Telegraph Creek (on-reserve),Tahltan Health and Social Services Authority,250-235-3120,transition_house,57.9029714,-131.1695462,none,partly,none
+S083,Ksan House,Terrace,Ksan House Society,250-635-6447,transition_house,54.5180993,-128.6018512,onsite,fully,onsite
+S084,WINS Transition House,Trail,Trail Family and Individual Resource Centre Society,250-364-1543,transition_house,49.0979558,-117.7216564,onsite,partly,offsite
+S085,Tumbler Ridge Safe Home,Tumbler Ridge,South Peace Community Resources Society,250-242-8208,safe_home,unknown,unknown,unknown,unknown,unknown
+S086,Westcoast Transition House,Ucluelet,Westcoast Community Resources Society,250-726-2020,transition_house,49.0090597,-125.492999,onsite,partly,offsite
+S087,Ada's Place,Valemount,Robson Valley Community Services Society,1-844-324-2004,transition_house,53.301347,-120.1684609,onsite,partly,onsite
+S088,McBride Safe Home,Valemount,Robson Valley Community Services Society,1-844-324-2004,safe_home,unknown,unknown,unknown,unknown,unknown
+S089,Katherine's House,Vancouver,Atira Women's Resource Society,778-984-2021,transition_house,unknown,unknown,unknown,unknown,unknown
+S090,Pierce House,Vancouver,Atira Women's Resource Society,604-267-9131,transition_house,49.1734442,-123.1467428,none,unknown,none
+S091,Deborah's Gate,Vancouver,Governing Council of the Salvation Army in Canada,604-347-9500,transition_house,unknown,unknown,unknown,unknown,unknown
+S092,Kate Booth House,Vancouver,Governing Council of the Salvation Army in Canada,604-872-7774,transition_house,49.248336,-123.1209501,none,fully,none
+S093,Helping Spirit Lodge,Vancouver,Helping Spirit Lodge Society,604-872-6649,transition_house,49.2495001,-123.0736091,none,fully,none
+S094,Nisa Home,Vancouver,Nisa Foundation,1-888-456-8043,transition_house,49.1587389,-122.838952,none,unknown,none
+S095,Peggy's Place,Vancouver,The Kettle Friendship Society,604-430-5202,transition_house,49.234121,-122.98333,none,partly,none
+S096,Vancouver Rape Relief & Women's Shelter,Vancouver,Vancouver Rape Relief Society,604-872-8212,transition_house,49.2529828,-123.1035856,offsite,partly,none
+S097,Joy Aitkens Safe Home,Vanderhoof,Omineca Safe Home Society,250-567-9512,transition_house,54.015948,-124.0111589,offsite,fully,offsite
+S098,Vernon Women's Transition House,Vernon,Archway Society for Domestic Peace,250-542-1122,transition_house,50.2656562,-119.2719942,onsite,partly,offsite
+S099,Cridge Transition House for Women,Victoria,Cridge Centre for the Family,250-479-3963,transition_house,unknown,unknown,unknown,unknown,unknown
+S100,Older Women's Safe Home,Victoria,Victoria Women's Transition House Society,250-385-6611,safe_home,unknown,unknown,unknown,unknown,unknown
+S101,Victoria Women's Transition House,Victoria,Victoria Women's Transition House Society,250-385-6611,transition_house,48.4477113,-123.3445392,offsite,fully,offsite
+S102,Help and Hope Transition House,"Watson Lake, Yukon",Help and Hope for Families Society,867-536-7233,transition_house,unknown,unknown,unknown,unknown,unknown
+S103,West Kelowna Second Stage,West Kelowna,Central Okanagan Emergency Shelter Society,250-763-1040,transition_house,unknown,unknown,unknown,unknown,unknown
+S104,Westshore,Westshore,Victoria Women's Transition House Society,250-385-6611,safe_home,unknown,unknown,unknown,unknown,unknown
+S105,Maries Safe Home,Whistler,PearlSpace Support Services Society,1-877-890-5711,safe_home,unknown,unknown,unknown,unknown,unknown
+S106,Durrant House,White Rock,Atira Women's Resource Society,604-531-9151,transition_house,49.0568459,-122.8214151,onsite,partly,offsite
+S107,Chiwid Transition House,Williams Lake,Cariboo Friendship Society,250-398-5658,transition_house,unknown,unknown,unknown,unknown,unknown
+S108,100 Mile House and District Women's Centre Society,100 Mile House,unknown,unknown,crisis,51.6795895,-121.3811819,onsite,fully,none
+S109,Act2 Safe Choice Program,Vancouver,unknown,unknown,safe_home,49.2612326,-123.0920434,none,unknown,none
+S110,Ama Transition House For Older Women,South Surrey,unknown,unknown,crisis,49.0668459,-122.8314151,onsite,unknown,none
+S111,Amata Transition House Society,Quesnel,unknown,unknown,mixed,52.9832806,-122.4963997,offsite,partly,onsite
+S112,Azure Place Transition House,Delta,unknown,unknown,crisis,49.1368688,-123.0397414,onsite,fully,offsite
+S113,Boundary Women's Coalition 2nd stage,Grand Forks,unknown,unknown,second_stage,49.1340816,-118.5133909,onsite,unknown,none
+S114,Cadence Second Stage Housing,South Surrey,unknown,unknown,second_stage,49.327806,-117.6643606,onsite,fully,onsite
+S115,Christine Lamb Residence,Maple Ridge,unknown,unknown,second_stage,49.2106835,-122.926252,none,fully,offsite
+S116,Chrysalis Place Second Stage,Clearwater,unknown,unknown,second_stage,51.632463,-120.341679,offsite,unknown,offsite
+S117,Eagle's Landing,Prince Rupert,unknown,unknown,second_stage,54.3041521,-130.3371012,offsite,fully,onsite
+S118,Eva's House,Surrey,unknown,unknown,second_stage,49.188402,-122.835498,none,unknown,none
+S119,Harmony House,Surrey,unknown,unknown,second_stage,49.1487418,-122.8713474,none,unknown,none
+S120,Harrison Place,Victoria,unknown,unknown,second_stage,48.4577113,-123.3545392,none,partly,none
+S121,Haven Transition House,Nanaimo,unknown,unknown,crisis,49.214089,-124.0631219,offsite,fully,onsite
+S122,HOPE's Place Second Stage Housing Program,North Vancouver,unknown,unknown,second_stage,49.3329223,-123.0840419,onsite,unknown,onsite
+S123,Journeys Into Tomorrow Transition House,Merritt,unknown,unknown,crisis,50.1111469,-120.7905197,none,partly,none
+S124,Joy's Place Second Stage,Coquitlam,unknown,unknown,second_stage,49.2615252,-122.781942,none,unknown,offsite
+S125,Lela's Place,Creston,unknown,unknown,mixed,49.0084594,-116.8728968,none,unknown,none
+S126,Margaret Laurence House,Victoria,unknown,unknown,second_stage,48.425114,-123.3647699,none,unknown,none
+S127,Nexus Place,Prince George,unknown,unknown,second_stage,53.9164151,-122.7535578,none,partly,offsite
+S128,NICCCS Safe Shelter,Port Hardy,unknown,unknown,crisis,50.6582475,-127.4437507,none,unknown,onsite
+S129,Nova House,Richmond,unknown,unknown,second_stage,49.1709272,-123.1501688,offsite,fully,onsite
+S130,Nova Vita Second Stage Housing and Women in Need Transition House,Trail,unknown,unknown,second_stage,49.0948053,-117.7091353,onsite,unknown,onsite
+S131,Omenica Transition House,Vanderhoof,unknown,unknown,crisis,54.0159598,-124.0199137,offsite,fully,offsite
+S132,Rose Harbour,Campbell River,unknown,unknown,second_stage,50.026271,-125.243481,none,fully,none
+S133,SAFE Society Women's Emergency Shelter,Salmon Arm,unknown,unknown,crisis,50.7019667,-119.2803042,onsite,fully,offsite
+S134,Sherielle Manors,Smithers,unknown,unknown,second_stage,54.4106886,-127.8679524,onsite,fully,onsite
+S135,Skye's Place,Fort St. John,unknown,unknown,second_stage,56.246159,-120.8492169,offsite,fully,offsite
+S136,The Cedars,Salt Spring Island,unknown,unknown,second_stage,48.8612069,-123.5105379,offsite,partly,offsite
+S137,The Cridge Supportive Transitional Housing,Victoria,unknown,unknown,second_stage,48.4405149,-123.3496643,offsite,partly,onsite
+S138,Thyme Second Stage,Sechelt,unknown,unknown,second_stage,49.5627453,-123.7532017,onsite,unknown,onsite
+S139,TSW Women's 2nd Stage Housing,Kitimat,unknown,unknown,second_stage,54.0535935,-128.65344,offsite,partly,offsite
+S140,Valemount Safe Shelter,Valemount,unknown,unknown,crisis,52.829801,-119.2777718,offsite,partly,offsite
+S141,Welcome Bay Second Stage,Ucluelet,unknown,unknown,second_stage,49.0090597,-125.492999,none,partly,offsite
+S142,Wenda's Place,Burnaby,unknown,unknown,second_stage,49.265356,-122.9813249,onsite,unknown,offsite
+S143,Wilma's Transition House Second Stage,Chilliwack,unknown,unknown,second_stage,49.120906,-122.0039109,none,fully,onsite
+S144,YWCA Arbour House,Vancouver,unknown,unknown,second_stage,49.2643045,-123.1439343,onsite,partly,none
+S145,YWCA Eyrie,Vancouver,unknown,unknown,second_stage,49.2743045,-123.1339343,onsite,fully,onsite
+S146,YWCA Munroe House,Vancouver,unknown,unknown,second_stage,49.2583045,-123.1239343,onsite,partly,onsite
