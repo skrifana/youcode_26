@@ -979,7 +979,7 @@ function initLab(steps,ingredients,hiddenAreas){
   used.forEach(function(ing){
     const item=document.createElement('div');item.className='veggie-item';
     item.id='pantry-'+CSS.escape(ing);item.setAttribute('data-ingredient',ing);
-    item.innerHTML='<span class="veggie-sprite">'+ingredientEmoji(ing)+'</span><span class="veggie-label">'+ing+'</span>';
+    item.innerHTML='<span class="veggie-sprite">'+ingredientEmoji(ing)+'</span><span class="veggie-label"><img src='+ingredientEmoji(ing)+'/>' + ing+'</span>';
     item.addEventListener('click',function(){handleLabClick({type:'pantry',id:ing});});
     pantryEl.appendChild(item);
   });
@@ -993,17 +993,42 @@ function initLab(steps,ingredients,hiddenAreas){
 }
 
 
-function ingredientEmoji(name){
-  const n=name.toLowerCase();
-  if(n.includes('egg'))return'🥚';if(n.includes('tomato'))return'🍅';if(n.includes('onion'))return'🧅';
-  if(n.includes('garlic'))return'🧄';if(n.includes('rice'))return'🍚';if(n.includes('chicken'))return'🍗';
-  if(n.includes('oil'))return'🫙';if(n.includes('salt')||n.includes('pepper')||n.includes('spice'))return'🧂';
-  if(n.includes('lemon')||n.includes('lime'))return'🍋';if(n.includes('carrot'))return'🥕';
-  if(n.includes('potato'))return'🥔';if(n.includes('bread'))return'🍞';
-  if(n.includes('milk')||n.includes('dairy'))return'🥛';
-  if(n.includes('lentil')||n.includes('bean')||n.includes('chickpea'))return'🫘';
-  if(n.includes('spinach')||n.includes('kale')||n.includes('green'))return'🥬';
-  return'🥗';
+
+function ingredientEmoji(name) {
+  const n = name.toLowerCase();
+
+  if (n.includes('eggs')) return './sprites/eggs_icon.png';
+  if (n.includes('tomato')) return './sprites/tomato_icon.png';
+  if (n.includes('onion')) return '/sprites/onion_icon.png';
+  if (n.includes('garlic')) return '/sprites/garlic_icon.png';
+  if (n.includes('rice')) return '/sprites/rice_icon.png';
+  if (n.includes('chicken')) return '/sprites/chicken.png';
+  if (n.includes('oil')) return '/sprites/oil_icon.png';
+
+  if (n.includes('salt') || n.includes('pepper') || n.includes('spice'))
+    return '/sprites/salt_icon.png';
+
+  if (n.includes('carrot')) return '/sprites/carrot_icon.png';
+  if (n.includes('potato')) return '/sprites/potato_icon.png';
+  if (n.includes('bread')) return '/sprites/bread_icon.png';
+  if (n.includes('cheese')) return '/sprites/cheese_icon.png';
+
+  if (n.includes('bean')) return '/sprites/black-beans_icon.png';
+  if (n.includes('chickpea')) return '/sprites/chickpea_icon.png';
+
+  if (n.includes('spinach') || n.includes('green'))
+    return '/sprites/spinach_icon.png';
+
+  if (n.includes('corn')) return '/sprites/corn_icon.png';
+  if (n.includes('pasta')) return '/sprites/pasta_icon.png';
+  if (n.includes('tuna')) return '/sprites/canned-tuna_icon.png';
+  if (n.includes('salmon')) return '/sprites/salmon_icon.png';
+
+  if (n.includes('soy')) return '/sprites/soy-sauce_icon.png';
+  if (n.includes('ketchup')) return '/sprites/ketchup_icon.png';
+  if (n.includes('mayo')) return '/sprites/mayo_icon.png';
+
+  return '/sprites/board_icon.png'; // fallback
 }
 
 function loadLabStep(){

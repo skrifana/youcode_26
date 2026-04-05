@@ -3,7 +3,42 @@ let selectedShelter = null;
 let currentLang = 'en';
 let previousScreen = 'screenSearch';
 let map, markersLayer;
+function ingredientIcon(name) {
+  const n = name.toLowerCase();
 
+  if (n.includes('egg')) return '/sprites/eggs_icon.png';
+  if (n.includes('tomato')) return '/sprites/tomato_icon.png';
+  if (n.includes('onion')) return '/sprites/onion_icon.png'; // (add if you create it)
+  if (n.includes('garlic')) return '/sprites/garlic_icon.png';
+  if (n.includes('rice')) return '/sprites/rice_icon.png';
+  if (n.includes('chicken')) return '/sprites/chicken.png';
+  if (n.includes('oil')) return '/sprites/oil_icon.png';
+
+  if (n.includes('salt') || n.includes('pepper') || n.includes('spice'))
+    return '/sprites/salt_icon.png';
+
+  if (n.includes('carrot')) return '/sprites/carrot_icon.png';
+  if (n.includes('potato')) return '/sprites/potato_icon.png';
+  if (n.includes('bread')) return '/sprites/bread_icon.png';
+  if (n.includes('cheese')) return '/sprites/cheese_icon.png';
+
+  if (n.includes('bean')) return '/sprites/black-beans_icon.png';
+  if (n.includes('chickpea')) return '/sprites/chickpea_icon.png';
+
+  if (n.includes('spinach') || n.includes('green'))
+    return '/sprites/spinach_icon.png';
+
+  if (n.includes('corn')) return '/sprites/corn_icon.png';
+  if (n.includes('pasta')) return '/sprites/pasta_icon.png';
+  if (n.includes('tuna')) return '/sprites/canned-tuna_icon.png';
+  if (n.includes('salmon')) return '/sprites/salmon_icon.png';
+
+  if (n.includes('soy')) return '/sprites/soy-sauce_icon.png';
+  if (n.includes('ketchup')) return '/sprites/ketchup_icon.png';
+  if (n.includes('mayo')) return '/sprites/mayo_icon.png';
+
+  return '/sprites/board_icon.png'; // fallback
+}
 const TRANSLATIONS = {
     en: {
       nav_info: 'Info', nav_resources: 'Resources', back: 'Back',
@@ -334,7 +369,9 @@ function renderRecipes(recipes) {
   const grid = document.getElementById('recipesGrid');
   grid.innerHTML = recipes.map((r, i) => `
     <div class="recipe-card" onclick="openRecipeModal(${i})" style="animation: fadeUp 0.4s ease ${i * 0.05}s both">
-      <div class="recipe-emoji">${r.emoji}</div>
+      <div class="recipe-emoji">
+  <img src="${ingredientIcon(r.title)}" class="recipe-icon" />
+</div>
       <div class="recipe-title">${r.title}</div>
       <div class="recipe-meta">
         <span>⏱ ${r.time}</span>
@@ -354,7 +391,9 @@ function openRecipeModal(idx) {
   overlay.innerHTML = `
     <div class="modal">
       <button class="modal-close" onclick="closeModal()">✕</button>
-      <div class="modal-emoji">${r.emoji}</div>
+     <div class="modal-emoji">
+  <img src="${ingredientIcon(r.title)}" class="recipe-icon-lg" />
+</div>
       <h2 class="modal-title">${r.title}</h2>
       <p class="modal-desc">${r.desc}</p>
       <div class="modal-meta" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:4px;">
@@ -364,8 +403,13 @@ function openRecipeModal(idx) {
       </div>
       <p class="modal-section-title">Ingredients</p>
       <ul class="modal-ingredients">
-        ${r.ingredients.map(i => `<li>${i}</li>`).join('')}
-      </ul>
+  ${r.ingredients.map(i => `
+    <li>
+      <img src="${ingredientIcon(i)}" class="ingredient-icon" />
+      ${i}
+    </li>
+  `).join('')}
+</ul>
       <p class="modal-section-title">Steps</p>
       <ol class="modal-steps">
         ${r.steps.map(s => `<li>${s}</li>`).join('')}

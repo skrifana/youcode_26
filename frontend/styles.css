@@ -16,6 +16,12 @@
     --red: #c0392b;
     --red-light: #fde8e6;
     --nav-h: 62px;
+    --black: #000000;
+--white: #ffffff;
+--grey: #e0e0e0;
+--border: #d0cfcf;
+--yellow: #f4c542;
+--mid: #777777;
   }
   
   html { scroll-behavior: smooth; }
@@ -573,3 +579,29 @@
     .staff-options { flex-direction: column; align-items: center; }
     .modal { border-radius: 16px; padding: 20px; }
   }
+
+
+.recipe-icon {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.recipe-icon-lg {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.ingredient-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.modal-ingredients li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

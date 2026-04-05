@@ -263,7 +263,6 @@
 <!--              padding:.4rem 0;margin-bottom:.5rem;transition:opacity .15s}-->
 <!--    .back-btn:hover{opacity:.7}-->
 
-<!--    /* Error toast */-->
 <!--    .error-toast{background:#fee;border:1px solid #fcc;color:#c33;border-radius:var(&#45;&#45;r);-->
 <!--                 padding:12px 16px;font-size:.85rem;margin-bottom:1rem;display:none}-->
 <!--    .error-toast.show{display:block}-->
@@ -485,11 +484,7 @@
 <!--<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>-->
 <!--<script>-->
 
-<!--// CONFIG — backend URL (same origin when served by FastAPI)-->
-
-<!--const API_BASE = 'http://localhost:8001';  // empty = same origin; works when FastAPI serves this file-->
-
-<!--// TRANSLATIONS-->
+<!--const API_BASE = 'http://localhost:8001';-->
 
 <!--const TRANSLATIONS = {-->
 <!--  en: {-->
@@ -511,9 +506,6 @@
 <!--}-->
 <!--function changeLanguage(lang){currentLang=lang;applyTranslations();const q=document.getElementById('searchInput').value.trim().toLowerCase();if(q)onSearchInput()}-->
 
-<!--// ═══════════════════════════════════════════-->
-<!--// SHELTER DATA-->
-<!--// ═══════════════════════════════════════════-->
 <!--const SHELTERS = [-->
 <!--  {id:"S001",name:"100 Mile House Safe Home",city:"100 Mile House",lat:null,lng:null,hasKitchen:true},-->
 <!--  {id:"S002",name:"Abbotsford Transition House",city:"Abbotsford",lat:49.049511,lng:-122.33492,hasKitchen:true},-->
@@ -560,15 +552,10 @@
 <!--  {id:"S146",name:"YWCA Munroe House",city:"Vancouver",lat:49.258305,lng:-123.123934,hasKitchen:true},-->
 <!--];-->
 
-
-<!--// STATE-->
 <!--let selectedShelter = null;-->
 <!--let map, markersLayer;-->
 <!--window.__recipes = [];-->
 <!--window.__labRecipe = null;-->
-
-
-<!--// SCREEN ROUTING-->
 
 <!--function showScreen(id){-->
 <!--  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));-->
@@ -576,9 +563,6 @@
 <!--  window.scrollTo(0,0);-->
 <!--}-->
 
-<!--// ═══════════════════════════════════════════-->
-<!--// MAP-->
-<!--// ═══════════════════════════════════════════-->
 <!--function initMap(){-->
 <!--  map=L.map('map',{zoomControl:true}).setView([53.7,-127.6],5);-->
 <!--  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);-->
@@ -595,9 +579,6 @@
 <!--  });-->
 <!--}-->
 
-<!--// ═══════════════════════════════════════════-->
-<!--// SEARCH-->
-<!--// ═══════════════════════════════════════════-->
 <!--function onSearchInput(){-->
 <!--  const q=document.getElementById('searchInput').value.trim().toLowerCase();-->
 <!--  if(!q){closeDropdown();return}-->
@@ -618,9 +599,6 @@
 <!--document.addEventListener('mousedown',e=>{if(!e.target.closest('.search-wrap'))closeDropdown()});-->
 <!--function selectShelterById(id){const s=SHELTERS.find(x=>x.id===id);if(s)pickShelter(s)}-->
 
-<!--// ═══════════════════════════════════════════-->
-<!--// PICK SHELTER-->
-<!--// ═══════════════════════════════════════════-->
 <!--function pickShelter(shelter){-->
 <!--  selectedShelter=shelter;-->
 <!--  closeDropdown();-->
@@ -632,9 +610,6 @@
 <!--  showScreen('screenPrefs');-->
 <!--}-->
 
-<!--// ═══════════════════════════════════════════-->
-<!--// PANTRY-->
-<!--// ═══════════════════════════════════════════-->
 <!--function addPantryItem(){-->
 <!--  const inp=document.getElementById('pantry-input');-->
 <!--  const items=inp.value.split(',').map(s=>s.trim()).filter(Boolean);-->
@@ -664,9 +639,6 @@
 <!--  setTimeout(()=>el.classList.remove('show'),5000);-->
 <!--}-->
 
-<!--// ═══════════════════════════════════════════-->
-<!--// SUBMIT — calls FastAPI backend-->
-<!--// ═══════════════════════════════════════════-->
 <!--async function submitPrefs(){-->
 <!--  const pantry=getPantry();-->
 <!--  if(!selectedShelter){alert('Please select a shelter first.');showScreen('screenSearch');return}-->
@@ -680,9 +652,11 @@
 <!--  const kitchenAccess=document.getElementById('pref-kitchen').value;-->
 <!--  const cuisine=document.getElementById('pref-cuisine').value;-->
 <!--  const servings=parseInt(document.getElementById('pref-servings').value)||4;-->
-<!--  const dietary=getChecked('diet');-->
 
-<!--  // Build main screen header immediately-->
+<!--  // FIX 1: map dietary checkbox values to match Pydantic enum-->
+<!--  const DIET_MAP={halal:'Halal',vegetarian:'Vegetarian',vegan:'Vegan',gluten_free:'Gluten Free'};-->
+<!--  const dietary=getChecked('diet').map(d=>DIET_MAP[d]||d);-->
+
 <!--  document.getElementById('mainShelterName').textContent=selectedShelter.name;-->
 <!--  const badge=document.getElementById('kitchenBadge');-->
 <!--  badge.textContent=selectedShelter.hasKitchen?t('badge_kitchen'):t('badge_no_kitchen');-->
@@ -691,7 +665,7 @@
 <!--    `<div class="recipe-loading"><div class="spinner"></div><p>${t('loading_recipes')}</p></div>`;-->
 <!--  showScreen('screenMain');-->
 
-<!--  // ── POST to FastAPI /recommend/ ──────────────-->
+<!--  // FIX 2: mode values match Pydantic RecipeMode enum exactly-->
 <!--  const body={-->
 <!--    shelter_id: selectedShelter.id,-->
 <!--    ingredients: pantry,-->
@@ -699,7 +673,7 @@
 <!--    servings: servings,-->
 <!--    kitchen_access: kitchenAccess,-->
 <!--    dietary_overrides: dietary,-->
-<!--    mode: mode === 'interactive' ? 'interactive' : 'non_interactive'-->
+<!--    mode: mode === 'interactive' ? 'Interactive Mode' : 'Non-Interactive Mode'-->
 <!--  };-->
 
 <!--  try {-->
@@ -711,26 +685,27 @@
 
 <!--    if (!res.ok) {-->
 <!--      const err = await res.json().catch(()=>({detail:'Unknown error'}));-->
-<!--      throw new Error(err.detail || `Server error ${res.status}`);-->
+<!--      // FIX 3: 422 returns detail as an array — flatten to readable string-->
+<!--      const detail = err.detail;-->
+<!--      const msg = Array.isArray(detail)-->
+<!--        ? detail.map(e=>`${e.loc?.slice(-1)[0]}: ${e.msg}`).join(', ')-->
+<!--        : (typeof detail === 'string' ? detail : JSON.stringify(detail));-->
+<!--      throw new Error(msg || `Server error ${res.status}`);-->
 <!--    }-->
 
 <!--    const data = await res.json();-->
-<!--    // Backend returns { recipes: [...], kitchen_level, mode, shelter_context, note }-->
 <!--    const recipes = data.recipes;-->
 <!--    window.__recipes = recipes;-->
 <!--    renderGrid(recipes, mode);-->
 
 <!--  } catch(err) {-->
 <!--    document.getElementById('recipesGrid').innerHTML=-->
-<!--      `<div class="recipe-loading"><p>⚠️ ${err.message}</p><p style="margin-top:.5rem;font-size:.8rem">Make sure your FastAPI server is running on port 8000.</p></div>`;-->
+<!--      `<div class="recipe-loading"><p>⚠️ ${err.message}</p></div>`;-->
 <!--  } finally {-->
 <!--    btn.innerHTML='Generate my recipe';-->
 <!--    btn.disabled=false;-->
 <!--  }-->
 <!--}-->
-
-
-<!--// RENDER RECIPE GRID-->
 
 <!--function renderGrid(recipes, mode){-->
 <!--  const grid=document.getElementById('recipesGrid');-->
@@ -752,9 +727,6 @@
 <!--    </div>`).join('');-->
 <!--}-->
 
-<!--// ═══════════════════════════════════════════-->
-<!--// RECIPE MODAL-->
-<!--// ═══════════════════════════════════════════-->
 <!--function openRecipe(idx,mode){-->
 <!--  const r=window.__recipes[idx];-->
 <!--  const overlay=document.createElement('div');overlay.className='modal-overlay';-->
@@ -795,9 +767,6 @@
 <!--}-->
 <!--function closeModal(){if(window.__modal){window.__modal.remove();window.__modal=null}}-->
 
-<!--// ═══════════════════════════════════════════-->
-<!--// INTERACTIVE LAB-->
-<!--// ═══════════════════════════════════════════-->
 <!--const KITCHEN_IDS=['cutting-board','stovetop-pan','stovetop-pot','kettle','microwave','oven','bowl'];-->
 <!--let labStepIndex=0,labPhase='first',labGameOver=false,labRecipe=null;-->
 
@@ -912,7 +881,6 @@
 <!--}-->
 <!--function resetLab(){if(window.__labSteps)initLab(window.__labSteps,[],[])}-->
 
-
 <!--document.addEventListener('DOMContentLoaded',()=>{-->
 <!--  initMap();applyTranslations();-->
 <!--  document.getElementById('pantry-input').addEventListener('keydown',e=>{if(e.key==='Enter')addPantryItem()});-->
@@ -920,9 +888,6 @@
 <!--</script>-->
 <!--</body>-->
 <!--</html>-->
-
-
-
 
 
 <!DOCTYPE html>
@@ -1206,9 +1171,18 @@
   <div class="nav-links">
     <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
       <option value="en">🌐 EN</option>
-      <option value="fr">FR</option>
-      <option value="es">ES</option>
-      <option value="zh">中文</option>
+      <option value="fr">🇫🇷 FR</option>
+      <option value="es">🇪🇸 ES</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="ar">🇸🇦 AR</option>
+      <option value="pa">🇮🇳 PA</option>
+      <option value="tl">🇵🇭 TL</option>
+      <option value="vi">🇻🇳 VI</option>
+      <option value="hi">🇮🇳 HI</option>
+      <option value="ko">🇰🇷 KO</option>
+      <option value="ja">🇯🇵 JA</option>
+      <option value="fa">🇮🇷 FA</option>
+      <option value="so">🇸🇴 SO</option>
     </select>
   </div>
 </nav>
@@ -1413,25 +1387,152 @@
 
 const API_BASE = 'http://localhost:8001';
 
+// ═══════════════════════════════════════════
+// TRANSLATIONS — hardcoded for common languages,
+// Groq-powered fallback for the rest
+// ═══════════════════════════════════════════
 const TRANSLATIONS = {
   en: {
-    hero_title:"NourishHer", hero_sub:"Find nourishing, accessible recipes personalised for your shelter.",
-    search_placeholder:"Search by shelter name or city…", loading_recipes:"Designing a nourishing menu for you…",
+    hero_title:"NourishHer",
+    hero_sub:"Find nourishing, accessible recipes personalised for your shelter.",
+    search_placeholder:"Search by shelter name or city…",
+    loading_recipes:"Designing a nourishing menu for you…",
     badge_kitchen:"🍳 Kitchen Available", badge_no_kitchen:"🚫 No Kitchen",
-    drop_kitchen:"🍳 Kitchen", drop_no_kitchen:"No Kitchen", back:"Back",
-    custom_nutrition:"Customised nutrition plan",
+    drop_kitchen:"🍳 Kitchen", drop_no_kitchen:"No Kitchen",
+    back:"Back", custom_nutrition:"Customised nutrition plan",
   },
-  fr:{hero_title:"NourishHer",hero_sub:"Des recettes nutritives et accessibles pour votre refuge.",search_placeholder:"Rechercher par nom de refuge ou ville…",loading_recipes:"Création d'un menu nourrissant pour vous…",badge_kitchen:"🍳 Cuisine disponible",badge_no_kitchen:"🚫 Pas de cuisine",drop_kitchen:"🍳 Cuisine",drop_no_kitchen:"Sans cuisine",back:"Retour",custom_nutrition:"Plan nutritionnel personnalisé"},
-  es:{hero_title:"NourishHer",hero_sub:"Recetas nutritivas y accesibles para tu refugio.",search_placeholder:"Buscar por nombre de refugio o ciudad…",loading_recipes:"Diseñando un menú nutritivo para ti…",badge_kitchen:"🍳 Cocina disponible",badge_no_kitchen:"🚫 Sin cocina",drop_kitchen:"🍳 Cocina",drop_no_kitchen:"Sin cocina",back:"Volver",custom_nutrition:"Plan de nutrición personalizado"},
-  zh:{hero_title:"NourishHer",hero_sub:"为您的庇护所提供营养丰富、方便可及的食谱。",search_placeholder:"按庇护所名称或城市搜索…",loading_recipes:"正在为您设计营养菜单…",badge_kitchen:"🍳 有厨房",badge_no_kitchen:"🚫 无厨房",drop_kitchen:"🍳 厨房",drop_no_kitchen:"无厨房",back:"返回",custom_nutrition:"个性化营养方案"},
+  fr:{
+    hero_title:"NourishHer",
+    hero_sub:"Des recettes nutritives et accessibles pour votre refuge.",
+    search_placeholder:"Rechercher par nom de refuge ou ville…",
+    loading_recipes:"Création d'un menu nourrissant pour vous…",
+    badge_kitchen:"🍳 Cuisine disponible", badge_no_kitchen:"🚫 Pas de cuisine",
+    drop_kitchen:"🍳 Cuisine", drop_no_kitchen:"Sans cuisine",
+    back:"Retour", custom_nutrition:"Plan nutritionnel personnalisé",
+  },
+  es:{
+    hero_title:"NourishHer",
+    hero_sub:"Recetas nutritivas y accesibles para tu refugio.",
+    search_placeholder:"Buscar por nombre de refugio o ciudad…",
+    loading_recipes:"Diseñando un menú nutritivo para ti…",
+    badge_kitchen:"🍳 Cocina disponible", badge_no_kitchen:"🚫 Sin cocina",
+    drop_kitchen:"🍳 Cocina", drop_no_kitchen:"Sin cocina",
+    back:"Volver", custom_nutrition:"Plan de nutrición personalizado",
+  },
+  zh:{
+    hero_title:"NourishHer",
+    hero_sub:"为您的庇护所提供营养丰富、方便可及的食谱。",
+    search_placeholder:"按庇护所名称或城市搜索…",
+    loading_recipes:"正在为您设计营养菜单…",
+    badge_kitchen:"🍳 有厨房", badge_no_kitchen:"🚫 无厨房",
+    drop_kitchen:"🍳 厨房", drop_no_kitchen:"无厨房",
+    back:"返回", custom_nutrition:"个性化营养方案",
+  },
+  ar:{
+    hero_title:"NourishHer",
+    hero_sub:"اعثري على وصفات مغذية وميسورة مخصصة لملجئك.",
+    search_placeholder:"ابحثي باسم الملجأ أو المدينة…",
+    loading_recipes:"نصمم لك قائمة طعام مغذية…",
+    badge_kitchen:"🍳 مطبخ متاح", badge_no_kitchen:"🚫 لا مطبخ",
+    drop_kitchen:"🍳 مطبخ", drop_no_kitchen:"لا مطبخ",
+    back:"رجوع", custom_nutrition:"خطة تغذية مخصصة",
+  },
+  pa:{
+    hero_title:"NourishHer",
+    hero_sub:"ਆਪਣੇ ਆਸਰੇ ਲਈ ਪੌਸ਼ਟਿਕ, ਸੌਖੇ ਨੁਸਖੇ ਲੱਭੋ।",
+    search_placeholder:"ਆਸਰੇ ਦੇ ਨਾਮ ਜਾਂ ਸ਼ਹਿਰ ਦੁਆਰਾ ਖੋਜੋ…",
+    loading_recipes:"ਤੁਹਾਡੇ ਲਈ ਮੀਨੂ ਤਿਆਰ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…",
+    badge_kitchen:"🍳 ਰਸੋਈ ਉਪਲਬਧ", badge_no_kitchen:"🚫 ਕੋਈ ਰਸੋਈ ਨਹੀਂ",
+    drop_kitchen:"🍳 ਰਸੋਈ", drop_no_kitchen:"ਕੋਈ ਰਸੋਈ ਨਹੀਂ",
+    back:"ਵਾਪਸ", custom_nutrition:"ਕਸਟਮਾਈਜ਼ਡ ਪੋਸ਼ਣ ਯੋਜਨਾ",
+  },
+  tl:{
+    hero_title:"NourishHer",
+    hero_sub:"Makahanap ng masustansyang recipe para sa iyong shelter.",
+    search_placeholder:"Maghanap ayon sa pangalan ng shelter o lungsod…",
+    loading_recipes:"Nagdidisenyo ng menu para sa iyo…",
+    badge_kitchen:"🍳 May Kusina", badge_no_kitchen:"🚫 Walang Kusina",
+    drop_kitchen:"🍳 Kusina", drop_no_kitchen:"Walang Kusina",
+    back:"Bumalik", custom_nutrition:"Personalisadong plano sa nutrisyon",
+  },
+  vi:{
+    hero_title:"NourishHer",
+    hero_sub:"Tìm công thức nấu ăn bổ dưỡng phù hợp cho nơi trú ẩn của bạn.",
+    search_placeholder:"Tìm theo tên nơi trú ẩn hoặc thành phố…",
+    loading_recipes:"Đang thiết kế thực đơn bổ dưỡng cho bạn…",
+    badge_kitchen:"🍳 Có bếp", badge_no_kitchen:"🚫 Không có bếp",
+    drop_kitchen:"🍳 Bếp", drop_no_kitchen:"Không có bếp",
+    back:"Quay lại", custom_nutrition:"Kế hoạch dinh dưỡng cá nhân hoá",
+  },
+  hi:{
+    hero_title:"NourishHer",
+    hero_sub:"अपने आश्रय के लिए पौष्टिक, सुलभ रेसिपी खोजें।",
+    search_placeholder:"आश्रय के नाम या शहर से खोजें…",
+    loading_recipes:"आपके लिए पौष्टिक मेनू तैयार किया जा रहा है…",
+    badge_kitchen:"🍳 रसोई उपलब्ध", badge_no_kitchen:"🚫 कोई रसोई नहीं",
+    drop_kitchen:"🍳 रसोई", drop_no_kitchen:"कोई रसोई नहीं",
+    back:"वापस", custom_nutrition:"व्यक्तिगत पोषण योजना",
+  },
+  ko:{
+    hero_title:"NourishHer",
+    hero_sub:"쉼터에 맞는 영양가 있는 레시피를 찾아보세요.",
+    search_placeholder:"쉼터 이름 또는 도시로 검색…",
+    loading_recipes:"영양 메뉴를 설계하는 중…",
+    badge_kitchen:"🍳 주방 있음", badge_no_kitchen:"🚫 주방 없음",
+    drop_kitchen:"🍳 주방", drop_no_kitchen:"주방 없음",
+    back:"뒤로", custom_nutrition:"맞춤형 영양 계획",
+  },
+  ja:{
+    hero_title:"NourishHer",
+    hero_sub:"シェルターに合った栄養豊富なレシピを見つけましょう。",
+    search_placeholder:"シェルター名または都市で検索…",
+    loading_recipes:"栄養メニューをデザイン中…",
+    badge_kitchen:"🍳 キッチンあり", badge_no_kitchen:"🚫 キッチンなし",
+    drop_kitchen:"🍳 キッチン", drop_no_kitchen:"キッチンなし",
+    back:"戻る", custom_nutrition:"カスタマイズされた栄養プラン",
+  },
+  fa:{
+    hero_title:"NourishHer",
+    hero_sub:"دستور پخت‌های مغذی و مناسب برای پناهگاه خود بیابید.",
+    search_placeholder:"جستجو بر اساس نام پناهگاه یا شهر…",
+    loading_recipes:"در حال طراحی منوی مغذی برای شما…",
+    badge_kitchen:"🍳 آشپزخانه موجود", badge_no_kitchen:"🚫 بدون آشپزخانه",
+    drop_kitchen:"🍳 آشپزخانه", drop_no_kitchen:"بدون آشپزخانه",
+    back:"بازگشت", custom_nutrition:"برنامه تغذیه شخصی‌سازی‌شده",
+  },
+  so:{
+    hero_title:"NourishHer",
+    hero_sub:"Hel cuntooyinka nafaqada leh ee kugu habboon guri-maganaaygaaga.",
+    search_placeholder:"Raadi magaca guri-maganaaygaaga ama magaalada…",
+    loading_recipes:"Waxaan kuu samaynayaa menu nafaqo leh…",
+    badge_kitchen:"🍳 Jiko La Heli Karo", badge_no_kitchen:"🚫 Ma Jirto Jiko",
+    drop_kitchen:"🍳 Jiko", drop_no_kitchen:"Ma Jirto Jiko",
+    back:"Dib u noqo", custom_nutrition:"Qorshaha nafaqada ee gaarka ah",
+  },
 };
+
 let currentLang = 'en';
-function t(key){return (TRANSLATIONS[currentLang]||TRANSLATIONS.en)[key]||key}
-function applyTranslations(){
-  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(!el.querySelector('em'))el.textContent=t(k)});
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.getAttribute('data-i18n-placeholder'))});
+
+function t(key){
+  return (TRANSLATIONS[currentLang]||TRANSLATIONS.en)[key] || TRANSLATIONS.en[key] || key;
 }
-function changeLanguage(lang){currentLang=lang;applyTranslations();const q=document.getElementById('searchInput').value.trim().toLowerCase();if(q)onSearchInput()}
+
+function applyTranslations(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(!el.querySelector('em')) el.textContent=t(k);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    el.placeholder=t(el.getAttribute('data-i18n-placeholder'));
+  });
+}
+
+function changeLanguage(lang){
+  currentLang=lang;
+  applyTranslations();
+  const q=document.getElementById('searchInput').value.trim().toLowerCase();
+  if(q) onSearchInput();
+}
 
 const SHELTERS = [
   {id:"S001",name:"100 Mile House Safe Home",city:"100 Mile House",lat:null,lng:null,hasKitchen:true},
@@ -1568,6 +1669,7 @@ function showError(msg){
 
 async function submitPrefs(){
   const pantry=getPantry();
+  applyKitchenAccessRules();
   if(!selectedShelter){alert('Please select a shelter first.');showScreen('screenSearch');return}
   if(!pantry.length){showError('Please add at least one pantry ingredient.');return}
 
@@ -1700,84 +1802,131 @@ let labStepIndex=0,labPhase='first',labGameOver=false,labRecipe=null;
 function startLab(recipeIdx){
   closeModal();
   labRecipe=window.__recipes[recipeIdx];
-  document.getElementById('lab-title').innerHTML=`${labRecipe.title} — Cooking <em>Lab</em>`;
+
+  const rawSteps=labRecipe.assembly_steps||[];
+  if(!rawSteps.length){
+    alert('No interactive steps for this recipe. Make sure Interactive Mode was selected before generating.');
+    return;
+  }
+
+  document.getElementById('lab-title').innerHTML=labRecipe.title+' — Cooking <em>Lab</em>';
   const kitchenAccess=document.getElementById('pref-kitchen').value;
   const hide=[];
   if(kitchenAccess==='none')hide.push('stovetop-area','oven-area','kettle-area','microwave-area');
   if(kitchenAccess==='partial')hide.push('stovetop-area','oven-area');
-  const steps=(labRecipe.assembly_steps||[]).map(s=>({
-    instruction:s.tip?`${s.action} — 💡 ${s.tip}`:s.action,
-    ingredient:s.ingredient,kitchenTool:inferKitchenTool(s.action,s.ingredient)
-  }));
+
+  const steps=rawSteps.map(function(s){
+    const tool=inferKitchenTool(s.action,s.ingredient);
+    return {
+      instruction: s.tip ? s.action+' — 💡 '+s.tip : s.action,
+      ingredient:  s.ingredient,
+      kitchenTool: tool,
+      clickFirst:  {type:'pantry',  id:s.ingredient},
+      clickSecond: {type:'kitchen', id:tool},
+    };
+  });
+
   initLab(steps,labRecipe.ingredients,hide);
   showScreen('screenLab');
 }
 
 function inferKitchenTool(action,ingredient){
   const a=(action+' '+ingredient).toLowerCase();
-  if(a.includes('chop')||a.includes('cut')||a.includes('slice')||a.includes('dice'))return'cutting-board';
-  if(a.includes('boil')||a.includes('simmer')||a.includes('pot'))return'stovetop-pot';
-  if(a.includes('fry')||a.includes('sauté')||a.includes('pan')||a.includes('cook'))return'stovetop-pan';
-  if(a.includes('kettle')||a.includes('hot water')||a.includes('brew'))return'kettle';
-  if(a.includes('microwave')||a.includes('heat'))return'microwave';
-  if(a.includes('bake')||a.includes('oven')||a.includes('roast'))return'oven';
-  return'bowl';
+  if(a.includes('chop')||a.includes('cut')||a.includes('slice')||a.includes('dice'))return 'cutting-board';
+  if(a.includes('boil')||a.includes('simmer')||a.includes('pot'))return 'stovetop-pot';
+  if(a.includes('fry')||a.includes('sauté')||a.includes('saute')||a.includes('pan')||a.includes('cook')||a.includes('pour'))return 'stovetop-pan';
+  if(a.includes('kettle')||a.includes('hot water')||a.includes('brew')||a.includes('steep'))return 'kettle';
+  if(a.includes('microwave')||a.includes('heat'))return 'microwave';
+  if(a.includes('bake')||a.includes('oven')||a.includes('roast'))return 'oven';
+  return 'bowl';
 }
 
 function initLab(steps,ingredients,hiddenAreas){
   labStepIndex=0;labPhase='first';labGameOver=false;
-  ['board-area','stovetop-area','kettle-area','microwave-area','oven-area'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=''});
-  hiddenAreas.forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none'});
+  ['board-area','stovetop-area','kettle-area','microwave-area','oven-area'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='';});
+  hiddenAreas.forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
   const pantryEl=document.getElementById('pantry');pantryEl.innerHTML='';
-  const used=steps.map(s=>s.ingredient).filter((v,i,a)=>a.indexOf(v)===i);
-  used.forEach(ing=>{
+  const used=steps.filter(function(s){return s.clickFirst.type==='pantry';}).map(function(s){return s.clickFirst.id;}).filter(function(v,i,a){return a.indexOf(v)===i;});
+  used.forEach(function(ing){
     const item=document.createElement('div');item.className='veggie-item';
     item.id='pantry-'+CSS.escape(ing);item.setAttribute('data-ingredient',ing);
-    item.innerHTML=`<span class="veggie-sprite">${ingredientEmoji(ing)}</span><span class="veggie-label">${ing}</span>`;
-    item.addEventListener('click',()=>handleLabClick({type:'pantry',id:ing}));
+
+
+    item.innerHTML=`<span class="veggie-sprite"><img src = ${ingredientEmoji(ing)}> </span><span class="veggie-label"> ${ing}</span>`;
+
+   // item.innerHTML='<span class="veggie-sprite">'+ingredientEmoji(ing)+'</span><span class="veggie-label">'+ing+'</span>';
+    item.addEventListener('click',function(){handleLabClick({type:'pantry',id:ing});});
     pantryEl.appendChild(item);
   });
-  KITCHEN_IDS.forEach(id=>{
+  KITCHEN_IDS.forEach(function(id){
     const el=document.getElementById(id);if(!el)return;
     const clone=el.cloneNode(true);el.parentNode.replaceChild(clone,el);
-    clone.addEventListener('click',()=>handleLabClick({type:'kitchen',id}));
+    clone.addEventListener('click',function(){handleLabClick({type:'kitchen',id:id});});
   });
   window.__labSteps=steps;
   loadLabStep();
 }
 
+
 function ingredientEmoji(name){
-  const n=name.toLowerCase();
-  if(n.includes('egg'))return'🥚';if(n.includes('tomato'))return'🍅';if(n.includes('onion'))return'🧅';
-  if(n.includes('garlic'))return'🧄';if(n.includes('rice'))return'🍚';if(n.includes('chicken'))return'🍗';
-  if(n.includes('oil'))return'🫙';if(n.includes('salt')||n.includes('pepper')||n.includes('spice'))return'🧂';
-  if(n.includes('lemon')||n.includes('lime'))return'🍋';if(n.includes('carrot'))return'🥕';
-  if(n.includes('potato'))return'🥔';if(n.includes('bread'))return'🍞';
-  if(n.includes('milk')||n.includes('dairy'))return'🥛';
-  if(n.includes('lentil')||n.includes('bean')||n.includes('chickpea'))return'🫘';
-  if(n.includes('spinach')||n.includes('kale')||n.includes('green'))return'🥬';
-  return'🥗';
+
+  const n = name.toLowerCase();
+
+  if (n.includes('eggs')) return '/static/sprites/eggs_icon.png';
+  if (n.includes('tomato')) return '/static/sprites/tomato_icon.png';
+  if (n.includes('onion')) return '/static/sprites/onion_icon.png'; // (add if you create it)
+  if (n.includes('garlic')) return '/static/sprites/garlic_icon.png';
+  if (n.includes('rice')) return '/static/sprites/rice_icon.png';
+  if (n.includes('chicken')) return '/static/sprites/chicken.png';
+  if (n.includes('oil')) return '/static/sprites/oil_icon.png';
+
+  if (n.includes('salt') || n.includes('pepper') || n.includes('spice'))
+    return '/static/sprites/salt_icon.png';
+
+  if (n.includes('carrot')) return '/static/sprites/carrot_icon.png';
+  if (n.includes('potato')) return '/static/sprites/potato_icon.png';
+  if (n.includes('bread')) return '/static/sprites/bread_icon.png';
+  if (n.includes('cheese')) return '/static/sprites/cheese_icon.png';
+
+  if (n.includes('bean')) return '/static/sprites/black-beans_icon.png';
+  if (n.includes('chickpea')) return '/static/sprites/chickpea_icon.png';
+
+  if (n.includes('spinach') || n.includes('green'))
+    return '/static/sprites/spinach_icon.png';
+
+  if (n.includes('corn')) return '/static/sprites/corn_icon.png';
+  if (n.includes('pasta')) return '/static/sprites/pasta_icon.png';
+  if (n.includes('tuna')) return '/static/sprites/canned-tuna_icon.png';
+  if (n.includes('salmon')) return '/static/sprites/salmon_icon.png';
+
+  if (n.includes('soy')) return '/static/sprites/soy-sauce_icon.png';
+  if (n.includes('ketchup')) return '/static/sprites/ketchup_icon.png';
+  if (n.includes('mayo')) return '/static/sprites/mayo_icon.png';
+
+  return '/static/sprites/board_icon.png'; //
 }
 
 function loadLabStep(){
   const steps=window.__labSteps;if(!steps||!steps.length)return;
   const step=steps[labStepIndex];
-  const isFirst=labPhase==='first';
-  const expected=isFirst?{type:'pantry',id:step.ingredient}:{type:'kitchen',id:step.kitchenTool};
-  document.getElementById('status-text').textContent=isFirst
-    ?`Step ${labStepIndex+1}/${steps.length}: ${step.instruction}`
-    :`Now click the ${expected.id.replace(/-/g,' ')} →`;
+  const expected=labPhase==='first' ? step.clickFirst : step.clickSecond;
+  const toolName=expected.id.replace(/-/g,' ');
+  document.getElementById('status-text').textContent=labPhase==='first'
+    ? 'Step '+(labStepIndex+1)+'/'+steps.length+': '+step.instruction
+    : 'Now click the '+toolName+' →';
   updateLabHighlights(expected);
 }
 
 function handleLabClick(source){
   if(labGameOver)return;
-  const steps=window.__labSteps;const step=steps[labStepIndex];
-  const expected=labPhase==='first'?{type:'pantry',id:step.ingredient}:{type:'kitchen',id:step.kitchenTool};
+  const steps=window.__labSteps;
+  const step=steps[labStepIndex];
+  const expected=labPhase==='first' ? step.clickFirst : step.clickSecond;
   if(source.type!==expected.type||source.id!==expected.id)return;
-  if(labPhase==='first'){labPhase='second';loadLabStep()}
-  else{labStepIndex++;if(labStepIndex>=steps.length)endLab();else{labPhase='first';loadLabStep()}}
+  if(labPhase==='first'){labPhase='second';loadLabStep();}
+  else{labStepIndex++;if(labStepIndex>=steps.length)endLab();else{labPhase='first';loadLabStep();}}
 }
+
 
 function endLab(){
   labGameOver=true;clearLabHighlights();lockAllLab();
@@ -1812,6 +1961,33 @@ document.addEventListener('DOMContentLoaded',()=>{
   initMap();applyTranslations();
   document.getElementById('pantry-input').addEventListener('keydown',e=>{if(e.key==='Enter')addPantryItem()});
 });
+
+function applyKitchenAccessRules() {
+  // 1. Get the selected kitchen access mode
+  const kitchenMode = document.getElementById('pref-kitchen').value;
+
+  // 2. Target your specific kitchen equipment elements
+  const cuttingBoard = document.getElementById('cutting-board');
+  const stovePan = document.getElementById('stovetop-pan');
+  const stovePot = document.getElementById('stovetop-pot');
+
+  // 3. Enforce the "Full kitchen" rule
+  if (kitchenMode === 'full') {
+    // Ensure they are fully accessible by removing the locked class
+    cuttingBoard.classList.remove('locked-kitchen');
+    stovePan.classList.remove('locked-kitchen');
+    stovePot.classList.remove('locked-kitchen');
+  } else {
+    // Optional: Add logic here for what gets locked during 'partial' or 'none'
+    // stovePan.classList.add('locked-kitchen');
+    // stovePot.classList.add('locked-kitchen');
+  }
+}
+
+// Make sure to call this function right before you transition to the lab screen
+// or whenever the user clicks "Generate my recipe" (your submitPrefs() function).
+
+
 </script>
 </body>
 </html>
