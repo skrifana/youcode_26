@@ -5,22 +5,19 @@
 }
 
 :root {
-  /* Brand colours */
   --nav-bar:     #92487A;
   --background:  #FFD3D5;
   --button:      #540863;
   --text1:       #FFFFFF;
   --text2:       #3C2A21;
   --subtext:     #715A5A;
-
-  /* Extended palette — used across all screens */
   --ink:         #2C1810;
   --white:       #FFFFFF;
   --cream:       #FFF8F0;
   --warm:        #FFF0E8;
   --gold:        #D4A83F;
   --gold-lt:     #FFF3D0;
-  --terr:        #92487A;       /* maps to brand purple-pink */
+  --terr:        #92487A;       
   --terr2:       #7A3566;
   --terr-lt:     #F9E8F5;
   --sage:        #2e7a4f;
@@ -35,8 +32,6 @@
   --grey:        #F0E8E8;
   --black:       #2C1810;
   --shadow:      0 2px 12px rgba(44,24,16,.08);
-
-  /* Radii & spacing */
   --r:     10px;
   --nav-h: 62px;
 }
@@ -50,10 +45,6 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
-
-/* ============================================================
-   NAV
-   ============================================================ */
 
 .top-nav {
   position: fixed;
@@ -118,10 +109,6 @@ body {
   background: rgba(255,255,255,.25);
 }
 
-/* ============================================================
-   APP SHELL
-   ============================================================ */
-
 #app {
   padding-top: var(--nav-h);
   min-height: 100vh;
@@ -136,10 +123,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-/* ============================================================
-   SCREEN 1 — SEARCH
-   ============================================================ */
 
 #screenSearch {
   flex-direction: column;
@@ -277,10 +260,6 @@ body {
   z-index: 0;
 }
 
-/* ============================================================
-   SCREEN 2 — PREFERENCES
-   ============================================================ */
-
 #screenPrefs { min-height: calc(100vh - var(--nav-h)); }
 
 .prefs-hero {
@@ -321,7 +300,6 @@ body {
   .prefs-body { grid-template-columns: 1fr; }
 }
 
-/* Pantry column */
 .pantry-col {
   background: var(--ink);
   color: var(--white);
@@ -505,10 +483,6 @@ body {
   margin: 1rem 0;
 }
 
-/* ============================================================
-   SCREEN 3 — RECIPES GRID
-   ============================================================ */
-
 #screenMain {
   padding-bottom: 3rem;
   background: var(--cream);
@@ -623,10 +597,6 @@ body {
   color: var(--muted);
   text-align: center;
 }
-
-/* ============================================================
-   MODAL
-   ============================================================ */
 
 .modal-overlay {
   position: fixed;
@@ -795,10 +765,6 @@ body {
   margin-top: 1rem;
 }
 .subs-list li { font-size: .82rem; }
-
-/* ============================================================
-   SCREEN 4 — INTERACTIVE LAB
-   ============================================================ */
 
 #screenLab {
   padding-bottom: 3rem;
@@ -972,10 +938,6 @@ body {
   to   { top: -14px; }
 }
 
-/* ============================================================
-   BUTTONS
-   ============================================================ */
-
 .btn-add {
   padding: 7px 13px;
   background: var(--gold);
@@ -1075,10 +1037,6 @@ body {
 }
 .back-link:hover { color: var(--black); text-decoration: underline; }
 
-/* ============================================================
-   SPINNER / LOADING
-   ============================================================ */
-
 .spin {
   width: 15px;
   height: 15px;
@@ -1100,10 +1058,6 @@ body {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ============================================================
-   ERROR TOAST
-   ============================================================ */
-
 .error-toast {
   background: #fee;
   border: 1px solid #fcc;
@@ -1115,10 +1069,6 @@ body {
   display: none;
 }
 .error-toast.show { display: block; }
-
-/* ============================================================
-   PANELS (INFO / RESOURCES)
-   ============================================================ */
 
 .panel {
   display: none;
@@ -1201,10 +1151,6 @@ body {
 .resource-card p { font-size: 14px; color: #5a4a4a; }
 .resource-card a { color: var(--ink); font-weight: 500; }
 
-/* ============================================================
-   ANIMATIONS
-   ============================================================ */
-
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -1217,10 +1163,6 @@ body {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
 
 @media (max-width: 480px) {
   .nav-logo { font-size: 18px; }

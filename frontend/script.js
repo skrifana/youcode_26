@@ -3,22 +3,13 @@ let selectedShelter = null;
 let currentLang = 'en';
 let map, markersLayer;
 
-// ============================================================
-// TRANSLATIONS
-// ============================================================
-
 const TRANSLATIONS = {
   en: {
-    // Nav
     nav_info: 'Info', nav_resources: 'Resources', back: 'Back',
-    // Search screen
     hero_sub: 'Find nourishing recipes for your shelter',
     search_placeholder: 'Search by shelter name or city…', search_btn: 'Find',
-    // Dropdown badges
     drop_kitchen: '🍳 Kitchen', drop_no_kitchen: 'No Kitchen',
-    // Kitchen badges
     badge_kitchen: '🍳 Kitchen Available', badge_no_kitchen: '🚫 No Kitchen',
-    // Prefs screen
     pantry_title: 'Pantry',
     pantry_sub: 'Add what\'s available — one ingredient works',
     pantry_placeholder: 'rice, eggs, lentils…',
@@ -46,11 +37,9 @@ const TRANSLATIONS = {
     mode_card_title: '📋 Recipe card', mode_card_desc: 'Full recipe + macro highlights',
     btn_generate: 'Generate my recipe',
     back_prefs: 'Adjust preferences',
-    // Recipes screen
     custom_nutrition: 'Customised nutrition plan',
     loading_recipes: 'Finding recipes for you…',
     recipe_error: 'Could not load recipes. Please try again.',
-    // Lab screen
     lab_title: 'Lab',
     lab_status: 'Click a pantry item to start.',
     lab_pantry: 'Pantry',
@@ -63,14 +52,12 @@ const TRANSLATIONS = {
     kitchen_bowl: 'Bowl / plate', kitchen_bowl_lbl: 'bowl',
     btn_reset: '↺ Reset',
     back_recipes: 'Back to recipes',
-    // Info panel
     info_h1: 'What is YouCode?',
     info_p1: 'YouCode is a compassionate tool designed to help women in transition shelters across British Columbia discover nourishing recipes tailored to their shelter\'s facilities.',
     info_h2: 'How it works',
     info_p2: 'Search for your shelter by name or city. Based on whether your shelter has a shared kitchen, we suggest recipes you can realistically make — full meals if you have a kitchen, or simple no-cook options if you don\'t.',
     info_h3: 'Our mission',
     info_p3: 'Good food is dignity. We believe every woman in a shelter deserves access to simple, culturally-aware, and nutritious meal ideas regardless of their circumstances.',
-    // Resources panel
     res1_title: 'BC Crisis Line',       res1_desc: '24/7 support: 1-800-784-2433',
     res2_title: 'Food Banks BC',        res2_desc: 'Find your nearest food bank: foodbanksbc.com',
     res3_title: 'BC Housing',           res3_desc: 'Transitional housing support: bchousing.org',
@@ -86,10 +73,6 @@ const LANG_CODES = {
 };
 
 const translationCache = { en: TRANSLATIONS.en };
-
-// ============================================================
-// I18N HELPERS
-// ============================================================
 
 function t(key) {
   const cache = translationCache[currentLang] || TRANSLATIONS.en;
@@ -179,10 +162,6 @@ async function translateSingle(text, targetCode) {
   return data[0].map(c => c[0]).join('');
 }
 
-// ============================================================
-// SCREEN MANAGEMENT
-// ============================================================
-
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const el = document.getElementById(id);
@@ -199,10 +178,6 @@ function showPanel(name) {
 function hidePanel(name) {
   document.getElementById('panel' + name.charAt(0).toUpperCase() + name.slice(1)).classList.remove('open');
 }
-
-// ============================================================
-// MAP
-// ============================================================
 
 function initMap() {
   map = L.map('map', { zoomControl: true });
@@ -249,10 +224,6 @@ async function updateNearbyDropdown() {
   if (nearby.length) await renderDropdown(nearby, true);
   else closeDropdown();
 }
-
-// ============================================================
-// SEARCH
-// ============================================================
 
 async function onSearchInput() {
   const q = document.getElementById('searchInput').value.trim();
@@ -317,10 +288,6 @@ document.addEventListener('click', e => {
   if (!e.target.closest('.search-wrap')) closeDropdown();
 });
 
-// ============================================================
-// SHELTER SELECTION → PREFS SCREEN
-// ============================================================
-
 function selectShelter(shelter) {
   if (!shelter) return;
   selectedShelter = shelter;
@@ -343,11 +310,6 @@ function selectShelter(shelter) {
 
   showScreen('screenPrefs');
 }
-
-// ============================================================
-// PREFERENCES — PANTRY & MODE
-// ============================================================
-
 function addPantryItem() {
   const inp = document.getElementById('pantry-input');
   const items = inp.value.split(',').map(s => s.trim()).filter(Boolean);
@@ -393,10 +355,6 @@ function showError(msg) {
   setTimeout(() => el.classList.remove('show'), 5000);
 }
 
-// ============================================================
-// SUBMIT PREFERENCES → GENERATE RECIPES
-// ============================================================
-
 async function submitPrefs() {
   const pantry = getPantry();
   if (!selectedShelter) { alert('Please select a shelter first.'); showScreen('screenSearch'); return; }
@@ -414,7 +372,6 @@ async function submitPrefs() {
   const DIET_MAP = { halal: 'Halal', vegetarian: 'Vegetarian', vegan: 'Vegan', gluten_free: 'Gluten Free' };
   const dietary = getChecked('diet').map(d => DIET_MAP[d] || d);
 
-  // Show recipes screen with loading state
   document.getElementById('mainShelterName').textContent = selectedShelter.name;
   updateKitchenBadge(translationCache[currentLang] || TRANSLATIONS.en);
   document.getElementById('recipesGrid').innerHTML = `
@@ -463,10 +420,6 @@ async function submitPrefs() {
   }
 }
 
-// ============================================================
-// RENDER RECIPES GRID
-// ============================================================
-
 function renderGrid(recipes, mode) {
   const grid = document.getElementById('recipesGrid');
   if (!recipes || !recipes.length) {
@@ -489,9 +442,6 @@ function renderGrid(recipes, mode) {
   `).join('');
 }
 
-// ============================================================
-// RECIPE MODAL
-// ============================================================
 
 function openRecipe(idx, mode) {
   const r = window.__recipes[idx];
@@ -515,7 +465,6 @@ function openRecipe(idx, mode) {
   const labBtn = (r.assembly_steps || []).length ?
     `<button class="btn-lab" onclick="startLab(${idx})">🧪 Start Assembly Lab</button>` : '';
 
-  // Support both API shapes (new: instructions/ingredients, legacy: steps)
   const ingredients = r.ingredients || [];
   const steps = r.instructions || r.steps || [];
 
@@ -543,10 +492,6 @@ function openRecipe(idx, mode) {
 function closeModal() {
   if (window.__modal) { window.__modal.remove(); window.__modal = null; }
 }
-
-// ============================================================
-// INTERACTIVE LAB
-// ============================================================
 
 const KITCHEN_IDS = ['cutting-board', 'stovetop-pan', 'stovetop-pot', 'kettle', 'microwave', 'oven', 'bowl'];
 let labStepIndex = 0, labPhase = 'first', labGameOver = false, labRecipe = null;
@@ -700,10 +645,6 @@ function lockAllLab() {
 }
 
 function resetLab() { if (window.__labSteps) initLab(window.__labSteps, [], []); }
-
-// ============================================================
-// INIT
-// ============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
   showScreen('screenSearch');
