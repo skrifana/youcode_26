@@ -2,6 +2,7 @@
 ### Technology to Empower Women’s Wellbeing in Shelters
 
 ---
+<img width="1508" height="687" alt="image" src="https://github.com/user-attachments/assets/ba9b2c98-ce1e-4d2d-882a-fc3a10c797f1" />
 
 ## Overview
 
