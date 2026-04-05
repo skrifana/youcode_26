@@ -47,7 +47,7 @@ Help streamline decisions for both staff and personal users to improve their nut
 NourishHer is built with a deep understanding of shelter realities.
 
 ### Respect Privacy 
-- Requires no personal accoutn or login credentials. 
+- Requires no personal account or login credentials. 
 
 ### Accessibility
 - Supports 13+ languages, reducing English fluency requirements and an emphasis on visual first design.
