@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="game">
+    <div id="pantry-column">
+        <h2>Pantry</h2>
+        <div id="pantry"></div>
+    </div>
+
+    <div id="kitchen-grid">
+        <div id="board-area">
+            <h2>Cutting board</h2>
+            <div id="board-wrap">
+                <div id="cutting-board" onclick="onBoardClick()">
+                    <span id="board-placeholder-text">cutting board</span>
+                    <div id="board-veggie">
+                        <div id="board-veggie-sprite">vegetable</div>
+                    </div>
+                    <div id="chopped-result"></div>
+                </div>
+                <span class="board-label" id="board-label">Select a vegetable first</span>
+            </div>
+        </div>
+
+        <div id="stovetop-area">
+            <h2>Stovetop</h2>
+            <div id="stovetop-wrap">
+                <div id="stovetop-pot">
+                    <span id="stovetop-pot-placeholder">pot</span>
+                </div>
+                <div id="stovetop-pan">
+                    <span id="stovetop-pan-placeholder">pan</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="kettle-area">
+            <h2>Kettle</h2>
+            <div id="kettle-wrap">
+                <div id="kettle">
+                    <span id="kettle-placeholder-text">kettle</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="microwave-area">
+            <h2>Microwave</h2>
+            <div id="microwave-wrap">
+                <div id="microwave">
+                    <span id="microwave-placeholder-text">microwave</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="oven-area">
+            <h2>oven</h2>
+            <div id="oven-wrap">
+                <div id="oven">
+                    <span id="oven-placeholder-text">oven</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="status">
+            <span class="s-icon">👆</span>
+            <span id="status-text">Click a vegetable in the pantry to select it.</span>
+        </div>
+
+        <button id="reset-btn" onclick="resetAll()">Reset</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
