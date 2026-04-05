@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Planner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Progress Bar -->
+        <div class="progress-bar-container">
+            <div class="progress-bar-content">
+                <div class="progress-info">
+                    <span class="progress-text" id="progress-text">Step 1 of 5</span>
+                    <span class="progress-label" id="progress-label">Servings</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-steps">
+                    <span class="step-label active" data-step="0">Servings</span>
+                    <span class="step-label" data-step="1">Ingredients</span>
+                    <span class="step-label" data-step="2">Kitchen</span>
+                    <span class="step-label" data-step="3">Dietary</span>
+                    <span class="step-label" data-step="4">Cuisine</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Container -->
+        <div class="main-container">
+            <!-- Page 1: Servings -->
+            <div id="page-servings" class="page active">
+                <div class="card">
+                    <h1>How many servings?</h1>
+                    <p class="description">Enter the number of servings you plan to cook</p>
+
+                    <div class="form-group">
+                        <label for="servings-input">Number of servings</label>
+                        <input
+                            type="number"
+                            id="servings-input"
+                            placeholder="e.g., 4"
+                            min="1"
+                        >
+                    </div>
+
+                    <button class="btn btn-primary btn-full" id="servings-next" disabled>Next</button>
+                </div>
+            </div>
+
+            <!-- Page 2: Ingredients -->
+            <div id="page-ingredients" class="page">
+                <div class="card">
+                    <h1>Select your ingredients</h1>
+                    <p class="description">Choose all the ingredients you have available</p>
+
+                    <div class="grid-2" id="ingredients-grid"></div>
+
+                    <div class="selection-count" id="ingredients-count">0 ingredients selected</div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-secondary btn-flex" id="ingredients-back">Back</button>
+                        <button class="btn btn-primary btn-flex" id="ingredients-next">Next</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 3: Kitchen -->
+            <div id="page-kitchen" class="page">
+                <div class="card">
+                    <h1>Kitchen appliances</h1>
+                    <p class="description">Select the appliances you have available</p>
+
+                    <div class="grid-2" id="kitchen-grid"></div>
+
+                    <div class="selection-count" id="kitchen-count">0 appliances selected</div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-secondary btn-flex" id="kitchen-back">Back</button>
+                        <button class="btn btn-primary btn-flex" id="kitchen-next">Next</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 4: Dietary -->
+            <div id="page-dietary" class="page">
+                <div class="card">
+                    <h1>Dietary restrictions</h1>
+                    <p class="description">Select any dietary restrictions that apply</p>
+
+                    <div class="list-vertical" id="dietary-list"></div>
+
+                    <div class="selection-count" id="dietary-count">0 restrictions selected</div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-secondary btn-flex" id="dietary-back">Back</button>
+                        <button class="btn btn-primary btn-flex" id="dietary-next">Next</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 5: Cuisine -->
+            <div id="page-cuisine" class="page">
+                <div class="card">
+                    <h1>Cuisine preference</h1>
+                    <p class="description">Choose your preferred cuisine type</p>
+
+                    <div class="list-vertical" id="cuisine-list"></div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-secondary btn-flex" id="cuisine-back">Back</button>
+                        <button class="btn btn-success btn-flex" id="cuisine-submit" disabled>Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

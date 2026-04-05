@@ -1,0 +1,201 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: system-ui, sans-serif;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+
+#game {
+    width: 900px;
+    background: #2a2a2a;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+#kitchen-grid {
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    grid-template-rows: repeat(4,1fr);
+    gap: 20px;
+}
+
+/* grid placement */
+#microwave-area{grid-area: 1/1/3/3;}
+#oven-area{grid-area: 1/3/3/5;}
+#kettle-area{grid-area: 1/5/3/7;}
+#board-area{grid-area: 3/1/5/4;}
+#stovetop-area{grid-area: 3/4/5/7;}
+
+h2 {
+    color: #ccc;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+/* Pantry */
+#pantry {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+    overflow: auto;
+    &::-webkit-scrollbar {
+    display: none;
+  }
+
+}
+
+.veggie-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.veggie-item.used { opacity: 0.25; pointer-events: none; }
+
+.veggie-sprite {
+    width: 80px; height: 80px;
+    border-radius: 8px;
+    border: 3px solid #555;
+    background: #3a3a3a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px; color: #888;
+    text-align: center;
+}
+
+.veggie-item.selected .veggie-sprite {
+    border-color: #f0c040;
+    background: #3a3520;
+}
+
+/* Board */
+#cutting-board {
+    width: 220px; height: 140px;
+    border-radius: 10px;
+    border: 3px solid #555;
+    background: #3a3a3a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#cutting-board.ready { border-color: #f0c040; cursor: pointer; }
+
+/* Stovetop & Kettle */
+#stovetop-wrap, #kettle-wrap {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+#stovetop-pot, #stovetop-pan, #kettle, #microwave, #cutting-board, #oven {
+    border: 3px solid #555;
+    background: #3a3a3a;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-size: 11px;
+}
+
+#stovetop-pot { width: 100px; height: 100px; }
+#stovetop-pan { width: 100px; height: 100px; align-self: flex-end; }
+#kettle { width: 80px; height: 110px; border-radius: 5px 5px 5px 5px; }
+#microwave { width: 100px; height: 100px; }
+
+/* Animations & Results */
+#board-veggie-sprite {
+    width: 70px; height: 70px;
+    opacity: 0; transform: scale(0.6);
+    transition: 0.2s;
+}
+
+#board-veggie-sprite.visible { opacity: 1; transform: scale(1); }
+
+#chopped-result { display: flex; gap: 6px; opacity: 0; }
+#chopped-result.visible { opacity: 1; }
+
+.chopped-piece {
+    width: 40px; height: 40px;
+    background: #444; border-radius: 6px;
+    font-size: 9px;
+}
+
+/* Status Bar */
+#status {
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 10px;
+    color: #aaa;
+    font-size: 13px;
+    display: flex;
+    gap: 8px;
+}
+
+#reset-btn {
+    align-self: flex-end;
+    padding: 8px 20px;
+    background: #444;
+    color: #ccc;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Active (next to click) */
+.active-item .veggie-sprite {
+  border-color: #f0c040;
+  background: #3a3520;
+  cursor: pointer;
+}
+
+.active-item .veggie-label { color: #f0c040; }
+
+.active-kitchen {
+  border-color: #f0c040 !important;
+  background: #3a3520 !important;
+  color: #f0c040 !important;
+  cursor: pointer !important;
+}
+
+/* Locked (not your turn) */
+.locked-item .veggie-sprite,
+.locked-item .veggie-label { opacity: 0.3; }
+.locked-item { pointer-events: none; }
+
+.locked-kitchen { opacity: 0.3; pointer-events: none; }
+
+/* Bouncing arrow */
+.arrow-indicator {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #f0c040;
+  font-size: 16px;
+  pointer-events: none;
+  animation: bounce 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: translateX(-50%) translateY(0); }
+  to   { transform: translateX(-50%) translateY(-6px); }
+}
