@@ -32,35 +32,6 @@ const TRANSLATIONS = {
 // ── i18n via Claude API ─────────────────────────────
 const translationCache = { en: TRANSLATIONS.en };
 
-async function changeLanguage(lang) {
-  currentLang = lang;
-  if (translationCache[lang]) {
-    applyTranslations(translationCache[lang]);
-    return;
-  }
-  const keys = TRANSLATIONS.en;
-  const prompt = `Translate the following JSON values into ${getLangName(lang)}. Return ONLY valid JSON with the same keys, no markdown, no extra text.\n${JSON.stringify(keys, null, 2)}`;
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    const data = await res.json();
-    const text = data.content.map(b => b.text || '').join('');
-    const clean = text.replace(/```json|```/g, '').trim();
-    const translated = JSON.parse(clean);
-    translationCache[lang] = translated;
-    applyTranslations(translated);
-  } catch (e) {
-    console.warn('Translation failed, using English', e);
-    applyTranslations(TRANSLATIONS.en);
-  }
-}
 
 function getLangName(code) {
   return { fr: 'French', es: 'Spanish', zh: 'Simplified Chinese' }[code] || 'English';
