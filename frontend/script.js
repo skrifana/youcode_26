@@ -12,16 +12,16 @@ let map, markersLayer;
 // ── Translations ───────────────────────────────────
 const TRANSLATIONS = {
     en: {
-      nav_about: 'About', nav_resources: 'Resources', back: 'Back',
-      hero_title: 'YouCode', hero_sub: 'Find nourishing recipes for your shelter',
+      nav_info: 'Info', nav_resources: 'Resources', back: 'Back',
+      hero_sub: 'Find nourishing recipes for your shelter',
       search_placeholder: 'Search by shelter name or city…', search_btn: 'Find',
       kitchen_yes: '🍳 Shared Kitchen Available', kitchen_no: '🚫 No Shared Kitchen',
-      about_h1: 'What is YouCode?',
-      about_p1: 'YouCode is a compassionate tool designed to help women in transition shelters across British Columbia discover nourishing recipes tailored to their shelter\'s facilities.',
-      about_h2: 'How it works',
-      about_p2: 'Search for your shelter by name or city. Based on whether your shelter has a shared kitchen, we suggest recipes you can realistically make — full meals if you have a kitchen, or simple no-cook options if you don\'t.',
-      about_h3: 'Our mission',
-      about_p3: 'Good food is dignity. We believe every woman in a shelter deserves access to simple, culturally-aware, and nutritious meal ideas regardless of their circumstances.',
+      info_h1: 'What is YouCode?',
+      info_p1: 'YouCode is a compassionate tool designed to help women in transition shelters across British Columbia discover nourishing recipes tailored to their shelter\'s facilities.',
+      info_h2: 'How it works',
+      info_p2: 'Search for your shelter by name or city. Based on whether your shelter has a shared kitchen, we suggest recipes you can realistically make — full meals if you have a kitchen, or simple no-cook options if you don\'t.',
+      info_h3: 'Our mission',
+      info_p3: 'Good food is dignity. We believe every woman in a shelter deserves access to simple, culturally-aware, and nutritious meal ideas regardless of their circumstances.',
       res1_title: 'BC Crisis Line', res1_desc: '24/7 support: 1-800-784-2433',
       res2_title: 'Food Banks BC', res2_desc: 'Find your nearest food bank: foodbanksbc.com',
       res3_title: 'BC Housing', res3_desc: 'Transitional housing support: bchousing.org',
@@ -426,7 +426,7 @@ function goBack(target) {
 
 // ── Panel Navigation ────────────────────────────────
 function showPanel(name) {
-  document.getElementById('panelAbout').classList.remove('open');
+  document.getElementById('panelInfo').classList.remove('open');
   document.getElementById('panelResources').classList.remove('open');
   document.getElementById(`panel${name.charAt(0).toUpperCase() + name.slice(1)}`).classList.add('open');
 }
