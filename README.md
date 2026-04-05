@@ -1,80 +1,185 @@
-# youcode_26
-youcode submission.
+#  Safe, Sound and Seen: NourishHer  
+### Technology to Empower Women’s Wellbeing in Shelters
 
-Safe, Sound and Seen: NourishHer - Technology to empower women's wellbeing in shelters. 
+---
 
-Overview:
-In shelter environments, the challenge is not a lack of knowledge
+## Overview
 
+In shelter environments, the challenge is not a lack of knowledge—it is the difficulty of turning that knowledge into action under real-world constraints.  
 
-Safe, Sound, and Seen: Technology for Women’s Wellbeing in Shelters
-Feeding the Body and Soul: [Your Website Name]
-Overview
+Women already understand the importance of nutrition and wellbeing, but limited food access, shared spaces, financial pressure, and unpredictable routines make consistency nearly impossible.
 
-In shelter environments, the challenge is not a lack of knowledge—it is the difficulty of turning that knowledge into action under real-world constraints. Women already understand the importance of nutrition and wellbeing, but limited food access, shared spaces, financial pressure, and unpredictable routines make consistency nearly impossible.
+**NourishHer** bridges this gap.
 
-[Your Website Name] is designed to bridge this gap.
+We provide an **interactive, accessible digital experience** that transforms nutritional knowledge into practical, achievable daily actions—supporting both:
 
-We present an interactive, accessible digital experience that transforms nutritional knowledge into practical, achievable daily actions—supporting both physical health (Feeding the Body) and a sense of joy, agency, and identity (Feeding the Soul).
+-  **Physical health** (*Feeding the Body*)  
+-  **Joy, agency, and identity** (*Feeding the Soul*)
 
-The Solution
+---
 
-Our platform is a low-barrier, intuitive website tailored specifically for shelter environments, where access, time, and privacy are limited.
+##  The Solution
 
-At its core, the tool enables users to:
-
-Generate nutritious, filling, and cost-efficient recipes based on realistic constraints such as limited ingredients, shared kitchens, and tight budgets
-Explore an interactive virtual kitchen that makes learning about food engaging, visual, and approachable
-Understand macronutrients in a simple, meaningful way, helping users make informed choices without requiring prior expertise
-
-This is not just a recipe generator—it is a decision-support tool that meets users where they are.
-
-Designed for Real Life in Shelters
-
-Every aspect of the platform is intentionally built around the realities outlined by Community Women’s Initiative (CWI):
-
-No login, no onboarding, no friction — users can begin immediately
-Works on shared devices — ideal for shelter computers or tablets
-Visually driven and language-accessible — reducing reliance on English fluency
-Quick interactions — designed for use in short, interrupted moments
-
-By removing traditional barriers, the tool becomes usable in practice—not just in theory.
-
-Extending Impact: Supporting Children and Families
-
-A key strength of our solution is its intergenerational impact.
-
-For children living in shelters, the platform introduces:
-
-Simple, game-based learning experiences around food and nutrition
-Opportunities to develop healthy, intuitive eating habits early
-A sense of play, curiosity, and normalcy in an otherwise stressful environment
-
-This transforms the tool from a utility into a shared experience that fosters connection and learning within families.
-
-Feeding the Body, Nourishing the Soul
-
-While the platform directly addresses nutrition, its broader impact lies in restoring:
-
-Agency — the ability to make choices, even within constraints
-Confidence — understanding food without intimidation
-Joy — engaging, playful interactions that go beyond survival
-
-By making wellbeing actionable, approachable, and even enjoyable, [Your Website Name] supports not just healthier bodies—but a renewed sense of self.
-
-Why This Works
-
-What sets this solution apart is its grounding in reality:
-
-It respects the lived experiences of women in shelters
-It reduces cognitive load, rather than adding to it
-It integrates seamlessly into existing shelter systems, supporting both residents and staff
-
-Most importantly, it acknowledges a critical truth:
-
-Wellbeing is not about knowing what to do—it’s about being able to do it.
+NourishHer is a **low-barrier, intuitive web platform** designed specifically for shelter environments, where access, time, and privacy are limited. We want this to go far behind a nutritional tool to a holistic well-being tool. 
 
 
-Website Name. 
 
-Given the varied and diverse needs of women in shelters, we came up with an interactive, user friendly and accesible tool that translates nutritional knowledge into actionable guidance. Considering limited food options, finances and kitchen assecibility, we developed this tool to generate nutritious, filling and cost-efficient recipes usable for both staff and shelter members. We focused on creating an interactive experience by allowing users to explore a virtual kitchen and learn important information on the macronutrients they consume. This is also extremely helpful for children who livein these shelters as they learn about healthy and intuitive eating through simple games. The website is
+##  Core Features
+
+### Smart Recipe Generation
+Create nutritious, filling, and cost-efficient meals based on:
+- Limited ingredients  
+- Shared kitchen access  
+- Tight budgets  
+
+### Interactive Virtual Kitchen
+A visual, engaging space that makes learning about food:
+- Accessible  
+- Intuitive  
+- Less intimidating  
+
+### Simple Nutrition Education
+Understand macronutrients in a clear, meaningful, and non-overwhelming way.
+
+### Reduced Decision Fatigue
+Streamlines daily choices to help women:
+- Regain control  
+- Build consistency  
+- Reclaim identity  
+
+---
+
+##  What Sets Us Apart
+
+NourishHer is built with a deep understanding of shelter realities.
+
+### Respect Privacy 
+- No accounts  
+- No login requirements  
+
+### Accessibility
+- Supports 13+ languages  
+- Minimal reliance on English  
+- Visual-first design  
+
+### Shared Device Friendly
+- Optimized for shelter computers and communal tablets  
+
+### Flexible Interaction
+- Quick recipe outputs  
+- Optional interactive experiences  
+- Easy-to-read, visual formats  
+
+---
+
+## Tech Stack:
+
+### Frontend
+- HTML5  
+- CSS3  
+- JavaScript (Vanilla)  
+- Leaflet.js (for interactive visual environments)
+
+### Backend
+- FastAPI (Python-based API framework)  
+- RESTful API architecture  
+- Router-based structure for modular AI endpoints  
+
+### AI Integration
+- Groq AI (LLM-powered recipe generation)  
+- Dynamic prompt engineering for:
+  - Budget-aware meals  
+  - Ingredient constraints  
+  - Nutritional balance  
+
+---
+
+## Architecture Overview
+
+NourishHer follows a **lightweight, modular client-server architecture** optimized for accessibility and performance in constrained environments.
+
+### System Flow
+
+1. **User Input (Frontend)**
+   - Users select available ingredients, preferences, or constraints  
+   - Input is handled via a simple, intuitive UI  
+
+2. **API Request (Frontend → Backend)**
+   - JavaScript sends a request to FastAPI endpoints  
+
+3. **Backend Processing (FastAPI)**
+   - Routes handle incoming requests  
+   - Data is structured and forwarded to the AI layer  
+
+4. **AI Recipe Generation (Groq AI)**
+   - Generates recipes based on:
+     - Available ingredients  
+     - Budget limitations  
+     - Nutritional needs  
+
+5. **Response Delivery**
+   - Backend formats the AI response  
+   - Returns clean, readable data to the frontend  
+
+6. **User Display**
+   - Recipes shown in:
+     - Quick-view format  
+     - Visual/interactive format (optional)  
+
+---
+
+###  Architecture Principles
+
+- **Low Bandwidth Friendly** – Minimal dependencies and lightweight requests  
+- **No Persistent User Data** – Ensures privacy and safety  
+- **Modular Backend** – Easy to extend AI routes and features  
+- **Device Agnostic** – Works across shared/public devices  
+
+---
+
+##  Extended Impact
+
+NourishHer goes beyond individual nutrition, by promoting community and mutual wellbeing.
+
+###  Inclusive for Families
+- Designed for women living with children  
+- Game-based learning makes nutrition engaging for all ages  
+
+###  Encourages Healthy Food Relationships
+- Promotes curiosity and exploration  
+- Supports intuitive eating habits  
+
+###  Supports Mental Wellbeing
+- Balances nourishment with emotional comfort  
+- Recognizes food as both fuel and connection  
+
+###  Builds Community & Agency
+- Encourages shared meals and cultural comfort foods  
+- Restores a sense of ownership and identity  
+
+---
+
+##  Vision
+
+NourishHer is more than a mere recipe generation tool—it is a step toward restoring **dignity, autonomy, and wellbeing** in environments where these are often compromised.
+
+By meeting women where they are, we empower them to take small, meaningful steps toward a healthier and more confident future.
+
+---
+
+##  Future Development
+
+- AI-powered personalized meal suggestions  
+- Offline functionality for low-connectivity environments  
+- Expanded gamified learning modules for children  
+- Community recipe sharing within shelters  
+
+---
+
+##  Why It Matters
+
+Access to nutrition is not just about food—it’s about **equity, dignity, and empowerment**. NourishHer ensures that women in shelters regain their sense of agency and live their best, noursihed selves. 
+
+
+
+
