@@ -1,7 +1,7 @@
 /* ====================================================
    YouCode — main script
    ==================================================== */
-
+const API = "http://localhost:8000";
 // ── State ──────────────────────────────────────────
 let selectedShelter = null;
 let currentLang = 'en';
@@ -212,56 +212,103 @@ function buildMainScreen() {
   loadRecipes();
 }
 
+// async function loadRecipes() {
+//   const grid = document.getElementById('recipesGrid');
+//   grid.innerHTML = `<div class="recipe-loading"><div class="spinner"></div><p>${(translationCache[currentLang] || TRANSLATIONS.en).loading_recipes || 'Finding recipes for you…'}</p></div>`;
+//
+//   const langName = getLangName(currentLang);
+//   const kitchenCtx = selectedShelter.hasKitchen
+//     ? 'The shelter HAS a shared kitchen with stove, oven, and basic cookware.'
+//     : 'The shelter has NO shared kitchen. All recipes must require NO cooking — only microwave, kettle, or no heat at all.';
+//
+//   const prompt = `You are a compassionate recipe assistant for women in transition shelters in British Columbia, Canada.
+//
+// Context: ${kitchenCtx}
+// Shelter: ${selectedShelter.name}, ${selectedShelter.city}
+// Language for all text: ${langName}
+//
+// Generate exactly 8 diverse, practical, and culturally-aware recipes appropriate for shelter cooking.
+// ${selectedShelter.hasKitchen ? 'Include a mix of breakfast, lunch, dinner, and snack recipes.' : 'All recipes MUST be no-cook: salads, wraps, overnight oats, fruit bowls, etc.'}
+//
+// Respond ONLY with a JSON array of 8 recipe objects. No markdown, no preamble. Schema:
+// [
+//   {
+//     "emoji": "🍲",
+//     "title": "Recipe Name in ${langName}",
+//     "time": "20 min",
+//     "servings": "4",
+//     "difficulty": "Easy",
+//     "desc": "One-sentence description in ${langName}",
+//     "ingredients": ["ingredient 1", "ingredient 2"],
+//     "steps": ["Step 1", "Step 2", "Step 3"]
+//   }
+// ]`;
+//
+//   try {
+//     const res = await fetch('https://api.anthropic.com/v1/messages', {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({
+//         model: 'claude-sonnet-4-20250514',
+//         max_tokens: 1000,
+//         messages: [{ role: 'user', content: prompt }]
+//       })
+//     });
+//     const data = await res.json();
+//     const text = data.content.map(b => b.text || '').join('');
+//     const clean = text.replace(/```json|```/g, '').trim();
+//     const recipes = JSON.parse(clean);
+//     renderRecipes(recipes);
+//   } catch (e) {
+//     grid.innerHTML = `<div class="recipe-loading"><p>Could not load recipes. Please try again.</p></div>`;
+//     console.error(e);
+//   }
+// }
+
 async function loadRecipes() {
   const grid = document.getElementById('recipesGrid');
-  grid.innerHTML = `<div class="recipe-loading"><div class="spinner"></div><p>${(translationCache[currentLang] || TRANSLATIONS.en).loading_recipes || 'Finding recipes for you…'}</p></div>`;
+  const t = translationCache[currentLang] || TRANSLATIONS.en;
 
-  const langName = getLangName(currentLang);
-  const kitchenCtx = selectedShelter.hasKitchen
-    ? 'The shelter HAS a shared kitchen with stove, oven, and basic cookware.'
-    : 'The shelter has NO shared kitchen. All recipes must require NO cooking — only microwave, kettle, or no heat at all.';
+  // Show loading state
+  grid.innerHTML = `
+    <div class="recipe-loading">
+      <div class="spinner"></div>
+      <p>${t.loading_recipes || 'Finding recipes for you…'}</p>
+    </div>`;
 
-  const prompt = `You are a compassionate recipe assistant for women in transition shelters in British Columbia, Canada.
-
-Context: ${kitchenCtx}
-Shelter: ${selectedShelter.name}, ${selectedShelter.city}
-Language for all text: ${langName}
-
-Generate exactly 8 diverse, practical, and culturally-aware recipes appropriate for shelter cooking.
-${selectedShelter.hasKitchen ? 'Include a mix of breakfast, lunch, dinner, and snack recipes.' : 'All recipes MUST be no-cook: salads, wraps, overnight oats, fruit bowls, etc.'}
-
-Respond ONLY with a JSON array of 8 recipe objects. No markdown, no preamble. Schema:
-[
-  {
-    "emoji": "🍲",
-    "title": "Recipe Name in ${langName}",
-    "time": "20 min",
-    "servings": "4",
-    "difficulty": "Easy",
-    "desc": "One-sentence description in ${langName}",
-    "ingredients": ["ingredient 1", "ingredient 2"],
-    "steps": ["Step 1", "Step 2", "Step 3"]
-  }
-]`;
+  // Map your JS data to your FastAPI Pydantic Model
+  const requestBody = {
+    shelter_id: selectedShelter.id,
+    ingredients: ["rice", "beans", "canned tomatoes", "onions"], // Update this from a UI input later!
+    cuisine: "Basics",
+    servings: 4,
+    kitchen_access: selectedShelter.hasKitchen ? "full" : "none",
+    dietary_overrides: [],
+    mode: "non_interactive"
+  };
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    // 1. Call YOUR backend instead of Anthropic directly
+    const res = await fetch(`${API}/recommend`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
+      body: JSON.stringify(requestBody)
     });
+
+    if (!res.ok) throw new Error('Backend server error');
+
     const data = await res.json();
-    const text = data.content.map(b => b.text || '').join('');
-    const clean = text.replace(/```json|```/g, '').trim();
-    const recipes = JSON.parse(clean);
-    renderRecipes(recipes);
+
+    // 2. Map your backend's RecipeResponse to your UI
+    // Assuming your backend returns { recipes: [...] }
+    renderRecipes(data.recipes);
+
   } catch (e) {
-    grid.innerHTML = `<div class="recipe-loading"><p>Could not load recipes. Please try again.</p></div>`;
-    console.error(e);
+    grid.innerHTML = `
+      <div class="recipe-loading">
+        <p>Could not connect to the recipe server. Make sure your Python app is running!</p>
+      </div>`;
+    console.error("Connection Error:", e);
   }
 }
 

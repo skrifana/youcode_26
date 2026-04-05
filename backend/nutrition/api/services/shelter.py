@@ -19,7 +19,7 @@ def _load_shelters() -> pd.DataFrame:
 
 @lru_cache(maxsize=1)
 def _load_profiles() -> pd.DataFrame:
-    df = pd.read_csv(DATA_DIR / "resident_profiles.csv")
+    df = pd.read_csv(r"C:\Users\sanar\youcode_26\youcode_26\backend\nutrition\api\data_csv\CWI Case Synthetic Data - Resident Profiles.csv")
     df.columns = df.columns.str.strip().str.lower().str.replace(" ", "_")
     return df
 

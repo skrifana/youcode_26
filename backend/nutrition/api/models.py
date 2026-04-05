@@ -5,6 +5,10 @@ from enum import Enum
 
 
 
+class ModeEnum(str, Enum):
+    static = "static"
+    interactive = "interactive"
+
 class KitchenAccess(str, Enum):
     # #this class defines the different levels of kitchen access - full, partial and none
     # full = "Full Access. You have an oven, stove and all pantry access!"
@@ -21,7 +25,7 @@ KITCHEN_ACCESS_LABELS = {
     KitchenAccess.full: "Full Access. You have an oven, stove and all pantry access!",
     KitchenAccess.partial: "Partial Access. You have a microwave, airfryer and/or kettle!",
     KitchenAccess.none: "No microwave, kettle or stove access. Welcome to cooking without fire!"
-
+}
 
 class Cuisine(str, Enum):
     MiddleEast = "Middle Eastern - hummus, shawarma, shakshouka and more beauties."
@@ -76,7 +80,7 @@ class RecipeRequest(BaseModel):
         default=[],
         description="Additional restrictions beyond what the shelter profile contains",
     )
-    mode: RecipeMode = RecipeMode.static
+    mode: RecipeMode = RecipeMode.interactive
 
 class MacroHighlight(BaseModel):
     nutrient: str

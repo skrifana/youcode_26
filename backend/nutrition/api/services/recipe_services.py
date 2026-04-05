@@ -1,29 +1,47 @@
 import json
 import os
 import anthropic
-from backend.nutrition.api.models import RecipeRequest, RecipeResponse, Recipe, AssemblyStep, MacroHighlight
-from backend.nutrition.api.services.shelter import get_shelter_profile
-from backend.nutrition.api.prompts.recipe_prompt import SYSTEM_PROMPT, build_static_prompt, build_interactive_prompt
 
-client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+from backend.nutrition.api.models import (
+    RecipeRequest, RecipeResponse, Recipe, AssemblyStep, MacroHighlight
+)
+from backend.nutrition.api.services.shelter import get_shelter_profile
+from backend.nutrition.api.prompts.recipe_prompt import (
+    SYSTEM_PROMPT, build_static_prompt, build_interactive_prompt
+)
+from fastapi import HTTPException
+
+
+_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "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")
+
+# Client is created lazily so a missing key doesn't crash the whole server at startup
+_client: anthropic.Anthropic | None = None
+
+def _get_client() -> anthropic.Anthropic:
+    global _client
+    if _client is None:
+        _client = anthropic.Anthropic(api_key=_API_KEY)
+    return _client
+
 
 LEVEL_NOTES = {
     "full":    None,
     "partial": "Recipes adapted for microwave/kettle use.",
-    "none":    "No cooking required, simple assembly and fire recipes."
+    "none":    "No cooking required — simple assembly recipes only.",
 }
 
 
 def get_recipes(req: RecipeRequest) -> RecipeResponse:
-    # Pull shelter's aggregated dietary + cultural context from CSVs
-    profile = get_shelter_profile(req.shelter_id)
+    """Core business logic — called by the router in recomment_prompt.py."""
 
-    # Merge user overrides into the profile's restrictions
+    profile = get_shelter_profile(req.shelter_id)
+    if profile is None:
+        raise HTTPException(status_code=404, detail=f"Shelter '{req.shelter_id}' not found")
+
     all_restrictions = sorted(
         set(profile.dietary_restrictions) | set(req.dietary_overrides)
     )
 
-    # Choose prompt based on mode
     if req.mode.value == "interactive":
         prompt = build_interactive_prompt(
             ingredients=req.ingredients,
@@ -31,7 +49,7 @@ def get_recipes(req: RecipeRequest) -> RecipeResponse:
             kitchen_access=req.kitchen_access.value,
             cuisine=req.cuisine,
             dietary_restrictions=all_restrictions,
-            #cultural_backgrounds=profile.cultural_backgrounds,
+            cultural_backgrounds=profile.cultural_backgrounds,
         )
     else:
         prompt = build_static_prompt(
@@ -40,21 +58,28 @@ def get_recipes(req: RecipeRequest) -> RecipeResponse:
             kitchen_access=req.kitchen_access.value,
             cuisine=req.cuisine,
             dietary_restrictions=all_restrictions,
-            #cultural_backgrounds=profile.cultural_backgrounds,
         )
 
-    message = client.messages.create(
-        model="claude-opus-4-5",
-        max_tokens=3000,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": prompt}],
-    )
+    try:
+        message = _get_client().messages.create(
+            model="claude-opus-4-5",
+            max_tokens=3000,
+            system=SYSTEM_PROMPT,
+            messages=[{"role": "user", "content": prompt}],
+        )
+    except anthropic.AuthenticationError:
+        raise HTTPException(
+            status_code=502,
+            detail="Invalid Anthropic API key. Set ANTHROPIC_API_KEY or update the hardcoded value in recipe_services.py"
+        )
+    except anthropic.APIStatusError as e:
+        raise HTTPException(status_code=502, detail=f"Claude API error: {e.message}")
 
     raw = message.content[0].text
     data = _parse_json(raw)
 
     recipes = []
-    for r in data["recipes"]:
+    for r in data.get("recipes", []):
         recipes.append(
             Recipe(
                 title=r["title"],
@@ -71,16 +96,20 @@ def get_recipes(req: RecipeRequest) -> RecipeResponse:
             )
         )
 
+    if not recipes:
+        raise HTTPException(status_code=500, detail="Model returned no recipes")
+
     return RecipeResponse(
         recipes=recipes,
         kitchen_level=req.kitchen_access,
         mode=req.mode,
         shelter_context=profile,
-        note=LEVEL_NOTES[req.kitchen_access.value],
+        note=LEVEL_NOTES.get(req.kitchen_access.value),
     )
 
 
 def _parse_json(raw: str) -> dict:
+    """Strip markdown fences if present, then parse JSON."""
     try:
         return json.loads(raw)
     except json.JSONDecodeError:
@@ -91,4 +120,10 @@ def _parse_json(raw: str) -> dict:
             .removesuffix("```")
             .strip()
         )
-        return json.loads(cleaned)
+        try:
+            return json.loads(cleaned)
+        except json.JSONDecodeError as e:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Model returned invalid JSON: {e}"
+            )

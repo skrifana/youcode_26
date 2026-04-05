@@ -1,0 +1,1817 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>NourishHer — Shelter Nutrition</title>-->
+<!--  <link rel="preconnect" href="https://fonts.googleapis.com">-->
+<!--  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">-->
+<!--  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>-->
+<!--  <style>-->
+<!--    :root {-->
+<!--      &#45;&#45;terr:    #C4714A;-->
+<!--      &#45;&#45;terr2:   #A05A38;-->
+<!--      &#45;&#45;terr-lt: #F5E8E0;-->
+<!--      &#45;&#45;sage:    #6B8F71;-->
+<!--      &#45;&#45;sage-lt: #E5EEE6;-->
+<!--      &#45;&#45;gold:    #D4A843;-->
+<!--      &#45;&#45;gold-lt: #FFF4E0;-->
+<!--      &#45;&#45;cream:   #FDFBF7;-->
+<!--      &#45;&#45;warm:    #F0EBE1;-->
+<!--      &#45;&#45;white:   #FFFFFF;-->
+<!--      &#45;&#45;ink:     #2D3732;-->
+<!--      &#45;&#45;muted:   #6B706D;-->
+<!--      &#45;&#45;border:  #E2DDD5;-->
+<!--      &#45;&#45;r:       14px;-->
+<!--      &#45;&#45;shadow:  0 4px 20px rgba(45,55,50,.07);-->
+<!--    }-->
+<!--    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}-->
+<!--    html,body{height:100%;background:var(&#45;&#45;cream);color:var(&#45;&#45;ink);font-family:'DM Sans',sans-serif;line-height:1.6}-->
+<!--    h1,h2,h3,.brand{font-family:'Fraunces',serif}-->
+
+<!--    .screen{display:none;animation:fadeIn .35s ease}-->
+<!--    .screen.active{display:block}-->
+<!--    #screenSearch.active,#screenPrefs.active{display:flex;flex-direction:column}-->
+<!--    @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}-->
+
+<!--    nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;-->
+<!--        background:var(&#45;&#45;white);box-shadow:0 2px 12px rgba(0,0,0,.04);position:sticky;top:0;z-index:900}-->
+<!--    .brand{font-size:1.4rem;font-weight:600;color:var(&#45;&#45;terr)}-->
+<!--    .brand em{font-style:italic}-->
+<!--    .nav-links{display:flex;gap:.25rem;align-items:center}-->
+<!--    .nav-btn{background:none;border:none;font-family:'DM Sans',sans-serif;font-size:.9rem;-->
+<!--             padding:.4rem .9rem;cursor:pointer;color:var(&#45;&#45;muted);border-radius:20px;transition:all .2s}-->
+<!--    .nav-btn:hover{background:var(&#45;&#45;warm);color:var(&#45;&#45;ink)}-->
+<!--    .lang-select{border:1px solid var(&#45;&#45;border);background:var(&#45;&#45;cream);border-radius:20px;-->
+<!--                 padding:.3rem .8rem;font-size:.85rem;color:var(&#45;&#45;muted);cursor:pointer;outline:none}-->
+
+<!--    .hero{text-align:center;padding:3rem 1rem 2rem;background:linear-gradient(170deg,#F0EBE1 0%,var(&#45;&#45;cream) 100%)}-->
+<!--    .hero h1{font-size:2.4rem;font-weight:300;margin-bottom:.4rem}-->
+<!--    .hero h1 em{font-style:italic;color:var(&#45;&#45;terr)}-->
+<!--    .hero p{font-size:1rem;color:var(&#45;&#45;muted);margin-bottom:1.8rem}-->
+
+<!--    .search-wrap{position:relative;max-width:520px;margin:0 auto 1.5rem}-->
+<!--    .search-wrap input{width:100%;padding:.9rem 1.4rem;border-radius:50px;border:2px solid var(&#45;&#45;border);-->
+<!--                       font-size:1rem;font-family:inherit;outline:none;transition:border-color .25s;-->
+<!--                       box-shadow:0 4px 14px rgba(0,0,0,.05)}-->
+<!--    .search-wrap input:focus{border-color:var(&#45;&#45;sage)}-->
+
+<!--    .dropdown{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(&#45;&#45;white);-->
+<!--              border-radius:var(&#45;&#45;r);box-shadow:0 10px 30px rgba(0,0,0,.12);display:none;z-index:2000;-->
+<!--              max-height:300px;overflow-y:auto;text-align:left}-->
+<!--    .dropdown.open{display:block;animation:slideDown .2s ease}-->
+<!--    @keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}-->
+<!--    .drop-item{padding:11px 18px;cursor:pointer;border-bottom:1px solid #F0EBE1;-->
+<!--               display:flex;justify-content:space-between;align-items:center;transition:background .15s}-->
+<!--    .drop-item:last-child{border:none}-->
+<!--    .drop-item:hover{background:#F8F6F0}-->
+<!--    .drop-name{font-weight:600;font-size:.95rem;color:var(&#45;&#45;ink)}-->
+<!--    .drop-city{font-size:.8rem;color:var(&#45;&#45;muted)}-->
+<!--    .drop-badge{font-size:.72rem;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap}-->
+<!--    .drop-badge.kitchen{background:var(&#45;&#45;sage-lt);color:var(&#45;&#45;sage)}-->
+<!--    .drop-badge.no-kitchen{background:var(&#45;&#45;terr-lt);color:var(&#45;&#45;terr)}-->
+
+<!--    #map{flex:1;min-height:380px}-->
+<!--    .map-legend{display:flex;gap:1.5rem;justify-content:center;padding:.75rem;-->
+<!--                background:var(&#45;&#45;white);border-top:1px solid var(&#45;&#45;border);font-size:.82rem;color:var(&#45;&#45;muted)}-->
+<!--    .legend-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:middle}-->
+
+<!--    #screenPrefs{min-height:calc(100vh - 64px)}-->
+<!--    .prefs-hero{background:linear-gradient(135deg,var(&#45;&#45;terr) 0%,#8B4A2A 100%);-->
+<!--                color:var(&#45;&#45;white);padding:2rem 2rem 1.5rem}-->
+<!--    .prefs-hero h2{font-size:1.8rem;font-weight:300;margin-bottom:.3rem}-->
+<!--    .prefs-hero h2 em{font-style:italic}-->
+<!--    .prefs-hero p{font-size:.9rem;opacity:.8}-->
+<!--    .shelter-meta-pill{display:inline-flex;align-items:center;gap:6px;margin-top:.8rem;-->
+<!--                       background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);-->
+<!--                       border-radius:20px;padding:4px 14px;font-size:.82rem}-->
+
+<!--    .prefs-body{display:grid;grid-template-columns:260px 1fr;flex:1}-->
+<!--    @media(max-width:680px){.prefs-body{grid-template-columns:1fr}}-->
+
+<!--    .pantry-col{background:var(&#45;&#45;ink);color:var(&#45;&#45;white);padding:1.5rem;-->
+<!--                display:flex;flex-direction:column;gap:1rem;min-height:400px}-->
+<!--    .pantry-col h3{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:300}-->
+<!--    .pantry-col h3 em{font-style:italic;color:var(&#45;&#45;gold)}-->
+<!--    .pantry-col .sub{font-size:.78rem;opacity:.55}-->
+<!--    .pantry-tags{display:flex;flex-wrap:wrap;gap:6px;flex:1;align-content:flex-start;min-height:60px}-->
+<!--    .ptag{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.1);-->
+<!--          border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;-->
+<!--          font-size:.8rem;color:var(&#45;&#45;white);animation:popIn .15s ease}-->
+<!--    @keyframes popIn{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}-->
+<!--    .ptag button{background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;-->
+<!--                 font-size:.85rem;line-height:1;padding:0;transition:color .1s}-->
+<!--    .ptag button:hover{color:var(&#45;&#45;white)}-->
+<!--    .pantry-add{display:flex;gap:7px}-->
+<!--    .pantry-add input{flex:1;padding:7px 12px;border:1px solid rgba(255,255,255,.18);border-radius:var(&#45;&#45;r);-->
+<!--                      background:rgba(255,255,255,.07);color:var(&#45;&#45;white);font-family:'DM Sans',sans-serif;-->
+<!--                      font-size:.85rem;outline:none}-->
+<!--    .pantry-add input::placeholder{color:rgba(255,255,255,.3)}-->
+<!--    .pantry-add input:focus{border-color:var(&#45;&#45;gold)}-->
+<!--    .btn-add{padding:7px 13px;background:var(&#45;&#45;gold);color:var(&#45;&#45;ink);border:none;-->
+<!--             border-radius:var(&#45;&#45;r);font-weight:600;cursor:pointer;font-size:.85rem;-->
+<!--             white-space:nowrap;transition:background .15s}-->
+<!--    .btn-add:hover{background:#BF952E}-->
+
+<!--    .prefs-col{padding:1.5rem;overflow-y:auto}-->
+<!--    .prefs-col .sec-label{font-size:.72rem;font-weight:600;color:var(&#45;&#45;muted);-->
+<!--                          text-transform:uppercase;letter-spacing:.9px;margin-bottom:14px}-->
+<!--    .form-field{margin-bottom:1rem}-->
+<!--    .form-field > label{display:block;font-size:.82rem;font-weight:500;margin-bottom:5px;color:var(&#45;&#45;ink)}-->
+<!--    .form-field select{width:100%;padding:9px 12px;border:1.5px solid var(&#45;&#45;border);-->
+<!--                       border-radius:var(&#45;&#45;r);font-family:'DM Sans',sans-serif;font-size:.9rem;-->
+<!--                       background:var(&#45;&#45;white);color:var(&#45;&#45;ink);outline:none;cursor:pointer;transition:border-color .15s}-->
+<!--    .form-field select:focus{border-color:var(&#45;&#45;terr)}-->
+<!--    .chip-row{display:flex;flex-wrap:wrap;gap:7px}-->
+<!--    .chip{display:flex;align-items:center;gap:5px;padding:6px 13px;-->
+<!--          border:1.5px solid var(&#45;&#45;border);border-radius:20px;cursor:pointer;font-size:.82rem;-->
+<!--          color:var(&#45;&#45;muted);background:var(&#45;&#45;white);transition:all .15s;user-select:none}-->
+<!--    .chip input{display:none}-->
+<!--    .chip.on{border-color:var(&#45;&#45;sage);background:var(&#45;&#45;sage-lt);color:var(&#45;&#45;sage)}-->
+<!--    .chip:hover{border-color:var(&#45;&#45;terr)}-->
+<!--    .mode-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}-->
+<!--    .mode-card{padding:12px;border:2px solid var(&#45;&#45;border);border-radius:var(&#45;&#45;r);-->
+<!--               cursor:pointer;transition:all .15s;background:var(&#45;&#45;white)}-->
+<!--    .mode-card.on{border-color:var(&#45;&#45;terr);background:var(&#45;&#45;terr-lt)}-->
+<!--    .mode-card input{display:none}-->
+<!--    .mode-title{font-weight:600;font-size:.85rem;color:var(&#45;&#45;ink);margin-bottom:2px}-->
+<!--    .mode-desc{font-size:.75rem;color:var(&#45;&#45;muted)}-->
+<!--    .divider{height:1px;background:var(&#45;&#45;border);margin:1rem 0}-->
+<!--    .btn-gen{width:100%;padding:13px;background:var(&#45;&#45;terr);color:var(&#45;&#45;white);border:none;-->
+<!--             border-radius:var(&#45;&#45;r);font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;-->
+<!--             cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px}-->
+<!--    .btn-gen:hover:not(:disabled){background:var(&#45;&#45;terr2)}-->
+<!--    .btn-gen:disabled{opacity:.6;cursor:not-allowed}-->
+<!--    .spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.3);-->
+<!--          border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}-->
+<!--    @keyframes spin{to{transform:rotate(360deg)}}-->
+
+<!--    #screenMain{padding-bottom:3rem}-->
+<!--    .main-container{max-width:1000px;margin:0 auto;padding:1.5rem 2rem}-->
+<!--    .shelter-header{display:flex;justify-content:space-between;align-items:flex-end;-->
+<!--                    margin-bottom:1.5rem;border-bottom:2px solid var(&#45;&#45;border);padding-bottom:1rem}-->
+<!--    .shelter-header h2{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600}-->
+<!--    .shelter-header p{font-size:.85rem;color:var(&#45;&#45;muted);margin-top:2px}-->
+<!--    .kitchen-badge{padding:7px 15px;border-radius:30px;font-weight:600;font-size:.85rem}-->
+<!--    .kitchen-badge.has{background:var(&#45;&#45;sage);color:white}-->
+<!--    .kitchen-badge.no{background:var(&#45;&#45;terr);color:white}-->
+
+<!--    .recipes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:1.25rem}-->
+<!--    .recipe-card{background:var(&#45;&#45;white);padding:1.4rem;border-radius:16px;-->
+<!--                 box-shadow:var(&#45;&#45;shadow);cursor:pointer;transition:transform .2s,box-shadow .2s;-->
+<!--                 border:1px solid var(&#45;&#45;border)}-->
+<!--    .recipe-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.1)}-->
+<!--    .recipe-emoji{font-size:2.2rem;margin-bottom:.4rem}-->
+<!--    .recipe-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:600;margin-bottom:.4rem}-->
+<!--    .recipe-meta-row{display:flex;gap:8px;font-size:.78rem;color:var(&#45;&#45;muted);margin-bottom:.8rem;flex-wrap:wrap}-->
+<!--    .recipe-desc{font-size:.88rem;color:var(&#45;&#45;muted);line-height:1.5}-->
+<!--    .nutr-badge{display:inline-block;background:var(&#45;&#45;gold-lt);color:#B8832A;-->
+<!--                font-size:.72rem;padding:3px 9px;border-radius:12px;font-weight:600;margin-top:.6rem}-->
+
+<!--    .recipe-loading{grid-column:1/-1;text-align:center;padding:4rem;color:var(&#45;&#45;muted)}-->
+<!--    .spinner{border:4px solid rgba(0,0,0,.08);border-left-color:var(&#45;&#45;terr);border-radius:50%;-->
+<!--             width:42px;height:42px;animation:spin 1s linear infinite;margin:0 auto 1rem}-->
+
+<!--    .modal-overlay{position:fixed;inset:0;background:rgba(45,55,50,.55);-->
+<!--                   display:flex;justify-content:center;align-items:center;z-index:3000;-->
+<!--                   padding:1rem;backdrop-filter:blur(4px)}-->
+<!--    .modal{background:var(&#45;&#45;cream);width:100%;max-width:520px;max-height:90vh;-->
+<!--           overflow-y:auto;border-radius:20px;padding:2.5rem;position:relative;-->
+<!--           animation:slideUp .3s ease}-->
+<!--    @keyframes slideUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}-->
+<!--    .modal-close{position:absolute;top:1.2rem;right:1.2rem;background:var(&#45;&#45;border);-->
+<!--                 border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;-->
+<!--                 font-size:.9rem;transition:background .2s}-->
+<!--    .modal-close:hover{background:#D4CEC4}-->
+<!--    .modal-emoji{font-size:3rem;text-align:center;margin-bottom:.8rem}-->
+<!--    .modal-title{font-family:'Fraunces',serif;font-size:1.6rem;text-align:center;margin-bottom:.4rem}-->
+<!--    .modal-desc{text-align:center;color:var(&#45;&#45;muted);margin-bottom:1rem;font-size:.9rem}-->
+<!--    .modal-macros{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:1.2rem}-->
+<!--    .macro-chip{background:var(&#45;&#45;ink);color:var(&#45;&#45;white);border-radius:12px;padding:8px 14px;text-align:center;min-width:80px}-->
+<!--    .macro-chip .mn{font-size:.65rem;opacity:.5;text-transform:uppercase;letter-spacing:.7px}-->
+<!--    .macro-chip .ma{font-family:'Fraunces',serif;font-size:1.1rem;color:var(&#45;&#45;gold)}-->
+<!--    .macro-chip .mb{font-size:.65rem;opacity:.6}-->
+<!--    .modal-sec{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:600;-->
+<!--               margin:1.2rem 0 .5rem;border-bottom:2px solid var(&#45;&#45;border);padding-bottom:.2rem;color:var(&#45;&#45;terr2)}-->
+<!--    .modal ul{padding-left:1.2rem;display:flex;flex-direction:column;gap:.35rem}-->
+<!--    .modal ol{padding-left:1.2rem;display:flex;flex-direction:column;gap:.5rem}-->
+<!--    .modal li{font-size:.88rem;line-height:1.55}-->
+<!--    .modal-note{background:var(&#45;&#45;sage-lt);border-left:3px solid var(&#45;&#45;sage);-->
+<!--                padding:10px 14px;border-radius:0 var(&#45;&#45;r) var(&#45;&#45;r) 0;font-size:.82rem;color:var(&#45;&#45;sage);margin-top:1rem}-->
+<!--    .subs-list li{font-size:.82rem}-->
+<!--    .btn-lab{width:100%;padding:12px;background:var(&#45;&#45;terr);color:var(&#45;&#45;white);border:none;-->
+<!--             border-radius:var(&#45;&#45;r);font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;-->
+<!--             cursor:pointer;margin-top:1.2rem;transition:background .15s}-->
+<!--    .btn-lab:hover{background:var(&#45;&#45;terr2)}-->
+
+<!--    #screenLab{padding-bottom:3rem}-->
+<!--    #game-wrap{max-width:1000px;margin:0 auto;padding:1.5rem 2rem}-->
+<!--    .lab-header{margin-bottom:1.5rem}-->
+<!--    .lab-header h2{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:300}-->
+<!--    .lab-header h2 em{font-style:italic;color:var(&#45;&#45;terr)}-->
+<!--    #status-bar{background:var(&#45;&#45;white);border:1px solid var(&#45;&#45;border);border-radius:var(&#45;&#45;r);-->
+<!--                padding:12px 18px;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px;-->
+<!--                font-size:.95rem;box-shadow:var(&#45;&#45;shadow)}-->
+<!--    #status-text{flex:1;color:var(&#45;&#45;ink)}-->
+<!--    .s-icon{font-size:1.2rem}-->
+
+<!--    #game{display:grid;grid-template-columns:200px 1fr;gap:1.5rem}-->
+<!--    @media(max-width:600px){#game{grid-template-columns:1fr}}-->
+<!--    #pantry-column{background:var(&#45;&#45;ink);color:var(&#45;&#45;white);border-radius:16px;padding:1.2rem}-->
+<!--    #pantry-column h2{font-family:'Fraunces',serif;font-size:1rem;font-weight:300;margin-bottom:.8rem;opacity:.7}-->
+<!--    #pantry{display:flex;flex-direction:column;gap:8px}-->
+<!--    .veggie-item{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);-->
+<!--                 border-radius:var(&#45;&#45;r);padding:9px 12px;cursor:pointer;transition:all .2s;-->
+<!--                 display:flex;align-items:center;gap:8px;font-size:.88rem}-->
+<!--    .veggie-item:hover{background:rgba(255,255,255,.15)}-->
+<!--    .veggie-item.active-item{border-color:var(&#45;&#45;gold);background:rgba(212,168,67,.2);-->
+<!--                              box-shadow:0 0 0 2px var(&#45;&#45;gold)}-->
+<!--    .veggie-item.locked-item{opacity:.3;cursor:not-allowed;pointer-events:none}-->
+<!--    .veggie-sprite{font-size:1.4rem}-->
+<!--    .veggie-label{font-size:.8rem;color:rgba(255,255,255,.8)}-->
+<!--    #kitchen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}-->
+<!--    @media(max-width:500px){#kitchen-grid{grid-template-columns:1fr 1fr}}-->
+<!--    .kitchen-zone{background:var(&#45;&#45;white);border:2px solid var(&#45;&#45;border);border-radius:16px;-->
+<!--                  padding:1rem;text-align:center;transition:all .2s}-->
+<!--    .kitchen-zone h2{font-size:.75rem;font-weight:600;color:var(&#45;&#45;muted);-->
+<!--                     text-transform:uppercase;letter-spacing:.7px;margin-bottom:.8rem}-->
+<!--    .k-item{width:70px;height:70px;border-radius:var(&#45;&#45;r);background:var(&#45;&#45;warm);-->
+<!--            border:2px solid var(&#45;&#45;border);margin:0 auto;display:flex;align-items:center;-->
+<!--            justify-content:center;font-size:1.8rem;cursor:pointer;transition:all .2s;position:relative}-->
+<!--    .k-item:hover{border-color:var(&#45;&#45;terr);transform:scale(1.05)}-->
+<!--    .k-item.active-kitchen{border-color:var(&#45;&#45;gold);background:var(&#45;&#45;gold-lt);-->
+<!--                            box-shadow:0 0 0 3px rgba(212,168,67,.3)}-->
+<!--    .k-item.locked-kitchen{opacity:.35;cursor:not-allowed;pointer-events:none}-->
+<!--    .k-label{font-size:.72rem;color:var(&#45;&#45;muted);margin-top:.5rem}-->
+<!--    .arrow-indicator{position:absolute;top:-20px;left:50%;transform:translateX(-50%);-->
+<!--                     color:var(&#45;&#45;terr);font-size:1rem;animation:bounce .7s infinite alternate}-->
+<!--    @keyframes bounce{from{top:-20px}to{top:-14px}}-->
+<!--    .btn-reset{background:var(&#45;&#45;warm);border:1.5px solid var(&#45;&#45;border);border-radius:var(&#45;&#45;r);-->
+<!--               padding:9px 20px;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;-->
+<!--               color:var(&#45;&#45;muted);transition:all .15s;margin-top:1rem}-->
+<!--    .btn-reset:hover{border-color:var(&#45;&#45;terr);color:var(&#45;&#45;terr)}-->
+
+<!--    .content-screen{max-width:620px;padding:2.5rem 2rem}-->
+<!--    .content-screen h2{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:300;margin-bottom:1rem}-->
+<!--    .content-screen p{font-size:.9rem;line-height:1.75;color:var(&#45;&#45;muted);margin-bottom:.75rem}-->
+<!--    .content-screen ul{padding-left:1.2rem;display:flex;flex-direction:column;gap:.5rem}-->
+<!--    .content-screen li{font-size:.88rem;color:var(&#45;&#45;muted);line-height:1.6}-->
+
+<!--    .back-btn{background:none;border:none;font-family:'DM Sans',sans-serif;font-size:.88rem;-->
+<!--              color:var(&#45;&#45;terr);cursor:pointer;display:inline-flex;align-items:center;gap:5px;-->
+<!--              padding:.4rem 0;margin-bottom:.5rem;transition:opacity .15s}-->
+<!--    .back-btn:hover{opacity:.7}-->
+
+<!--    /* Error toast */-->
+<!--    .error-toast{background:#fee;border:1px solid #fcc;color:#c33;border-radius:var(&#45;&#45;r);-->
+<!--                 padding:12px 16px;font-size:.85rem;margin-bottom:1rem;display:none}-->
+<!--    .error-toast.show{display:block}-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<nav>-->
+<!--  <div class="brand">Nourish<em>Her</em></div>-->
+<!--  <div class="nav-links">-->
+<!--    <button class="nav-btn" onclick="showScreen('screenAbout')">About</button>-->
+<!--    <button class="nav-btn" onclick="showScreen('screenResources')">Resources</button>-->
+<!--  </div>-->
+<!--  <div class="nav-links">-->
+<!--    <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">-->
+<!--      <option value="en">🌐 EN</option>-->
+<!--      <option value="fr">FR</option>-->
+<!--      <option value="es">ES</option>-->
+<!--      <option value="zh">中文</option>-->
+<!--    </select>-->
+<!--  </div>-->
+<!--</nav>-->
+
+<!--&lt;!&ndash; SCREEN 1: SEARCH + MAP &ndash;&gt;-->
+<!--<div id="screenSearch" class="screen active">-->
+<!--  <section class="hero">-->
+<!--    <h1 data-i18n="hero_title">Nourish<em>Her</em></h1>-->
+<!--    <p data-i18n="hero_sub">Find nourishing, accessible recipes personalised for your shelter.</p>-->
+<!--    <div class="search-wrap">-->
+<!--      <input type="text" id="searchInput" placeholder="Search by shelter name or city…"-->
+<!--             oninput="onSearchInput()" onkeydown="onSearchKey(event)"-->
+<!--             data-i18n-placeholder="search_placeholder">-->
+<!--      <div id="dropdown" class="dropdown"></div>-->
+<!--    </div>-->
+<!--  </section>-->
+<!--  <div id="map"></div>-->
+<!--  <div class="map-legend">-->
+<!--    <span><span class="legend-dot" style="background:var(&#45;&#45;sage)"></span>Kitchen available</span>-->
+<!--    <span><span class="legend-dot" style="background:var(&#45;&#45;terr)"></span>No kitchen</span>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; SCREEN 2: PREFS &ndash;&gt;-->
+<!--<div id="screenPrefs" class="screen">-->
+<!--  <div class="prefs-hero">-->
+<!--    <button class="back-btn" style="color:rgba(255,255,255,.8)" onclick="showScreen('screenSearch');setTimeout(()=>map&&map.invalidateSize(),100)">← Back to map</button>-->
+<!--    <h2 id="prefsShelterName">Build your <em>recipe</em></h2>-->
+<!--    <p id="prefsResidentText"></p>-->
+<!--    <div id="prefsPill"></div>-->
+<!--  </div>-->
+<!--  <div class="prefs-body">-->
+<!--    <div class="pantry-col">-->
+<!--      <h3><em>Pantry</em></h3>-->
+<!--      <p class="sub">Add what's available — one ingredient works</p>-->
+<!--      <div class="pantry-tags" id="pantry-tags"></div>-->
+<!--      <div class="pantry-add">-->
+<!--        <input id="pantry-input" type="text" placeholder="rice, eggs, lentils…">-->
+<!--        <button class="btn-add" onclick="addPantryItem()">Add</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="prefs-col">-->
+<!--      <div class="sec-label">Preferences</div>-->
+<!--      <div class="form-field">-->
+<!--        <label>Cuisine</label>-->
+<!--        <select id="pref-cuisine">-->
+<!--          <option value="">Any cuisine</option>-->
+<!--          <option value="MiddleEast">Middle Eastern</option>-->
+<!--          <option value="EastAsian">East Asian</option>-->
+<!--          <option value="SouthAsian">South Asian</option>-->
+<!--          <option value="SouthAmerican">South American / Mexican</option>-->
+<!--          <option value="Basics">Simple &amp; quick</option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--      <div class="form-field">-->
+<!--        <label>Kitchen access</label>-->
+<!--        <select id="pref-kitchen">-->
+<!--          <option value="full">Full kitchen — oven, stove, pantry</option>-->
+<!--          <option value="partial">Partial — microwave / air fryer / kettle</option>-->
+<!--          <option value="none">No heat source</option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--      <div class="form-field">-->
+<!--        <label>Serving size</label>-->
+<!--        <select id="pref-servings">-->
+<!--          <option value="1">Just me</option>-->
+<!--          <option value="3" selected>2–4 people</option>-->
+<!--          <option value="20">Bulk — many people</option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--      <div class="form-field">-->
+<!--        <label>Dietary needs</label>-->
+<!--        <div class="chip-row" id="dietary-chips">-->
+<!--          <label class="chip"><input type="checkbox" name="diet" value="halal"> Halal</label>-->
+<!--          <label class="chip"><input type="checkbox" name="diet" value="vegetarian"> Vegetarian</label>-->
+<!--          <label class="chip"><input type="checkbox" name="diet" value="vegan"> Vegan</label>-->
+<!--          <label class="chip"><input type="checkbox" name="diet" value="gluten_free"> Gluten-free</label>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="divider"></div>-->
+<!--      <div class="form-field">-->
+<!--        <label>Recipe mode</label>-->
+<!--        <div class="mode-row">-->
+<!--          <label class="mode-card on" id="mcard-interactive">-->
+<!--            <input type="radio" name="mode" value="interactive" checked onchange="selectMode('interactive')">-->
+<!--            <div class="mode-title">🧪 Assembly lab</div>-->
+<!--            <div class="mode-desc">Step-by-step guided cooking</div>-->
+<!--          </label>-->
+<!--          <label class="mode-card" id="mcard-static">-->
+<!--            <input type="radio" name="mode" value="static" onchange="selectMode('static')">-->
+<!--            <div class="mode-title">📋 Recipe card</div>-->
+<!--            <div class="mode-desc">Full recipe + macro highlights</div>-->
+<!--          </label>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div id="error-toast" class="error-toast"></div>-->
+<!--      <button class="btn-gen" id="btn-gen" onclick="submitPrefs()">-->
+<!--        Generate my recipe-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; SCREEN 3: RECIPE GRID &ndash;&gt;-->
+<!--<div id="screenMain" class="screen">-->
+<!--  <div class="main-container">-->
+<!--    <button class="back-btn" onclick="showScreen('screenPrefs')">← Adjust preferences</button>-->
+<!--    <div class="shelter-header">-->
+<!--      <div>-->
+<!--        <h2 id="mainShelterName">Shelter</h2>-->
+<!--        <p data-i18n="custom_nutrition">Customised nutrition plan</p>-->
+<!--      </div>-->
+<!--      <div id="kitchenBadge" class="kitchen-badge"></div>-->
+<!--    </div>-->
+<!--    <div id="recipesGrid" class="recipes-grid"></div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; SCREEN 4: INTERACTIVE LAB &ndash;&gt;-->
+<!--<div id="screenLab" class="screen">-->
+<!--  <div id="game-wrap">-->
+<!--    <button class="back-btn" onclick="showScreen('screenMain')">← Back to recipes</button>-->
+<!--    <div class="lab-header">-->
+<!--      <h2 id="lab-title">Cooking <em>Lab</em></h2>-->
+<!--    </div>-->
+<!--    <div id="status-bar">-->
+<!--      <span class="s-icon">👆</span>-->
+<!--      <span id="status-text">Click a pantry item to start.</span>-->
+<!--    </div>-->
+<!--    <div id="game">-->
+<!--      <div id="pantry-column">-->
+<!--        <h2>Pantry</h2>-->
+<!--        <div id="pantry"></div>-->
+<!--      </div>-->
+<!--      <div id="kitchen-grid">-->
+<!--        <div class="kitchen-zone" id="board-area">-->
+<!--          <h2>Cutting board</h2>-->
+<!--          <div class="k-item" id="cutting-board">🔪</div>-->
+<!--          <div class="k-label">cutting board</div>-->
+<!--        </div>-->
+<!--        <div class="kitchen-zone" id="stovetop-area">-->
+<!--          <h2>Stovetop</h2>-->
+<!--          <div class="k-item" id="stovetop-pan">🍳</div>-->
+<!--          <div class="k-label">pan</div>-->
+<!--          <div class="k-item" style="margin-top:.5rem" id="stovetop-pot">🫕</div>-->
+<!--          <div class="k-label">pot</div>-->
+<!--        </div>-->
+<!--        <div class="kitchen-zone" id="kettle-area">-->
+<!--          <h2>Kettle</h2>-->
+<!--          <div class="k-item" id="kettle">☕</div>-->
+<!--          <div class="k-label">kettle</div>-->
+<!--        </div>-->
+<!--        <div class="kitchen-zone" id="microwave-area">-->
+<!--          <h2>Microwave</h2>-->
+<!--          <div class="k-item" id="microwave">📦</div>-->
+<!--          <div class="k-label">microwave</div>-->
+<!--        </div>-->
+<!--        <div class="kitchen-zone" id="oven-area">-->
+<!--          <h2>Oven</h2>-->
+<!--          <div class="k-item" id="oven">🔥</div>-->
+<!--          <div class="k-label">oven</div>-->
+<!--        </div>-->
+<!--        <div class="kitchen-zone">-->
+<!--          <h2>Bowl / plate</h2>-->
+<!--          <div class="k-item" id="bowl">🥣</div>-->
+<!--          <div class="k-label">bowl</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <button class="btn-reset" onclick="resetLab()">↺ Reset</button>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; ABOUT &ndash;&gt;-->
+<!--<div id="screenAbout" class="screen">-->
+<!--  <div class="content-screen">-->
+<!--    <button class="back-btn" onclick="showScreen('screenSearch')">← Back</button>-->
+<!--    <h2>About NourishHer</h2>-->
+<!--    <p>Built for <strong>YouCode 2026</strong> in partnership with the Community Women's Initiative (CWI), which supports women in shelters across BC's Lower Mainland.</p>-->
+<!--    <p>Food is more than fuel — it's comfort, culture, and identity. NourishHer helps shelter staff and residents turn whatever ingredients are available into nourishing, culturally aware meals. No account, no sign-up, no wasted time.</p>-->
+<!--    <p>It addresses the <em>Feeding the Body</em> pillar of CWI's wellbeing framework — translating nutrition knowledge into actionable guidance under the real constraints of shelter life.</p>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; RESOURCES &ndash;&gt;-->
+<!--<div id="screenResources" class="screen">-->
+<!--  <div class="content-screen">-->
+<!--    <button class="back-btn" onclick="showScreen('screenSearch')">← Back</button>-->
+<!--    <h2>Resources</h2>-->
+<!--    <p>If you or someone you know needs support:</p>-->
+<!--    <ul>-->
+<!--      <li><strong>Community Women's Initiative</strong> — communitywomensinitiative.com</li>-->
+<!--      <li><strong>BC Housing Shelter Line</strong> — 1-800-665-1354</li>-->
+<!--      <li><strong>Crisis Line</strong> — 310-6789 (no area code needed in BC)</li>-->
+<!--      <li><strong>211 BC</strong> — Dial 2-1-1 for community &amp; social services</li>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>-->
+<!--<script>-->
+
+<!--// CONFIG — backend URL (same origin when served by FastAPI)-->
+
+<!--const API_BASE = 'http://localhost:8001';  // empty = same origin; works when FastAPI serves this file-->
+
+<!--// TRANSLATIONS-->
+
+<!--const TRANSLATIONS = {-->
+<!--  en: {-->
+<!--    hero_title:"NourishHer", hero_sub:"Find nourishing, accessible recipes personalised for your shelter.",-->
+<!--    search_placeholder:"Search by shelter name or city…", loading_recipes:"Designing a nourishing menu for you…",-->
+<!--    badge_kitchen:"🍳 Kitchen Available", badge_no_kitchen:"🚫 No Kitchen",-->
+<!--    drop_kitchen:"🍳 Kitchen", drop_no_kitchen:"No Kitchen", back:"Back",-->
+<!--    custom_nutrition:"Customised nutrition plan",-->
+<!--  },-->
+<!--  fr:{hero_title:"NourishHer",hero_sub:"Des recettes nutritives et accessibles pour votre refuge.",search_placeholder:"Rechercher par nom de refuge ou ville…",loading_recipes:"Création d'un menu nourrissant pour vous…",badge_kitchen:"🍳 Cuisine disponible",badge_no_kitchen:"🚫 Pas de cuisine",drop_kitchen:"🍳 Cuisine",drop_no_kitchen:"Sans cuisine",back:"Retour",custom_nutrition:"Plan nutritionnel personnalisé"},-->
+<!--  es:{hero_title:"NourishHer",hero_sub:"Recetas nutritivas y accesibles para tu refugio.",search_placeholder:"Buscar por nombre de refugio o ciudad…",loading_recipes:"Diseñando un menú nutritivo para ti…",badge_kitchen:"🍳 Cocina disponible",badge_no_kitchen:"🚫 Sin cocina",drop_kitchen:"🍳 Cocina",drop_no_kitchen:"Sin cocina",back:"Volver",custom_nutrition:"Plan de nutrición personalizado"},-->
+<!--  zh:{hero_title:"NourishHer",hero_sub:"为您的庇护所提供营养丰富、方便可及的食谱。",search_placeholder:"按庇护所名称或城市搜索…",loading_recipes:"正在为您设计营养菜单…",badge_kitchen:"🍳 有厨房",badge_no_kitchen:"🚫 无厨房",drop_kitchen:"🍳 厨房",drop_no_kitchen:"无厨房",back:"返回",custom_nutrition:"个性化营养方案"},-->
+<!--};-->
+<!--let currentLang = 'en';-->
+<!--function t(key){return (TRANSLATIONS[currentLang]||TRANSLATIONS.en)[key]||key}-->
+<!--function applyTranslations(){-->
+<!--  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(!el.querySelector('em'))el.textContent=t(k)});-->
+<!--  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.getAttribute('data-i18n-placeholder'))});-->
+<!--}-->
+<!--function changeLanguage(lang){currentLang=lang;applyTranslations();const q=document.getElementById('searchInput').value.trim().toLowerCase();if(q)onSearchInput()}-->
+
+<!--// ═══════════════════════════════════════════-->
+<!--// SHELTER DATA-->
+<!--// ═══════════════════════════════════════════-->
+<!--const SHELTERS = [-->
+<!--  {id:"S001",name:"100 Mile House Safe Home",city:"100 Mile House",lat:null,lng:null,hasKitchen:true},-->
+<!--  {id:"S002",name:"Abbotsford Transition House",city:"Abbotsford",lat:49.049511,lng:-122.33492,hasKitchen:true},-->
+<!--  {id:"S003",name:"Libra Transition House",city:"Aldergrove",lat:49.11812,lng:-122.65884,hasKitchen:true},-->
+<!--  {id:"S005",name:"Dixon Transition House",city:"Burnaby",lat:49.275356,lng:-122.991325,hasKitchen:true},-->
+<!--  {id:"S007",name:"Ann Elmore Transition House",city:"Campbell River",lat:50.019824,lng:-125.241281,hasKitchen:true},-->
+<!--  {id:"S008",name:"Castlegar Safe Home",city:"Castlegar",lat:55.69538,lng:-121.629503,hasKitchen:false},-->
+<!--  {id:"S011",name:"Ann Davis Transition House",city:"Chilliwack",lat:49.176738,lng:-121.962843,hasKitchen:true},-->
+<!--  {id:"S015",name:"Joy's Place",city:"Coquitlam",lat:49.261525,lng:-122.781942,hasKitchen:true},-->
+<!--  {id:"S016",name:"Lilli House",city:"Courtenay",lat:49.689955,lng:-124.999388,hasKitchen:false},-->
+<!--  {id:"S019",name:"Mizpah Transition House",city:"Dawson Creek",lat:55.756163,lng:-120.242632,hasKitchen:true},-->
+<!--  {id:"S021",name:"Somenos Transition House",city:"Duncan",lat:48.77849,lng:-123.712467,hasKitchen:true},-->
+<!--  {id:"S033",name:"Y Women's Emergency Shelter",city:"Kamloops",lat:50.618133,lng:-120.150507,hasKitchen:true},-->
+<!--  {id:"S035",name:"Kelowna Women's Shelter",city:"Kelowna",lat:49.890457,lng:-119.469223,hasKitchen:true},-->
+<!--  {id:"S037",name:"Ishtar Transition House",city:"Langley",lat:49.108038,lng:-122.678928,hasKitchen:false},-->
+<!--  {id:"S043",name:"Cythera Transition House",city:"Maple Ridge",lat:49.219256,lng:-122.60262,hasKitchen:false},-->
+<!--  {id:"S045",name:"Mission Transition House",city:"Mission",lat:49.179092,lng:-122.237257,hasKitchen:true},-->
+<!--  {id:"S049",name:"Aimee Beaulieu Transition House",city:"Nelson",lat:49.493668,lng:-117.295132,hasKitchen:true},-->
+<!--  {id:"S050",name:"Monarch Place",city:"New Westminster",lat:49.200683,lng:-122.916252,hasKitchen:true},-->
+<!--  {id:"S051",name:"Sage Transition House",city:"North Vancouver",lat:49.322922,lng:-123.074042,hasKitchen:true},-->
+<!--  {id:"S055",name:"Hughes House",city:"Penticton",lat:49.496422,lng:-119.612815,hasKitchen:true},-->
+<!--  {id:"S058",name:"Port Alberni Transition House",city:"Port Alberni",lat:49.267927,lng:-124.785881,hasKitchen:true},-->
+<!--  {id:"S060",name:"Grace House",city:"Powell River",lat:49.847889,lng:-124.523289,hasKitchen:true},-->
+<!--  {id:"S063",name:"Phoenix Transition House",city:"Prince George",lat:53.912866,lng:-122.757322,hasKitchen:true},-->
+<!--  {id:"S065",name:"Ravens Keep Transition House",city:"Prince Rupert",lat:54.304152,lng:-130.337101,hasKitchen:true},-->
+<!--  {id:"S069",name:"Nova Transition House",city:"Richmond",lat:49.160927,lng:-123.140169,hasKitchen:true},-->
+<!--  {id:"S074",name:"Passage Transition House",city:"Smithers",lat:54.420689,lng:-127.877952,hasKitchen:true},-->
+<!--  {id:"S075",name:"Annie's Place",city:"Sooke",lat:48.415118,lng:-123.76847,hasKitchen:true},-->
+<!--  {id:"S077",name:"Pearl's Place Transition House",city:"Squamish",lat:49.698976,lng:-123.152538,hasKitchen:true},-->
+<!--  {id:"S078",name:"Shimai Transition House",city:"Surrey",lat:49.192124,lng:-122.856366,hasKitchen:true},-->
+<!--  {id:"S084",name:"WINS Transition House",city:"Trail",lat:49.097956,lng:-117.721656,hasKitchen:true},-->
+<!--  {id:"S090",name:"Pierce House",city:"Vancouver",lat:49.173444,lng:-123.146743,hasKitchen:true},-->
+<!--  {id:"S092",name:"Kate Booth House",city:"Vancouver",lat:49.248336,lng:-123.12095,hasKitchen:false},-->
+<!--  {id:"S093",name:"Helping Spirit Lodge",city:"Vancouver",lat:49.2495,lng:-123.073609,hasKitchen:true},-->
+<!--  {id:"S094",name:"Nisa Home",city:"Vancouver",lat:49.158739,lng:-122.838952,hasKitchen:true},-->
+<!--  {id:"S095",name:"Peggy's Place",city:"Vancouver",lat:49.234121,lng:-122.98333,hasKitchen:true},-->
+<!--  {id:"S096",name:"Vancouver Rape Relief & Women's Shelter",city:"Vancouver",lat:49.252983,lng:-123.103586,hasKitchen:true},-->
+<!--  {id:"S098",name:"Vernon Women's Transition House",city:"Vernon",lat:50.265656,lng:-119.271994,hasKitchen:false},-->
+<!--  {id:"S101",name:"Victoria Women's Transition House",city:"Victoria",lat:48.447711,lng:-123.344539,hasKitchen:false},-->
+<!--  {id:"S106",name:"Durrant House",city:"White Rock",lat:49.056846,lng:-122.821415,hasKitchen:true},-->
+<!--  {id:"S121",name:"Haven Transition House",city:"Nanaimo",lat:49.214089,lng:-124.063122,hasKitchen:true},-->
+<!--  {id:"S144",name:"YWCA Arbour House",city:"Vancouver",lat:49.264305,lng:-123.143934,hasKitchen:true},-->
+<!--  {id:"S145",name:"YWCA Eyrie",city:"Vancouver",lat:49.274304,lng:-123.133934,hasKitchen:true},-->
+<!--  {id:"S146",name:"YWCA Munroe House",city:"Vancouver",lat:49.258305,lng:-123.123934,hasKitchen:true},-->
+<!--];-->
+
+
+<!--// STATE-->
+<!--let selectedShelter = null;-->
+<!--let map, markersLayer;-->
+<!--window.__recipes = [];-->
+<!--window.__labRecipe = null;-->
+
+
+<!--// SCREEN ROUTING-->
+
+<!--function showScreen(id){-->
+<!--  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));-->
+<!--  document.getElementById(id).classList.add('active');-->
+<!--  window.scrollTo(0,0);-->
+<!--}-->
+
+<!--// ═══════════════════════════════════════════-->
+<!--// MAP-->
+<!--// ═══════════════════════════════════════════-->
+<!--function initMap(){-->
+<!--  map=L.map('map',{zoomControl:true}).setView([53.7,-127.6],5);-->
+<!--  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);-->
+<!--  markersLayer=L.layerGroup().addTo(map);-->
+<!--  if(navigator.geolocation){navigator.geolocation.getCurrentPosition(pos=>map.setView([pos.coords.latitude,pos.coords.longitude],9),()=>{})}-->
+<!--  plotMarkers();-->
+<!--}-->
+<!--function plotMarkers(){-->
+<!--  markersLayer.clearLayers();-->
+<!--  SHELTERS.filter(s=>s.lat&&s.lng).forEach(s=>{-->
+<!--    const color=s.hasKitchen?'#6B8F71':'#C4714A';-->
+<!--    const icon=L.divIcon({className:'',html:`<div style="width:13px;height:13px;border-radius:50%;background:${color};border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,.3)"></div>`,iconSize:[13,13],iconAnchor:[6,6]});-->
+<!--    L.marker([s.lat,s.lng],{icon}).bindTooltip(s.name).on('click',()=>pickShelter(s)).addTo(markersLayer);-->
+<!--  });-->
+<!--}-->
+
+<!--// ═══════════════════════════════════════════-->
+<!--// SEARCH-->
+<!--// ═══════════════════════════════════════════-->
+<!--function onSearchInput(){-->
+<!--  const q=document.getElementById('searchInput').value.trim().toLowerCase();-->
+<!--  if(!q){closeDropdown();return}-->
+<!--  const hits=SHELTERS.filter(s=>s.name.toLowerCase().includes(q)||s.city.toLowerCase().includes(q)).slice(0,8);-->
+<!--  hits.length?renderDropdown(hits):closeDropdown();-->
+<!--}-->
+<!--function renderDropdown(items){-->
+<!--  const dd=document.getElementById('dropdown');-->
+<!--  dd.innerHTML=items.map(s=>`-->
+<!--    <div class="drop-item" onmousedown="selectShelterById('${s.id}')">-->
+<!--      <div><div class="drop-name">${s.name}</div><div class="drop-city">${s.city}</div></div>-->
+<!--      <span class="drop-badge ${s.hasKitchen?'kitchen':'no-kitchen'}">${s.hasKitchen?t('drop_kitchen'):t('drop_no_kitchen')}</span>-->
+<!--    </div>`).join('');-->
+<!--  dd.classList.add('open');-->
+<!--}-->
+<!--function closeDropdown(){document.getElementById('dropdown').classList.remove('open')}-->
+<!--function onSearchKey(e){if(e.key==='Escape')closeDropdown()}-->
+<!--document.addEventListener('mousedown',e=>{if(!e.target.closest('.search-wrap'))closeDropdown()});-->
+<!--function selectShelterById(id){const s=SHELTERS.find(x=>x.id===id);if(s)pickShelter(s)}-->
+
+<!--// ═══════════════════════════════════════════-->
+<!--// PICK SHELTER-->
+<!--// ═══════════════════════════════════════════-->
+<!--function pickShelter(shelter){-->
+<!--  selectedShelter=shelter;-->
+<!--  closeDropdown();-->
+<!--  document.getElementById('searchInput').value=shelter.name;-->
+<!--  document.getElementById('prefsShelterName').innerHTML=`${shelter.name} — <em>build your recipe</em>`;-->
+<!--  document.getElementById('pref-kitchen').value=shelter.hasKitchen?'full':'none';-->
+<!--  document.getElementById('prefsResidentText').textContent='';-->
+<!--  document.getElementById('prefsPill').innerHTML=`<span class="shelter-meta-pill">📍 ${shelter.city}</span>`;-->
+<!--  showScreen('screenPrefs');-->
+<!--}-->
+
+<!--// ═══════════════════════════════════════════-->
+<!--// PANTRY-->
+<!--// ═══════════════════════════════════════════-->
+<!--function addPantryItem(){-->
+<!--  const inp=document.getElementById('pantry-input');-->
+<!--  const items=inp.value.split(',').map(s=>s.trim()).filter(Boolean);-->
+<!--  const list=document.getElementById('pantry-tags');-->
+<!--  items.forEach(val=>{-->
+<!--    const tag=document.createElement('div');tag.className='ptag';-->
+<!--    tag.innerHTML=`<span>${val}</span><button onclick="this.parentElement.remove()" aria-label="Remove">✕</button>`;-->
+<!--    list.appendChild(tag);-->
+<!--  });-->
+<!--  inp.value='';inp.focus();-->
+<!--}-->
+<!--function getPantry(){return Array.from(document.querySelectorAll('.ptag span')).map(e=>e.textContent.trim()).filter(Boolean)}-->
+<!--function getChecked(name){return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(c=>c.value)}-->
+<!--function getMode(){const r=document.querySelector('input[name="mode"]:checked');return r?r.value:'static'}-->
+
+<!--document.addEventListener('change',e=>{-->
+<!--  if(e.target.matches('input[name="diet"]'))e.target.closest('.chip').classList.toggle('on',e.target.checked);-->
+<!--});-->
+<!--function selectMode(val){-->
+<!--  document.getElementById('mcard-interactive').classList.toggle('on',val==='interactive');-->
+<!--  document.getElementById('mcard-static').classList.toggle('on',val==='static');-->
+<!--}-->
+
+<!--function showError(msg){-->
+<!--  const el=document.getElementById('error-toast');-->
+<!--  el.textContent=msg;el.classList.add('show');-->
+<!--  setTimeout(()=>el.classList.remove('show'),5000);-->
+<!--}-->
+
+<!--// ═══════════════════════════════════════════-->
+<!--// SUBMIT — calls FastAPI backend-->
+<!--// ═══════════════════════════════════════════-->
+<!--async function submitPrefs(){-->
+<!--  const pantry=getPantry();-->
+<!--  if(!selectedShelter){alert('Please select a shelter first.');showScreen('screenSearch');return}-->
+<!--  if(!pantry.length){showError('Please add at least one pantry ingredient.');return}-->
+
+<!--  const btn=document.getElementById('btn-gen');-->
+<!--  btn.innerHTML='<div class="spin"></div> Generating…';-->
+<!--  btn.disabled=true;-->
+
+<!--  const mode=getMode();-->
+<!--  const kitchenAccess=document.getElementById('pref-kitchen').value;-->
+<!--  const cuisine=document.getElementById('pref-cuisine').value;-->
+<!--  const servings=parseInt(document.getElementById('pref-servings').value)||4;-->
+<!--  const dietary=getChecked('diet');-->
+
+<!--  // Build main screen header immediately-->
+<!--  document.getElementById('mainShelterName').textContent=selectedShelter.name;-->
+<!--  const badge=document.getElementById('kitchenBadge');-->
+<!--  badge.textContent=selectedShelter.hasKitchen?t('badge_kitchen'):t('badge_no_kitchen');-->
+<!--  badge.className='kitchen-badge '+(selectedShelter.hasKitchen?'has':'no');-->
+<!--  document.getElementById('recipesGrid').innerHTML=-->
+<!--    `<div class="recipe-loading"><div class="spinner"></div><p>${t('loading_recipes')}</p></div>`;-->
+<!--  showScreen('screenMain');-->
+
+<!--  // ── POST to FastAPI /recommend/ ──────────────-->
+<!--  const body={-->
+<!--    shelter_id: selectedShelter.id,-->
+<!--    ingredients: pantry,-->
+<!--    cuisine: cuisine || null,-->
+<!--    servings: servings,-->
+<!--    kitchen_access: kitchenAccess,-->
+<!--    dietary_overrides: dietary,-->
+<!--    mode: mode === 'interactive' ? 'interactive' : 'non_interactive'-->
+<!--  };-->
+
+<!--  try {-->
+<!--    const res = await fetch(`${API_BASE}/recommend/`, {-->
+<!--      method: 'POST',-->
+<!--      headers: {'Content-Type':'application/json'},-->
+<!--      body: JSON.stringify(body)-->
+<!--    });-->
+
+<!--    if (!res.ok) {-->
+<!--      const err = await res.json().catch(()=>({detail:'Unknown error'}));-->
+<!--      throw new Error(err.detail || `Server error ${res.status}`);-->
+<!--    }-->
+
+<!--    const data = await res.json();-->
+<!--    // Backend returns { recipes: [...], kitchen_level, mode, shelter_context, note }-->
+<!--    const recipes = data.recipes;-->
+<!--    window.__recipes = recipes;-->
+<!--    renderGrid(recipes, mode);-->
+
+<!--  } catch(err) {-->
+<!--    document.getElementById('recipesGrid').innerHTML=-->
+<!--      `<div class="recipe-loading"><p>⚠️ ${err.message}</p><p style="margin-top:.5rem;font-size:.8rem">Make sure your FastAPI server is running on port 8000.</p></div>`;-->
+<!--  } finally {-->
+<!--    btn.innerHTML='Generate my recipe';-->
+<!--    btn.disabled=false;-->
+<!--  }-->
+<!--}-->
+
+
+<!--// RENDER RECIPE GRID-->
+
+<!--function renderGrid(recipes, mode){-->
+<!--  const grid=document.getElementById('recipesGrid');-->
+<!--  if(!recipes||!recipes.length){-->
+<!--    grid.innerHTML='<div class="recipe-loading"><p>No recipes returned. Try different ingredients.</p></div>';-->
+<!--    return;-->
+<!--  }-->
+<!--  grid.innerHTML=recipes.map((r,i)=>`-->
+<!--    <div class="recipe-card" onclick="openRecipe(${i},'${mode}')">-->
+<!--      <div class="recipe-emoji">${r.emoji||'🍽'}</div>-->
+<!--      <div class="recipe-title">${r.title}</div>-->
+<!--      <div class="recipe-meta-row">-->
+<!--        <span>⏱ ${r.prep_time||'—'}</span>-->
+<!--        <span>🔥 ${r.cook_time||'—'}</span>-->
+<!--        <span>👥 Serves ${r.servings||'—'}</span>-->
+<!--      </div>-->
+<!--      <div class="recipe-desc">${(r.instructions||[])[0]||''}</div>-->
+<!--      ${r.nutrition_highlight?`<div class="nutr-badge">✨ ${r.nutrition_highlight}</div>`:''}-->
+<!--    </div>`).join('');-->
+<!--}-->
+
+<!--// ═══════════════════════════════════════════-->
+<!--// RECIPE MODAL-->
+<!--// ═══════════════════════════════════════════-->
+<!--function openRecipe(idx,mode){-->
+<!--  const r=window.__recipes[idx];-->
+<!--  const overlay=document.createElement('div');overlay.className='modal-overlay';-->
+
+<!--  const macrosHTML=(r.macros||[]).map(m=>`-->
+<!--    <div class="macro-chip">-->
+<!--      <div class="mn">${m.nutrient}</div>-->
+<!--      <div class="ma">${m.amount}</div>-->
+<!--      <div class="mb">${m.benefit}</div>-->
+<!--    </div>`).join('');-->
+
+<!--  const subsEntries=Object.entries(r.substitutions||{});-->
+<!--  const subsHTML=subsEntries.length?`-->
+<!--    <p class="modal-sec">Substitutions</p>-->
+<!--    <ul class="subs-list">${subsEntries.map(([k,vs])=>`<li><strong>${k}</strong> → ${(Array.isArray(vs)?vs:[vs]).join(', ')}</li>`).join('')}</ul>`:''-->
+
+<!--  const labBtn=(r.assembly_steps||[]).length?-->
+<!--    `<button class="btn-lab" onclick="startLab(${idx})">🧪 Start Assembly Lab</button>`:''-->
+
+<!--  overlay.innerHTML=`-->
+<!--    <div class="modal">-->
+<!--      <button class="modal-close" onclick="closeModal()">✕</button>-->
+<!--      <div class="modal-emoji">${r.emoji||'🍽'}</div>-->
+<!--      <h2 class="modal-title">${r.title}</h2>-->
+<!--      <p class="modal-desc">${r.prep_time||''} prep · ${r.cook_time||''} cook · serves ${r.servings||''}</p>-->
+<!--      ${r.nutrition_highlight?`<div style="text-align:center;margin-bottom:1rem"><span class="nutr-badge">✨ ${r.nutrition_highlight}</span></div>`:''}-->
+<!--      <div class="modal-macros">${macrosHTML}</div>-->
+<!--      <p class="modal-sec">Ingredients</p>-->
+<!--      <ul>${(r.ingredients||[]).map(i=>`<li>${i}</li>`).join('')}</ul>-->
+<!--      <p class="modal-sec">Instructions</p>-->
+<!--      <ol>${(r.instructions||[]).map(s=>`<li>${s}</li>`).join('')}</ol>-->
+<!--      ${subsHTML}-->
+<!--      ${labBtn}-->
+<!--    </div>`;-->
+<!--  overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal()});-->
+<!--  document.body.appendChild(overlay);-->
+<!--  window.__modal=overlay;-->
+<!--}-->
+<!--function closeModal(){if(window.__modal){window.__modal.remove();window.__modal=null}}-->
+
+<!--// ═══════════════════════════════════════════-->
+<!--// INTERACTIVE LAB-->
+<!--// ═══════════════════════════════════════════-->
+<!--const KITCHEN_IDS=['cutting-board','stovetop-pan','stovetop-pot','kettle','microwave','oven','bowl'];-->
+<!--let labStepIndex=0,labPhase='first',labGameOver=false,labRecipe=null;-->
+
+<!--function startLab(recipeIdx){-->
+<!--  closeModal();-->
+<!--  labRecipe=window.__recipes[recipeIdx];-->
+<!--  document.getElementById('lab-title').innerHTML=`${labRecipe.title} — Cooking <em>Lab</em>`;-->
+<!--  const kitchenAccess=document.getElementById('pref-kitchen').value;-->
+<!--  const hide=[];-->
+<!--  if(kitchenAccess==='none')hide.push('stovetop-area','oven-area','kettle-area','microwave-area');-->
+<!--  if(kitchenAccess==='partial')hide.push('stovetop-area','oven-area');-->
+<!--  const steps=(labRecipe.assembly_steps||[]).map(s=>({-->
+<!--    instruction:s.tip?`${s.action} — 💡 ${s.tip}`:s.action,-->
+<!--    ingredient:s.ingredient,kitchenTool:inferKitchenTool(s.action,s.ingredient)-->
+<!--  }));-->
+<!--  initLab(steps,labRecipe.ingredients,hide);-->
+<!--  showScreen('screenLab');-->
+<!--}-->
+
+<!--function inferKitchenTool(action,ingredient){-->
+<!--  const a=(action+' '+ingredient).toLowerCase();-->
+<!--  if(a.includes('chop')||a.includes('cut')||a.includes('slice')||a.includes('dice'))return'cutting-board';-->
+<!--  if(a.includes('boil')||a.includes('simmer')||a.includes('pot'))return'stovetop-pot';-->
+<!--  if(a.includes('fry')||a.includes('sauté')||a.includes('pan')||a.includes('cook'))return'stovetop-pan';-->
+<!--  if(a.includes('kettle')||a.includes('hot water')||a.includes('brew'))return'kettle';-->
+<!--  if(a.includes('microwave')||a.includes('heat'))return'microwave';-->
+<!--  if(a.includes('bake')||a.includes('oven')||a.includes('roast'))return'oven';-->
+<!--  return'bowl';-->
+<!--}-->
+
+<!--function initLab(steps,ingredients,hiddenAreas){-->
+<!--  labStepIndex=0;labPhase='first';labGameOver=false;-->
+<!--  ['board-area','stovetop-area','kettle-area','microwave-area','oven-area'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=''});-->
+<!--  hiddenAreas.forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none'});-->
+<!--  const pantryEl=document.getElementById('pantry');pantryEl.innerHTML='';-->
+<!--  const used=steps.map(s=>s.ingredient).filter((v,i,a)=>a.indexOf(v)===i);-->
+<!--  used.forEach(ing=>{-->
+<!--    const item=document.createElement('div');item.className='veggie-item';-->
+<!--    item.id='pantry-'+CSS.escape(ing);item.setAttribute('data-ingredient',ing);-->
+<!--    item.innerHTML=`<span class="veggie-sprite">${ingredientEmoji(ing)}</span><span class="veggie-label">${ing}</span>`;-->
+<!--    item.addEventListener('click',()=>handleLabClick({type:'pantry',id:ing}));-->
+<!--    pantryEl.appendChild(item);-->
+<!--  });-->
+<!--  KITCHEN_IDS.forEach(id=>{-->
+<!--    const el=document.getElementById(id);if(!el)return;-->
+<!--    const clone=el.cloneNode(true);el.parentNode.replaceChild(clone,el);-->
+<!--    clone.addEventListener('click',()=>handleLabClick({type:'kitchen',id}));-->
+<!--  });-->
+<!--  window.__labSteps=steps;-->
+<!--  loadLabStep();-->
+<!--}-->
+
+<!--function ingredientEmoji(name){-->
+<!--  const n=name.toLowerCase();-->
+<!--  if(n.includes('egg'))return'🥚';if(n.includes('tomato'))return'🍅';if(n.includes('onion'))return'🧅';-->
+<!--  if(n.includes('garlic'))return'🧄';if(n.includes('rice'))return'🍚';if(n.includes('chicken'))return'🍗';-->
+<!--  if(n.includes('oil'))return'🫙';if(n.includes('salt')||n.includes('pepper')||n.includes('spice'))return'🧂';-->
+<!--  if(n.includes('lemon')||n.includes('lime'))return'🍋';if(n.includes('carrot'))return'🥕';-->
+<!--  if(n.includes('potato'))return'🥔';if(n.includes('bread'))return'🍞';-->
+<!--  if(n.includes('milk')||n.includes('dairy'))return'🥛';-->
+<!--  if(n.includes('lentil')||n.includes('bean')||n.includes('chickpea'))return'🫘';-->
+<!--  if(n.includes('spinach')||n.includes('kale')||n.includes('green'))return'🥬';-->
+<!--  return'🥗';-->
+<!--}-->
+
+<!--function loadLabStep(){-->
+<!--  const steps=window.__labSteps;if(!steps||!steps.length)return;-->
+<!--  const step=steps[labStepIndex];-->
+<!--  const isFirst=labPhase==='first';-->
+<!--  const expected=isFirst?{type:'pantry',id:step.ingredient}:{type:'kitchen',id:step.kitchenTool};-->
+<!--  document.getElementById('status-text').textContent=isFirst-->
+<!--    ?`Step ${labStepIndex+1}/${steps.length}: ${step.instruction}`-->
+<!--    :`Now click the ${expected.id.replace(/-/g,' ')} →`;-->
+<!--  updateLabHighlights(expected);-->
+<!--}-->
+
+<!--function handleLabClick(source){-->
+<!--  if(labGameOver)return;-->
+<!--  const steps=window.__labSteps;const step=steps[labStepIndex];-->
+<!--  const expected=labPhase==='first'?{type:'pantry',id:step.ingredient}:{type:'kitchen',id:step.kitchenTool};-->
+<!--  if(source.type!==expected.type||source.id!==expected.id)return;-->
+<!--  if(labPhase==='first'){labPhase='second';loadLabStep()}-->
+<!--  else{labStepIndex++;if(labStepIndex>=steps.length)endLab();else{labPhase='first';loadLabStep()}}-->
+<!--}-->
+
+<!--function endLab(){-->
+<!--  labGameOver=true;clearLabHighlights();lockAllLab();-->
+<!--  document.getElementById('status-text').textContent=`Your ${labRecipe?labRecipe.title:'dish'} is complete! 🎉`;-->
+<!--  document.querySelector('#status-bar .s-icon').textContent='🎉';-->
+<!--}-->
+
+<!--function updateLabHighlights(expected){-->
+<!--  clearLabHighlights();lockAllLab();-->
+<!--  if(expected.type==='pantry'){-->
+<!--    const el=document.querySelector(`[data-ingredient="${expected.id}"]`);-->
+<!--    if(el){el.classList.add('active-item');el.classList.remove('locked-item');addArrow(el)}-->
+<!--  } else {-->
+<!--    const el=document.getElementById(expected.id);-->
+<!--    if(el){el.classList.add('active-kitchen');el.classList.remove('locked-kitchen');addArrow(el)}-->
+<!--  }-->
+<!--}-->
+
+<!--function addArrow(el){const a=document.createElement('span');a.className='arrow-indicator';a.textContent='▼';el.style.position='relative';el.appendChild(a)}-->
+<!--function clearLabHighlights(){-->
+<!--  document.querySelectorAll('.active-item').forEach(e=>e.classList.remove('active-item'));-->
+<!--  document.querySelectorAll('.active-kitchen').forEach(e=>e.classList.remove('active-kitchen'));-->
+<!--  document.querySelectorAll('.arrow-indicator').forEach(e=>e.remove());-->
+<!--}-->
+<!--function lockAllLab(){-->
+<!--  document.querySelectorAll('.veggie-item').forEach(e=>e.classList.add('locked-item'));-->
+<!--  KITCHEN_IDS.forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('locked-kitchen')});-->
+<!--}-->
+<!--function resetLab(){if(window.__labSteps)initLab(window.__labSteps,[],[])}-->
+
+
+<!--document.addEventListener('DOMContentLoaded',()=>{-->
+<!--  initMap();applyTranslations();-->
+<!--  document.getElementById('pantry-input').addEventListener('keydown',e=>{if(e.key==='Enter')addPantryItem()});-->
+<!--});-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NourishHer — Shelter Nutrition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    :root {
+      --terr:    #C4714A;
+      --terr2:   #A05A38;
+      --terr-lt: #F5E8E0;
+      --sage:    #6B8F71;
+      --sage-lt: #E5EEE6;
+      --gold:    #D4A843;
+      --gold-lt: #FFF4E0;
+      --cream:   #FDFBF7;
+      --warm:    #F0EBE1;
+      --white:   #FFFFFF;
+      --ink:     #2D3732;
+      --muted:   #6B706D;
+      --border:  #E2DDD5;
+      --r:       14px;
+      --shadow:  0 4px 20px rgba(45,55,50,.07);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;line-height:1.6}
+    h1,h2,h3,.brand{font-family:'Fraunces',serif}
+
+    .screen{display:none;animation:fadeIn .35s ease}
+    .screen.active{display:block}
+    #screenSearch.active,#screenPrefs.active{display:flex;flex-direction:column}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+    nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;
+        background:var(--white);box-shadow:0 2px 12px rgba(0,0,0,.04);position:sticky;top:0;z-index:900}
+    .brand{font-size:1.4rem;font-weight:600;color:var(--terr)}
+    .brand em{font-style:italic}
+    .nav-links{display:flex;gap:.25rem;align-items:center}
+    .nav-btn{background:none;border:none;font-family:'DM Sans',sans-serif;font-size:.9rem;
+             padding:.4rem .9rem;cursor:pointer;color:var(--muted);border-radius:20px;transition:all .2s}
+    .nav-btn:hover{background:var(--warm);color:var(--ink)}
+    .lang-select{border:1px solid var(--border);background:var(--cream);border-radius:20px;
+                 padding:.3rem .8rem;font-size:.85rem;color:var(--muted);cursor:pointer;outline:none}
+
+    .hero{text-align:center;padding:3rem 1rem 2rem;background:linear-gradient(170deg,#F0EBE1 0%,var(--cream) 100%)}
+    .hero h1{font-size:2.4rem;font-weight:300;margin-bottom:.4rem}
+    .hero h1 em{font-style:italic;color:var(--terr)}
+    .hero p{font-size:1rem;color:var(--muted);margin-bottom:1.8rem}
+
+    .search-wrap{position:relative;max-width:520px;margin:0 auto 1.5rem}
+    .search-wrap input{width:100%;padding:.9rem 1.4rem;border-radius:50px;border:2px solid var(--border);
+                       font-size:1rem;font-family:inherit;outline:none;transition:border-color .25s;
+                       box-shadow:0 4px 14px rgba(0,0,0,.05)}
+    .search-wrap input:focus{border-color:var(--sage)}
+
+    .dropdown{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--white);
+              border-radius:var(--r);box-shadow:0 10px 30px rgba(0,0,0,.12);display:none;z-index:2000;
+              max-height:300px;overflow-y:auto;text-align:left}
+    .dropdown.open{display:block;animation:slideDown .2s ease}
+    @keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+    .drop-item{padding:11px 18px;cursor:pointer;border-bottom:1px solid #F0EBE1;
+               display:flex;justify-content:space-between;align-items:center;transition:background .15s}
+    .drop-item:last-child{border:none}
+    .drop-item:hover{background:#F8F6F0}
+    .drop-name{font-weight:600;font-size:.95rem;color:var(--ink)}
+    .drop-city{font-size:.8rem;color:var(--muted)}
+    .drop-badge{font-size:.72rem;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap}
+    .drop-badge.kitchen{background:var(--sage-lt);color:var(--sage)}
+    .drop-badge.no-kitchen{background:var(--terr-lt);color:var(--terr)}
+
+    #map{flex:1;min-height:380px}
+    .map-legend{display:flex;gap:1.5rem;justify-content:center;padding:.75rem;
+                background:var(--white);border-top:1px solid var(--border);font-size:.82rem;color:var(--muted)}
+    .legend-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:middle}
+
+    #screenPrefs{min-height:calc(100vh - 64px)}
+    .prefs-hero{background:linear-gradient(135deg,var(--terr) 0%,#8B4A2A 100%);
+                color:var(--white);padding:2rem 2rem 1.5rem}
+    .prefs-hero h2{font-size:1.8rem;font-weight:300;margin-bottom:.3rem}
+    .prefs-hero h2 em{font-style:italic}
+    .prefs-hero p{font-size:.9rem;opacity:.8}
+    .shelter-meta-pill{display:inline-flex;align-items:center;gap:6px;margin-top:.8rem;
+                       background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);
+                       border-radius:20px;padding:4px 14px;font-size:.82rem}
+
+    .prefs-body{display:grid;grid-template-columns:260px 1fr;flex:1}
+    @media(max-width:680px){.prefs-body{grid-template-columns:1fr}}
+
+    .pantry-col{background:var(--ink);color:var(--white);padding:1.5rem;
+                display:flex;flex-direction:column;gap:1rem;min-height:400px}
+    .pantry-col h3{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:300}
+    .pantry-col h3 em{font-style:italic;color:var(--gold)}
+    .pantry-col .sub{font-size:.78rem;opacity:.55}
+    .pantry-tags{display:flex;flex-wrap:wrap;gap:6px;flex:1;align-content:flex-start;min-height:60px}
+    .ptag{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.1);
+          border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;
+          font-size:.8rem;color:var(--white);animation:popIn .15s ease}
+    @keyframes popIn{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+    .ptag button{background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;
+                 font-size:.85rem;line-height:1;padding:0;transition:color .1s}
+    .ptag button:hover{color:var(--white)}
+    .pantry-add{display:flex;gap:7px}
+    .pantry-add input{flex:1;padding:7px 12px;border:1px solid rgba(255,255,255,.18);border-radius:var(--r);
+                      background:rgba(255,255,255,.07);color:var(--white);font-family:'DM Sans',sans-serif;
+                      font-size:.85rem;outline:none}
+    .pantry-add input::placeholder{color:rgba(255,255,255,.3)}
+    .pantry-add input:focus{border-color:var(--gold)}
+    .btn-add{padding:7px 13px;background:var(--gold);color:var(--ink);border:none;
+             border-radius:var(--r);font-weight:600;cursor:pointer;font-size:.85rem;
+             white-space:nowrap;transition:background .15s}
+    .btn-add:hover{background:#BF952E}
+
+    .prefs-col{padding:1.5rem;overflow-y:auto}
+    .prefs-col .sec-label{font-size:.72rem;font-weight:600;color:var(--muted);
+                          text-transform:uppercase;letter-spacing:.9px;margin-bottom:14px}
+    .form-field{margin-bottom:1rem}
+    .form-field > label{display:block;font-size:.82rem;font-weight:500;margin-bottom:5px;color:var(--ink)}
+    .form-field select{width:100%;padding:9px 12px;border:1.5px solid var(--border);
+                       border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:.9rem;
+                       background:var(--white);color:var(--ink);outline:none;cursor:pointer;transition:border-color .15s}
+    .form-field select:focus{border-color:var(--terr)}
+    .chip-row{display:flex;flex-wrap:wrap;gap:7px}
+    .chip{display:flex;align-items:center;gap:5px;padding:6px 13px;
+          border:1.5px solid var(--border);border-radius:20px;cursor:pointer;font-size:.82rem;
+          color:var(--muted);background:var(--white);transition:all .15s;user-select:none}
+    .chip input{display:none}
+    .chip.on{border-color:var(--sage);background:var(--sage-lt);color:var(--sage)}
+    .chip:hover{border-color:var(--terr)}
+    .mode-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .mode-card{padding:12px;border:2px solid var(--border);border-radius:var(--r);
+               cursor:pointer;transition:all .15s;background:var(--white)}
+    .mode-card.on{border-color:var(--terr);background:var(--terr-lt)}
+    .mode-card input{display:none}
+    .mode-title{font-weight:600;font-size:.85rem;color:var(--ink);margin-bottom:2px}
+    .mode-desc{font-size:.75rem;color:var(--muted)}
+    .divider{height:1px;background:var(--border);margin:1rem 0}
+    .btn-gen{width:100%;padding:13px;background:var(--terr);color:var(--white);border:none;
+             border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;
+             cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+    .btn-gen:hover:not(:disabled){background:var(--terr2)}
+    .btn-gen:disabled{opacity:.6;cursor:not-allowed}
+    .spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.3);
+          border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    #screenMain{padding-bottom:3rem}
+    .main-container{max-width:1000px;margin:0 auto;padding:1.5rem 2rem}
+    .shelter-header{display:flex;justify-content:space-between;align-items:flex-end;
+                    margin-bottom:1.5rem;border-bottom:2px solid var(--border);padding-bottom:1rem}
+    .shelter-header h2{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600}
+    .shelter-header p{font-size:.85rem;color:var(--muted);margin-top:2px}
+    .kitchen-badge{padding:7px 15px;border-radius:30px;font-weight:600;font-size:.85rem}
+    .kitchen-badge.has{background:var(--sage);color:white}
+    .kitchen-badge.no{background:var(--terr);color:white}
+
+    .recipes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:1.25rem}
+    .recipe-card{background:var(--white);padding:1.4rem;border-radius:16px;
+                 box-shadow:var(--shadow);cursor:pointer;transition:transform .2s,box-shadow .2s;
+                 border:1px solid var(--border)}
+    .recipe-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.1)}
+    .recipe-emoji{font-size:2.2rem;margin-bottom:.4rem}
+    .recipe-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:600;margin-bottom:.4rem}
+    .recipe-meta-row{display:flex;gap:8px;font-size:.78rem;color:var(--muted);margin-bottom:.8rem;flex-wrap:wrap}
+    .recipe-desc{font-size:.88rem;color:var(--muted);line-height:1.5}
+    .nutr-badge{display:inline-block;background:var(--gold-lt);color:#B8832A;
+                font-size:.72rem;padding:3px 9px;border-radius:12px;font-weight:600;margin-top:.6rem}
+
+    .recipe-loading{grid-column:1/-1;text-align:center;padding:4rem;color:var(--muted)}
+    .spinner{border:4px solid rgba(0,0,0,.08);border-left-color:var(--terr);border-radius:50%;
+             width:42px;height:42px;animation:spin 1s linear infinite;margin:0 auto 1rem}
+
+    .modal-overlay{position:fixed;inset:0;background:rgba(45,55,50,.55);
+                   display:flex;justify-content:center;align-items:center;z-index:3000;
+                   padding:1rem;backdrop-filter:blur(4px)}
+    .modal{background:var(--cream);width:100%;max-width:520px;max-height:90vh;
+           overflow-y:auto;border-radius:20px;padding:2.5rem;position:relative;
+           animation:slideUp .3s ease}
+    @keyframes slideUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+    .modal-close{position:absolute;top:1.2rem;right:1.2rem;background:var(--border);
+                 border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;
+                 font-size:.9rem;transition:background .2s}
+    .modal-close:hover{background:#D4CEC4}
+    .modal-emoji{font-size:3rem;text-align:center;margin-bottom:.8rem}
+    .modal-title{font-family:'Fraunces',serif;font-size:1.6rem;text-align:center;margin-bottom:.4rem}
+    .modal-desc{text-align:center;color:var(--muted);margin-bottom:1rem;font-size:.9rem}
+    .modal-macros{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:1.2rem}
+    .macro-chip{background:var(--ink);color:var(--white);border-radius:12px;padding:8px 14px;text-align:center;min-width:80px}
+    .macro-chip .mn{font-size:.65rem;opacity:.5;text-transform:uppercase;letter-spacing:.7px}
+    .macro-chip .ma{font-family:'Fraunces',serif;font-size:1.1rem;color:var(--gold)}
+    .macro-chip .mb{font-size:.65rem;opacity:.6}
+    .modal-sec{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:600;
+               margin:1.2rem 0 .5rem;border-bottom:2px solid var(--border);padding-bottom:.2rem;color:var(--terr2)}
+    .modal ul{padding-left:1.2rem;display:flex;flex-direction:column;gap:.35rem}
+    .modal ol{padding-left:1.2rem;display:flex;flex-direction:column;gap:.5rem}
+    .modal li{font-size:.88rem;line-height:1.55}
+    .modal-note{background:var(--sage-lt);border-left:3px solid var(--sage);
+                padding:10px 14px;border-radius:0 var(--r) var(--r) 0;font-size:.82rem;color:var(--sage);margin-top:1rem}
+    .subs-list li{font-size:.82rem}
+    .btn-lab{width:100%;padding:12px;background:var(--terr);color:var(--white);border:none;
+             border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;
+             cursor:pointer;margin-top:1.2rem;transition:background .15s}
+    .btn-lab:hover{background:var(--terr2)}
+
+    #screenLab{padding-bottom:3rem}
+    #game-wrap{max-width:1000px;margin:0 auto;padding:1.5rem 2rem}
+    .lab-header{margin-bottom:1.5rem}
+    .lab-header h2{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:300}
+    .lab-header h2 em{font-style:italic;color:var(--terr)}
+    #status-bar{background:var(--white);border:1px solid var(--border);border-radius:var(--r);
+                padding:12px 18px;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px;
+                font-size:.95rem;box-shadow:var(--shadow)}
+    #status-text{flex:1;color:var(--ink)}
+    .s-icon{font-size:1.2rem}
+
+    #game{display:grid;grid-template-columns:200px 1fr;gap:1.5rem}
+    @media(max-width:600px){#game{grid-template-columns:1fr}}
+    #pantry-column{background:var(--ink);color:var(--white);border-radius:16px;padding:1.2rem}
+    #pantry-column h2{font-family:'Fraunces',serif;font-size:1rem;font-weight:300;margin-bottom:.8rem;opacity:.7}
+    #pantry{display:flex;flex-direction:column;gap:8px}
+    .veggie-item{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);
+                 border-radius:var(--r);padding:9px 12px;cursor:pointer;transition:all .2s;
+                 display:flex;align-items:center;gap:8px;font-size:.88rem}
+    .veggie-item:hover{background:rgba(255,255,255,.15)}
+    .veggie-item.active-item{border-color:var(--gold);background:rgba(212,168,67,.2);
+                              box-shadow:0 0 0 2px var(--gold)}
+    .veggie-item.locked-item{opacity:.3;cursor:not-allowed;pointer-events:none}
+    .veggie-sprite{font-size:1.4rem}
+    .veggie-label{font-size:.8rem;color:rgba(255,255,255,.8)}
+    #kitchen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    @media(max-width:500px){#kitchen-grid{grid-template-columns:1fr 1fr}}
+    .kitchen-zone{background:var(--white);border:2px solid var(--border);border-radius:16px;
+                  padding:1rem;text-align:center;transition:all .2s}
+    .kitchen-zone h2{font-size:.75rem;font-weight:600;color:var(--muted);
+                     text-transform:uppercase;letter-spacing:.7px;margin-bottom:.8rem}
+    .k-item{width:70px;height:70px;border-radius:var(--r);background:var(--warm);
+            border:2px solid var(--border);margin:0 auto;display:flex;align-items:center;
+            justify-content:center;font-size:1.8rem;cursor:pointer;transition:all .2s;position:relative}
+    .k-item:hover{border-color:var(--terr);transform:scale(1.05)}
+    .k-item.active-kitchen{border-color:var(--gold);background:var(--gold-lt);
+                            box-shadow:0 0 0 3px rgba(212,168,67,.3)}
+    .k-item.locked-kitchen{opacity:.35;cursor:not-allowed;pointer-events:none}
+    .k-label{font-size:.72rem;color:var(--muted);margin-top:.5rem}
+    .arrow-indicator{position:absolute;top:-20px;left:50%;transform:translateX(-50%);
+                     color:var(--terr);font-size:1rem;animation:bounce .7s infinite alternate}
+    @keyframes bounce{from{top:-20px}to{top:-14px}}
+    .btn-reset{background:var(--warm);border:1.5px solid var(--border);border-radius:var(--r);
+               padding:9px 20px;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;
+               color:var(--muted);transition:all .15s;margin-top:1rem}
+    .btn-reset:hover{border-color:var(--terr);color:var(--terr)}
+
+    .content-screen{max-width:620px;padding:2.5rem 2rem}
+    .content-screen h2{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:300;margin-bottom:1rem}
+    .content-screen p{font-size:.9rem;line-height:1.75;color:var(--muted);margin-bottom:.75rem}
+    .content-screen ul{padding-left:1.2rem;display:flex;flex-direction:column;gap:.5rem}
+    .content-screen li{font-size:.88rem;color:var(--muted);line-height:1.6}
+
+    .back-btn{background:none;border:none;font-family:'DM Sans',sans-serif;font-size:.88rem;
+              color:var(--terr);cursor:pointer;display:inline-flex;align-items:center;gap:5px;
+              padding:.4rem 0;margin-bottom:.5rem;transition:opacity .15s}
+    .back-btn:hover{opacity:.7}
+
+    .error-toast{background:#fee;border:1px solid #fcc;color:#c33;border-radius:var(--r);
+                 padding:12px 16px;font-size:.85rem;margin-bottom:1rem;display:none}
+    .error-toast.show{display:block}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Nourish<em>Her</em></div>
+  <div class="nav-links">
+    <button class="nav-btn" onclick="showScreen('screenAbout')">About</button>
+    <button class="nav-btn" onclick="showScreen('screenResources')">Resources</button>
+  </div>
+  <div class="nav-links">
+    <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
+      <option value="en">🌐 EN</option>
+      <option value="fr">FR</option>
+      <option value="es">ES</option>
+      <option value="zh">中文</option>
+    </select>
+  </div>
+</nav>
+
+<!-- SCREEN 1: SEARCH + MAP -->
+<div id="screenSearch" class="screen active">
+  <section class="hero">
+    <h1 data-i18n="hero_title">Nourish<em>Her</em></h1>
+    <p data-i18n="hero_sub">Find nourishing, accessible recipes personalised for your shelter.</p>
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="Search by shelter name or city…"
+             oninput="onSearchInput()" onkeydown="onSearchKey(event)"
+             data-i18n-placeholder="search_placeholder">
+      <div id="dropdown" class="dropdown"></div>
+    </div>
+  </section>
+  <div id="map"></div>
+  <div class="map-legend">
+    <span><span class="legend-dot" style="background:var(--sage)"></span>Kitchen available</span>
+    <span><span class="legend-dot" style="background:var(--terr)"></span>No kitchen</span>
+  </div>
+</div>
+
+<!-- SCREEN 2: PREFS -->
+<div id="screenPrefs" class="screen">
+  <div class="prefs-hero">
+    <button class="back-btn" style="color:rgba(255,255,255,.8)" onclick="showScreen('screenSearch');setTimeout(()=>map&&map.invalidateSize(),100)">← Back to map</button>
+    <h2 id="prefsShelterName">Build your <em>recipe</em></h2>
+    <p id="prefsResidentText"></p>
+    <div id="prefsPill"></div>
+  </div>
+  <div class="prefs-body">
+    <div class="pantry-col">
+      <h3><em>Pantry</em></h3>
+      <p class="sub">Add what's available — one ingredient works</p>
+      <div class="pantry-tags" id="pantry-tags"></div>
+      <div class="pantry-add">
+        <input id="pantry-input" type="text" placeholder="rice, eggs, lentils…">
+        <button class="btn-add" onclick="addPantryItem()">Add</button>
+      </div>
+    </div>
+    <div class="prefs-col">
+      <div class="sec-label">Preferences</div>
+      <div class="form-field">
+        <label>Cuisine</label>
+        <select id="pref-cuisine">
+          <option value="">Any cuisine</option>
+          <option value="MiddleEast">Middle Eastern</option>
+          <option value="EastAsian">East Asian</option>
+          <option value="SouthAsian">South Asian</option>
+          <option value="SouthAmerican">South American / Mexican</option>
+          <option value="Basics">Simple &amp; quick</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Kitchen access</label>
+        <select id="pref-kitchen">
+          <option value="full">Full kitchen — oven, stove, pantry</option>
+          <option value="partial">Partial — microwave / air fryer / kettle</option>
+          <option value="none">No heat source</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Serving size</label>
+        <select id="pref-servings">
+          <option value="1">Just me</option>
+          <option value="3" selected>2–4 people</option>
+          <option value="20">Bulk — many people</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Dietary needs</label>
+        <div class="chip-row" id="dietary-chips">
+          <label class="chip"><input type="checkbox" name="diet" value="halal"> Halal</label>
+          <label class="chip"><input type="checkbox" name="diet" value="vegetarian"> Vegetarian</label>
+          <label class="chip"><input type="checkbox" name="diet" value="vegan"> Vegan</label>
+          <label class="chip"><input type="checkbox" name="diet" value="gluten_free"> Gluten-free</label>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="form-field">
+        <label>Recipe mode</label>
+        <div class="mode-row">
+          <label class="mode-card on" id="mcard-interactive">
+            <input type="radio" name="mode" value="interactive" checked onchange="selectMode('interactive')">
+            <div class="mode-title">🧪 Assembly lab</div>
+            <div class="mode-desc">Step-by-step guided cooking</div>
+          </label>
+          <label class="mode-card" id="mcard-static">
+            <input type="radio" name="mode" value="static" onchange="selectMode('static')">
+            <div class="mode-title">📋 Recipe card</div>
+            <div class="mode-desc">Full recipe + macro highlights</div>
+          </label>
+        </div>
+      </div>
+      <div id="error-toast" class="error-toast"></div>
+      <button class="btn-gen" id="btn-gen" onclick="submitPrefs()">
+        Generate my recipe
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 3: RECIPE GRID -->
+<div id="screenMain" class="screen">
+  <div class="main-container">
+    <button class="back-btn" onclick="showScreen('screenPrefs')">← Adjust preferences</button>
+    <div class="shelter-header">
+      <div>
+        <h2 id="mainShelterName">Shelter</h2>
+        <p data-i18n="custom_nutrition">Customised nutrition plan</p>
+      </div>
+      <div id="kitchenBadge" class="kitchen-badge"></div>
+    </div>
+    <div id="recipesGrid" class="recipes-grid"></div>
+  </div>
+</div>
+
+<!-- SCREEN 4: INTERACTIVE LAB -->
+<div id="screenLab" class="screen">
+  <div id="game-wrap">
+    <button class="back-btn" onclick="showScreen('screenMain')">← Back to recipes</button>
+    <div class="lab-header">
+      <h2 id="lab-title">Cooking <em>Lab</em></h2>
+    </div>
+    <div id="status-bar">
+      <span class="s-icon">👆</span>
+      <span id="status-text">Click a pantry item to start.</span>
+    </div>
+    <div id="game">
+      <div id="pantry-column">
+        <h2>Pantry</h2>
+        <div id="pantry"></div>
+      </div>
+      <div id="kitchen-grid">
+        <div class="kitchen-zone" id="board-area">
+          <h2>Cutting board</h2>
+          <div class="k-item" id="cutting-board">🔪</div>
+          <div class="k-label">cutting board</div>
+        </div>
+        <div class="kitchen-zone" id="stovetop-area">
+          <h2>Stovetop</h2>
+          <div class="k-item" id="stovetop-pan">🍳</div>
+          <div class="k-label">pan</div>
+          <div class="k-item" style="margin-top:.5rem" id="stovetop-pot">🫕</div>
+          <div class="k-label">pot</div>
+        </div>
+        <div class="kitchen-zone" id="kettle-area">
+          <h2>Kettle</h2>
+          <div class="k-item" id="kettle">☕</div>
+          <div class="k-label">kettle</div>
+        </div>
+        <div class="kitchen-zone" id="microwave-area">
+          <h2>Microwave</h2>
+          <div class="k-item" id="microwave">📦</div>
+          <div class="k-label">microwave</div>
+        </div>
+        <div class="kitchen-zone" id="oven-area">
+          <h2>Oven</h2>
+          <div class="k-item" id="oven">🔥</div>
+          <div class="k-label">oven</div>
+        </div>
+        <div class="kitchen-zone">
+          <h2>Bowl / plate</h2>
+          <div class="k-item" id="bowl">🥣</div>
+          <div class="k-label">bowl</div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-reset" onclick="resetLab()">↺ Reset</button>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="screenAbout" class="screen">
+  <div class="content-screen">
+    <button class="back-btn" onclick="showScreen('screenSearch')">← Back</button>
+    <h2>About NourishHer</h2>
+    <p>Built for <strong>YouCode 2026</strong> in partnership with the Community Women's Initiative (CWI), which supports women in shelters across BC's Lower Mainland.</p>
+    <p>Food is more than fuel — it's comfort, culture, and identity. NourishHer helps shelter staff and residents turn whatever ingredients are available into nourishing, culturally aware meals. No account, no sign-up, no wasted time.</p>
+    <p>It addresses the <em>Feeding the Body</em> pillar of CWI's wellbeing framework — translating nutrition knowledge into actionable guidance under the real constraints of shelter life.</p>
+  </div>
+</div>
+
+<!-- RESOURCES -->
+<div id="screenResources" class="screen">
+  <div class="content-screen">
+    <button class="back-btn" onclick="showScreen('screenSearch')">← Back</button>
+    <h2>Resources</h2>
+    <p>If you or someone you know needs support:</p>
+    <ul>
+      <li><strong>Community Women's Initiative</strong> — communitywomensinitiative.com</li>
+      <li><strong>BC Housing Shelter Line</strong> — 1-800-665-1354</li>
+      <li><strong>Crisis Line</strong> — 310-6789 (no area code needed in BC)</li>
+      <li><strong>211 BC</strong> — Dial 2-1-1 for community &amp; social services</li>
+    </ul>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+
+const API_BASE = 'http://localhost:8001';
+
+const TRANSLATIONS = {
+  en: {
+    hero_title:"NourishHer", hero_sub:"Find nourishing, accessible recipes personalised for your shelter.",
+    search_placeholder:"Search by shelter name or city…", loading_recipes:"Designing a nourishing menu for you…",
+    badge_kitchen:"🍳 Kitchen Available", badge_no_kitchen:"🚫 No Kitchen",
+    drop_kitchen:"🍳 Kitchen", drop_no_kitchen:"No Kitchen", back:"Back",
+    custom_nutrition:"Customised nutrition plan",
+  },
+  fr:{hero_title:"NourishHer",hero_sub:"Des recettes nutritives et accessibles pour votre refuge.",search_placeholder:"Rechercher par nom de refuge ou ville…",loading_recipes:"Création d'un menu nourrissant pour vous…",badge_kitchen:"🍳 Cuisine disponible",badge_no_kitchen:"🚫 Pas de cuisine",drop_kitchen:"🍳 Cuisine",drop_no_kitchen:"Sans cuisine",back:"Retour",custom_nutrition:"Plan nutritionnel personnalisé"},
+  es:{hero_title:"NourishHer",hero_sub:"Recetas nutritivas y accesibles para tu refugio.",search_placeholder:"Buscar por nombre de refugio o ciudad…",loading_recipes:"Diseñando un menú nutritivo para ti…",badge_kitchen:"🍳 Cocina disponible",badge_no_kitchen:"🚫 Sin cocina",drop_kitchen:"🍳 Cocina",drop_no_kitchen:"Sin cocina",back:"Volver",custom_nutrition:"Plan de nutrición personalizado"},
+  zh:{hero_title:"NourishHer",hero_sub:"为您的庇护所提供营养丰富、方便可及的食谱。",search_placeholder:"按庇护所名称或城市搜索…",loading_recipes:"正在为您设计营养菜单…",badge_kitchen:"🍳 有厨房",badge_no_kitchen:"🚫 无厨房",drop_kitchen:"🍳 厨房",drop_no_kitchen:"无厨房",back:"返回",custom_nutrition:"个性化营养方案"},
+};
+let currentLang = 'en';
+function t(key){return (TRANSLATIONS[currentLang]||TRANSLATIONS.en)[key]||key}
+function applyTranslations(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(!el.querySelector('em'))el.textContent=t(k)});
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.getAttribute('data-i18n-placeholder'))});
+}
+function changeLanguage(lang){currentLang=lang;applyTranslations();const q=document.getElementById('searchInput').value.trim().toLowerCase();if(q)onSearchInput()}
+
+const SHELTERS = [
+  {id:"S001",name:"100 Mile House Safe Home",city:"100 Mile House",lat:null,lng:null,hasKitchen:true},
+  {id:"S002",name:"Abbotsford Transition House",city:"Abbotsford",lat:49.049511,lng:-122.33492,hasKitchen:true},
+  {id:"S003",name:"Libra Transition House",city:"Aldergrove",lat:49.11812,lng:-122.65884,hasKitchen:true},
+  {id:"S005",name:"Dixon Transition House",city:"Burnaby",lat:49.275356,lng:-122.991325,hasKitchen:true},
+  {id:"S007",name:"Ann Elmore Transition House",city:"Campbell River",lat:50.019824,lng:-125.241281,hasKitchen:true},
+  {id:"S008",name:"Castlegar Safe Home",city:"Castlegar",lat:55.69538,lng:-121.629503,hasKitchen:false},
+  {id:"S011",name:"Ann Davis Transition House",city:"Chilliwack",lat:49.176738,lng:-121.962843,hasKitchen:true},
+  {id:"S015",name:"Joy's Place",city:"Coquitlam",lat:49.261525,lng:-122.781942,hasKitchen:true},
+  {id:"S016",name:"Lilli House",city:"Courtenay",lat:49.689955,lng:-124.999388,hasKitchen:false},
+  {id:"S019",name:"Mizpah Transition House",city:"Dawson Creek",lat:55.756163,lng:-120.242632,hasKitchen:true},
+  {id:"S021",name:"Somenos Transition House",city:"Duncan",lat:48.77849,lng:-123.712467,hasKitchen:true},
+  {id:"S033",name:"Y Women's Emergency Shelter",city:"Kamloops",lat:50.618133,lng:-120.150507,hasKitchen:true},
+  {id:"S035",name:"Kelowna Women's Shelter",city:"Kelowna",lat:49.890457,lng:-119.469223,hasKitchen:true},
+  {id:"S037",name:"Ishtar Transition House",city:"Langley",lat:49.108038,lng:-122.678928,hasKitchen:false},
+  {id:"S043",name:"Cythera Transition House",city:"Maple Ridge",lat:49.219256,lng:-122.60262,hasKitchen:false},
+  {id:"S045",name:"Mission Transition House",city:"Mission",lat:49.179092,lng:-122.237257,hasKitchen:true},
+  {id:"S049",name:"Aimee Beaulieu Transition House",city:"Nelson",lat:49.493668,lng:-117.295132,hasKitchen:true},
+  {id:"S050",name:"Monarch Place",city:"New Westminster",lat:49.200683,lng:-122.916252,hasKitchen:true},
+  {id:"S051",name:"Sage Transition House",city:"North Vancouver",lat:49.322922,lng:-123.074042,hasKitchen:true},
+  {id:"S055",name:"Hughes House",city:"Penticton",lat:49.496422,lng:-119.612815,hasKitchen:true},
+  {id:"S058",name:"Port Alberni Transition House",city:"Port Alberni",lat:49.267927,lng:-124.785881,hasKitchen:true},
+  {id:"S060",name:"Grace House",city:"Powell River",lat:49.847889,lng:-124.523289,hasKitchen:true},
+  {id:"S063",name:"Phoenix Transition House",city:"Prince George",lat:53.912866,lng:-122.757322,hasKitchen:true},
+  {id:"S065",name:"Ravens Keep Transition House",city:"Prince Rupert",lat:54.304152,lng:-130.337101,hasKitchen:true},
+  {id:"S069",name:"Nova Transition House",city:"Richmond",lat:49.160927,lng:-123.140169,hasKitchen:true},
+  {id:"S074",name:"Passage Transition House",city:"Smithers",lat:54.420689,lng:-127.877952,hasKitchen:true},
+  {id:"S075",name:"Annie's Place",city:"Sooke",lat:48.415118,lng:-123.76847,hasKitchen:true},
+  {id:"S077",name:"Pearl's Place Transition House",city:"Squamish",lat:49.698976,lng:-123.152538,hasKitchen:true},
+  {id:"S078",name:"Shimai Transition House",city:"Surrey",lat:49.192124,lng:-122.856366,hasKitchen:true},
+  {id:"S084",name:"WINS Transition House",city:"Trail",lat:49.097956,lng:-117.721656,hasKitchen:true},
+  {id:"S090",name:"Pierce House",city:"Vancouver",lat:49.173444,lng:-123.146743,hasKitchen:true},
+  {id:"S092",name:"Kate Booth House",city:"Vancouver",lat:49.248336,lng:-123.12095,hasKitchen:false},
+  {id:"S093",name:"Helping Spirit Lodge",city:"Vancouver",lat:49.2495,lng:-123.073609,hasKitchen:true},
+  {id:"S094",name:"Nisa Home",city:"Vancouver",lat:49.158739,lng:-122.838952,hasKitchen:true},
+  {id:"S095",name:"Peggy's Place",city:"Vancouver",lat:49.234121,lng:-122.98333,hasKitchen:true},
+  {id:"S096",name:"Vancouver Rape Relief & Women's Shelter",city:"Vancouver",lat:49.252983,lng:-123.103586,hasKitchen:true},
+  {id:"S098",name:"Vernon Women's Transition House",city:"Vernon",lat:50.265656,lng:-119.271994,hasKitchen:false},
+  {id:"S101",name:"Victoria Women's Transition House",city:"Victoria",lat:48.447711,lng:-123.344539,hasKitchen:false},
+  {id:"S106",name:"Durrant House",city:"White Rock",lat:49.056846,lng:-122.821415,hasKitchen:true},
+  {id:"S121",name:"Haven Transition House",city:"Nanaimo",lat:49.214089,lng:-124.063122,hasKitchen:true},
+  {id:"S144",name:"YWCA Arbour House",city:"Vancouver",lat:49.264305,lng:-123.143934,hasKitchen:true},
+  {id:"S145",name:"YWCA Eyrie",city:"Vancouver",lat:49.274304,lng:-123.133934,hasKitchen:true},
+  {id:"S146",name:"YWCA Munroe House",city:"Vancouver",lat:49.258305,lng:-123.123934,hasKitchen:true},
+];
+
+let selectedShelter = null;
+let map, markersLayer;
+window.__recipes = [];
+window.__labRecipe = null;
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function initMap(){
+  map=L.map('map',{zoomControl:true}).setView([53.7,-127.6],5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);
+  markersLayer=L.layerGroup().addTo(map);
+  if(navigator.geolocation){navigator.geolocation.getCurrentPosition(pos=>map.setView([pos.coords.latitude,pos.coords.longitude],9),()=>{})}
+  plotMarkers();
+}
+function plotMarkers(){
+  markersLayer.clearLayers();
+  SHELTERS.filter(s=>s.lat&&s.lng).forEach(s=>{
+    const color=s.hasKitchen?'#6B8F71':'#C4714A';
+    const icon=L.divIcon({className:'',html:`<div style="width:13px;height:13px;border-radius:50%;background:${color};border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,.3)"></div>`,iconSize:[13,13],iconAnchor:[6,6]});
+    L.marker([s.lat,s.lng],{icon}).bindTooltip(s.name).on('click',()=>pickShelter(s)).addTo(markersLayer);
+  });
+}
+
+function onSearchInput(){
+  const q=document.getElementById('searchInput').value.trim().toLowerCase();
+  if(!q){closeDropdown();return}
+  const hits=SHELTERS.filter(s=>s.name.toLowerCase().includes(q)||s.city.toLowerCase().includes(q)).slice(0,8);
+  hits.length?renderDropdown(hits):closeDropdown();
+}
+function renderDropdown(items){
+  const dd=document.getElementById('dropdown');
+  dd.innerHTML=items.map(s=>`
+    <div class="drop-item" onmousedown="selectShelterById('${s.id}')">
+      <div><div class="drop-name">${s.name}</div><div class="drop-city">${s.city}</div></div>
+      <span class="drop-badge ${s.hasKitchen?'kitchen':'no-kitchen'}">${s.hasKitchen?t('drop_kitchen'):t('drop_no_kitchen')}</span>
+    </div>`).join('');
+  dd.classList.add('open');
+}
+function closeDropdown(){document.getElementById('dropdown').classList.remove('open')}
+function onSearchKey(e){if(e.key==='Escape')closeDropdown()}
+document.addEventListener('mousedown',e=>{if(!e.target.closest('.search-wrap'))closeDropdown()});
+function selectShelterById(id){const s=SHELTERS.find(x=>x.id===id);if(s)pickShelter(s)}
+
+function pickShelter(shelter){
+  selectedShelter=shelter;
+  closeDropdown();
+  document.getElementById('searchInput').value=shelter.name;
+  document.getElementById('prefsShelterName').innerHTML=`${shelter.name} — <em>build your recipe</em>`;
+  document.getElementById('pref-kitchen').value=shelter.hasKitchen?'full':'none';
+  document.getElementById('prefsResidentText').textContent='';
+  document.getElementById('prefsPill').innerHTML=`<span class="shelter-meta-pill">📍 ${shelter.city}</span>`;
+  showScreen('screenPrefs');
+}
+
+function addPantryItem(){
+  const inp=document.getElementById('pantry-input');
+  const items=inp.value.split(',').map(s=>s.trim()).filter(Boolean);
+  const list=document.getElementById('pantry-tags');
+  items.forEach(val=>{
+    const tag=document.createElement('div');tag.className='ptag';
+    tag.innerHTML=`<span>${val}</span><button onclick="this.parentElement.remove()" aria-label="Remove">✕</button>`;
+    list.appendChild(tag);
+  });
+  inp.value='';inp.focus();
+}
+function getPantry(){return Array.from(document.querySelectorAll('.ptag span')).map(e=>e.textContent.trim()).filter(Boolean)}
+function getChecked(name){return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(c=>c.value)}
+function getMode(){const r=document.querySelector('input[name="mode"]:checked');return r?r.value:'static'}
+
+document.addEventListener('change',e=>{
+  if(e.target.matches('input[name="diet"]'))e.target.closest('.chip').classList.toggle('on',e.target.checked);
+});
+function selectMode(val){
+  document.getElementById('mcard-interactive').classList.toggle('on',val==='interactive');
+  document.getElementById('mcard-static').classList.toggle('on',val==='static');
+}
+
+function showError(msg){
+  const el=document.getElementById('error-toast');
+  el.textContent=msg;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),5000);
+}
+
+async function submitPrefs(){
+  const pantry=getPantry();
+  if(!selectedShelter){alert('Please select a shelter first.');showScreen('screenSearch');return}
+  if(!pantry.length){showError('Please add at least one pantry ingredient.');return}
+
+  const btn=document.getElementById('btn-gen');
+  btn.innerHTML='<div class="spin"></div> Generating…';
+  btn.disabled=true;
+
+  const mode=getMode();
+  const kitchenAccess=document.getElementById('pref-kitchen').value;
+  const cuisine=document.getElementById('pref-cuisine').value;
+  const servings=parseInt(document.getElementById('pref-servings').value)||4;
+
+  // FIX 1: map dietary checkbox values to match Pydantic enum
+  const DIET_MAP={halal:'Halal',vegetarian:'Vegetarian',vegan:'Vegan',gluten_free:'Gluten Free'};
+  const dietary=getChecked('diet').map(d=>DIET_MAP[d]||d);
+
+  document.getElementById('mainShelterName').textContent=selectedShelter.name;
+  const badge=document.getElementById('kitchenBadge');
+  badge.textContent=selectedShelter.hasKitchen?t('badge_kitchen'):t('badge_no_kitchen');
+  badge.className='kitchen-badge '+(selectedShelter.hasKitchen?'has':'no');
+  document.getElementById('recipesGrid').innerHTML=
+    `<div class="recipe-loading"><div class="spinner"></div><p>${t('loading_recipes')}</p></div>`;
+  showScreen('screenMain');
+
+  // FIX 2: mode values match Pydantic RecipeMode enum exactly
+  const body={
+    shelter_id: selectedShelter.id,
+    ingredients: pantry,
+    cuisine: cuisine || null,
+    servings: servings,
+    kitchen_access: kitchenAccess,
+    dietary_overrides: dietary,
+    mode: mode === 'interactive' ? 'Interactive Mode' : 'Non-Interactive Mode'
+  };
+
+  try {
+    const res = await fetch(`${API_BASE}/recommend/`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(body)
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(()=>({detail:'Unknown error'}));
+      // FIX 3: 422 returns detail as an array — flatten to readable string
+      const detail = err.detail;
+      const msg = Array.isArray(detail)
+        ? detail.map(e=>`${e.loc?.slice(-1)[0]}: ${e.msg}`).join(', ')
+        : (typeof detail === 'string' ? detail : JSON.stringify(detail));
+      throw new Error(msg || `Server error ${res.status}`);
+    }
+
+    const data = await res.json();
+    const recipes = data.recipes;
+    window.__recipes = recipes;
+    renderGrid(recipes, mode);
+
+  } catch(err) {
+    document.getElementById('recipesGrid').innerHTML=
+      `<div class="recipe-loading"><p>⚠️ ${err.message}</p></div>`;
+  } finally {
+    btn.innerHTML='Generate my recipe';
+    btn.disabled=false;
+  }
+}
+
+function renderGrid(recipes, mode){
+  const grid=document.getElementById('recipesGrid');
+  if(!recipes||!recipes.length){
+    grid.innerHTML='<div class="recipe-loading"><p>No recipes returned. Try different ingredients.</p></div>';
+    return;
+  }
+  grid.innerHTML=recipes.map((r,i)=>`
+    <div class="recipe-card" onclick="openRecipe(${i},'${mode}')">
+      <div class="recipe-emoji">${r.emoji||'🍽'}</div>
+      <div class="recipe-title">${r.title}</div>
+      <div class="recipe-meta-row">
+        <span>⏱ ${r.prep_time||'—'}</span>
+        <span>🔥 ${r.cook_time||'—'}</span>
+        <span>👥 Serves ${r.servings||'—'}</span>
+      </div>
+      <div class="recipe-desc">${(r.instructions||[])[0]||''}</div>
+      ${r.nutrition_highlight?`<div class="nutr-badge">✨ ${r.nutrition_highlight}</div>`:''}
+    </div>`).join('');
+}
+
+function openRecipe(idx,mode){
+  const r=window.__recipes[idx];
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+
+  const macrosHTML=(r.macros||[]).map(m=>`
+    <div class="macro-chip">
+      <div class="mn">${m.nutrient}</div>
+      <div class="ma">${m.amount}</div>
+      <div class="mb">${m.benefit}</div>
+    </div>`).join('');
+
+  const subsEntries=Object.entries(r.substitutions||{});
+  const subsHTML=subsEntries.length?`
+    <p class="modal-sec">Substitutions</p>
+    <ul class="subs-list">${subsEntries.map(([k,vs])=>`<li><strong>${k}</strong> → ${(Array.isArray(vs)?vs:[vs]).join(', ')}</li>`).join('')}</ul>`:''
+
+  const labBtn=(r.assembly_steps||[]).length?
+    `<button class="btn-lab" onclick="startLab(${idx})">🧪 Start Assembly Lab</button>`:''
+
+  overlay.innerHTML=`
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-emoji">${r.emoji||'🍽'}</div>
+      <h2 class="modal-title">${r.title}</h2>
+      <p class="modal-desc">${r.prep_time||''} prep · ${r.cook_time||''} cook · serves ${r.servings||''}</p>
+      ${r.nutrition_highlight?`<div style="text-align:center;margin-bottom:1rem"><span class="nutr-badge">✨ ${r.nutrition_highlight}</span></div>`:''}
+      <div class="modal-macros">${macrosHTML}</div>
+      <p class="modal-sec">Ingredients</p>
+      <ul>${(r.ingredients||[]).map(i=>`<li>${i}</li>`).join('')}</ul>
+      <p class="modal-sec">Instructions</p>
+      <ol>${(r.instructions||[]).map(s=>`<li>${s}</li>`).join('')}</ol>
+      ${subsHTML}
+      ${labBtn}
+    </div>`;
+  overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal()});
+  document.body.appendChild(overlay);
+  window.__modal=overlay;
+}
+function closeModal(){if(window.__modal){window.__modal.remove();window.__modal=null}}
+
+const KITCHEN_IDS=['cutting-board','stovetop-pan','stovetop-pot','kettle','microwave','oven','bowl'];
+let labStepIndex=0,labPhase='first',labGameOver=false,labRecipe=null;
+
+function startLab(recipeIdx){
+  closeModal();
+  labRecipe=window.__recipes[recipeIdx];
+  document.getElementById('lab-title').innerHTML=`${labRecipe.title} — Cooking <em>Lab</em>`;
+  const kitchenAccess=document.getElementById('pref-kitchen').value;
+  const hide=[];
+  if(kitchenAccess==='none')hide.push('stovetop-area','oven-area','kettle-area','microwave-area');
+  if(kitchenAccess==='partial')hide.push('stovetop-area','oven-area');
+  const steps=(labRecipe.assembly_steps||[]).map(s=>({
+    instruction:s.tip?`${s.action} — 💡 ${s.tip}`:s.action,
+    ingredient:s.ingredient,kitchenTool:inferKitchenTool(s.action,s.ingredient)
+  }));
+  initLab(steps,labRecipe.ingredients,hide);
+  showScreen('screenLab');
+}
+
+function inferKitchenTool(action,ingredient){
+  const a=(action+' '+ingredient).toLowerCase();
+  if(a.includes('chop')||a.includes('cut')||a.includes('slice')||a.includes('dice'))return'cutting-board';
+  if(a.includes('boil')||a.includes('simmer')||a.includes('pot'))return'stovetop-pot';
+  if(a.includes('fry')||a.includes('sauté')||a.includes('pan')||a.includes('cook'))return'stovetop-pan';
+  if(a.includes('kettle')||a.includes('hot water')||a.includes('brew'))return'kettle';
+  if(a.includes('microwave')||a.includes('heat'))return'microwave';
+  if(a.includes('bake')||a.includes('oven')||a.includes('roast'))return'oven';
+  return'bowl';
+}
+
+function initLab(steps,ingredients,hiddenAreas){
+  labStepIndex=0;labPhase='first';labGameOver=false;
+  ['board-area','stovetop-area','kettle-area','microwave-area','oven-area'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=''});
+  hiddenAreas.forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none'});
+  const pantryEl=document.getElementById('pantry');pantryEl.innerHTML='';
+  const used=steps.map(s=>s.ingredient).filter((v,i,a)=>a.indexOf(v)===i);
+  used.forEach(ing=>{
+    const item=document.createElement('div');item.className='veggie-item';
+    item.id='pantry-'+CSS.escape(ing);item.setAttribute('data-ingredient',ing);
+    item.innerHTML=`<span class="veggie-sprite">${ingredientEmoji(ing)}</span><span class="veggie-label">${ing}</span>`;
+    item.addEventListener('click',()=>handleLabClick({type:'pantry',id:ing}));
+    pantryEl.appendChild(item);
+  });
+  KITCHEN_IDS.forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    const clone=el.cloneNode(true);el.parentNode.replaceChild(clone,el);
+    clone.addEventListener('click',()=>handleLabClick({type:'kitchen',id}));
+  });
+  window.__labSteps=steps;
+  loadLabStep();
+}
+
+function ingredientEmoji(name){
+  const n=name.toLowerCase();
+  if(n.includes('egg'))return'🥚';if(n.includes('tomato'))return'🍅';if(n.includes('onion'))return'🧅';
+  if(n.includes('garlic'))return'🧄';if(n.includes('rice'))return'🍚';if(n.includes('chicken'))return'🍗';
+  if(n.includes('oil'))return'🫙';if(n.includes('salt')||n.includes('pepper')||n.includes('spice'))return'🧂';
+  if(n.includes('lemon')||n.includes('lime'))return'🍋';if(n.includes('carrot'))return'🥕';
+  if(n.includes('potato'))return'🥔';if(n.includes('bread'))return'🍞';
+  if(n.includes('milk')||n.includes('dairy'))return'🥛';
+  if(n.includes('lentil')||n.includes('bean')||n.includes('chickpea'))return'🫘';
+  if(n.includes('spinach')||n.includes('kale')||n.includes('green'))return'🥬';
+  return'🥗';
+}
+
+function loadLabStep(){
+  const steps=window.__labSteps;if(!steps||!steps.length)return;
+  const step=steps[labStepIndex];
+  const isFirst=labPhase==='first';
+  const expected=isFirst?{type:'pantry',id:step.ingredient}:{type:'kitchen',id:step.kitchenTool};
+  document.getElementById('status-text').textContent=isFirst
+    ?`Step ${labStepIndex+1}/${steps.length}: ${step.instruction}`
+    :`Now click the ${expected.id.replace(/-/g,' ')} →`;
+  updateLabHighlights(expected);
+}
+
+function handleLabClick(source){
+  if(labGameOver)return;
+  const steps=window.__labSteps;const step=steps[labStepIndex];
+  const expected=labPhase==='first'?{type:'pantry',id:step.ingredient}:{type:'kitchen',id:step.kitchenTool};
+  if(source.type!==expected.type||source.id!==expected.id)return;
+  if(labPhase==='first'){labPhase='second';loadLabStep()}
+  else{labStepIndex++;if(labStepIndex>=steps.length)endLab();else{labPhase='first';loadLabStep()}}
+}
+
+function endLab(){
+  labGameOver=true;clearLabHighlights();lockAllLab();
+  document.getElementById('status-text').textContent=`Your ${labRecipe?labRecipe.title:'dish'} is complete! 🎉`;
+  document.querySelector('#status-bar .s-icon').textContent='🎉';
+}
+
+function updateLabHighlights(expected){
+  clearLabHighlights();lockAllLab();
+  if(expected.type==='pantry'){
+    const el=document.querySelector(`[data-ingredient="${expected.id}"]`);
+    if(el){el.classList.add('active-item');el.classList.remove('locked-item');addArrow(el)}
+  } else {
+    const el=document.getElementById(expected.id);
+    if(el){el.classList.add('active-kitchen');el.classList.remove('locked-kitchen');addArrow(el)}
+  }
+}
+
+function addArrow(el){const a=document.createElement('span');a.className='arrow-indicator';a.textContent='▼';el.style.position='relative';el.appendChild(a)}
+function clearLabHighlights(){
+  document.querySelectorAll('.active-item').forEach(e=>e.classList.remove('active-item'));
+  document.querySelectorAll('.active-kitchen').forEach(e=>e.classList.remove('active-kitchen'));
+  document.querySelectorAll('.arrow-indicator').forEach(e=>e.remove());
+}
+function lockAllLab(){
+  document.querySelectorAll('.veggie-item').forEach(e=>e.classList.add('locked-item'));
+  KITCHEN_IDS.forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('locked-kitchen')});
+}
+function resetLab(){if(window.__labSteps)initLab(window.__labSteps,[],[])}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  initMap();applyTranslations();
+  document.getElementById('pantry-input').addEventListener('keydown',e=>{if(e.key==='Enter')addPantryItem()});
+});
+</script>
+</body>
+</html>

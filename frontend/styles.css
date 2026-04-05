@@ -558,4 +558,26 @@
     .staff-options { flex-direction: column; align-items: center; }
     .modal { border-radius: 16px; padding: 20px; }
   }
-  
+  .search-hero {
+  padding: 40px 24px;
+  background: var(--warm);
+}
+
+.search-row {
+  display: flex;
+  gap: 10px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px;
+}
+
+.search-btn {
+  background: var(--terr);
+  color: white;
+}
+
+#map {
+  height: 400px;
+}
