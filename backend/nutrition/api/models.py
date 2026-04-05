@@ -6,16 +6,28 @@ from enum import Enum
 
 
 class KitchenAccess(str, Enum):
-    #this class defines the different levels of kitchen access - full, partial and none
-    full = "Full Access. You have an oven, stove and all pantry access!"
-    partial = "Partial Access. You have a microwave, airfryer and/or kettle!"
-    none = "No microwave, kettle or stove access. Welcome to cooking without fire!"
+    # #this class defines the different levels of kitchen access - full, partial and none
+    # full = "Full Access. You have an oven, stove and all pantry access!"
+    # partial = "Partial Access. You have a microwave, airfryer and/or kettle!"
+    # none = "No microwave, kettle or stove access. Welcome to cooking without fire!"
+
+    full = "full"
+    partial = "partial"
+    none = "none"
+
+
+# Add a separate lookup for display labels
+KITCHEN_ACCESS_LABELS = {
+    KitchenAccess.full: "Full Access. You have an oven, stove and all pantry access!",
+    KitchenAccess.partial: "Partial Access. You have a microwave, airfryer and/or kettle!",
+    KitchenAccess.none: "No microwave, kettle or stove access. Welcome to cooking without fire!"
+
 
 class Cuisine(str, Enum):
     MiddleEast = "Middle Eastern - hummus, shawarma, shakshouka and more beauties."
     EastAsian = "Cucumber salad, tomato egg soup, and more love."
     SouthAsian = "Dal, biryani, prawn curry and more spice."
-    Mexican = "Burritos, tacos, quesadillas and more heaven."
+    SouthAmerican = "Burritos, tacos, quesadillas and more heaven."
     Basics = "Chicken salad, vegetable wraps, oats and more sweet."
 
 

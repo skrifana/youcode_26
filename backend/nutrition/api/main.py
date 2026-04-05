@@ -9,11 +9,12 @@ load_dotenv()
 
 from data import shelters, recomment_prompt
 
+
 app = FastAPI(title="CWI Nutrition API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:5500"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
