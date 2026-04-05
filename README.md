@@ -28,25 +28,17 @@ NourishHer is a **low-barrier, intuitive web platform** designed specifically fo
 ##  Core Features
 
 ### Smart Recipe Generation
-Create nutritious, filling, and cost-efficient meals based on:
-- Limited ingredients  
-- Shared kitchen access  
-- Tight budgets  
+Create nutritious, filling, and cost-efficient meals, keeping in mind restraints such as limited ingredients, shared kitchen access and finances. 
+
 
 ### Interactive Virtual Kitchen
-A visual, engaging space that makes learning about food:
-- Accessible  
-- Intuitive  
-- Less intimidating  
+A visual, engaging space that makes learning about food accesible and intuitive. 
 
 ### Simple Nutrition Education
 Understand macronutrients in a clear, meaningful, and non-overwhelming way.
 
 ### Reduced Decision Fatigue
-Streamlines daily choices to help women:
-- Regain control  
-- Build consistency  
-- Reclaim identity  
+Help streamline decisions for both staff and personal users to improve their nutrition and health choices. 
 
 ---
 
@@ -55,21 +47,17 @@ Streamlines daily choices to help women:
 NourishHer is built with a deep understanding of shelter realities.
 
 ### Respect Privacy 
-- No accounts  
-- No login requirements  
+- Requires no personal accoutn or login credentials. 
 
 ### Accessibility
-- Supports 13+ languages  
-- Minimal reliance on English  
-- Visual-first design  
+- Supports 13+ languages, reducing English fluency requirements and an emphasis on visual first design.
 
 ### Shared Device Friendly
 - Optimized for shelter computers and communal tablets  
 
 ### Flexible Interaction
-- Quick recipe outputs  
-- Optional interactive experiences  
-- Easy-to-read, visual formats  
+- Quick recipe outputs with an interactive experience that helps users understand the cooking experience and nutritional facts.
+
 
 ---
 
@@ -87,11 +75,7 @@ NourishHer is built with a deep understanding of shelter realities.
 - Router-based structure for modular AI endpoints  
 
 ### AI Integration
-- Groq AI (LLM-powered recipe generation)  
-- Dynamic prompt engineering for:
-  - Budget-aware meals  
-  - Ingredient constraints  
-  - Nutritional balance  
+- LLM-powered recipe generation to provide budget aware, and nutritionally balanced meals, keeping into consideration differetn dietary restrictions and cultural backgrounds.  
 
 ---
 
@@ -99,56 +83,19 @@ NourishHer is built with a deep understanding of shelter realities.
 
 NourishHer follows a **lightweight, modular client-server architecture** optimized for accessibility and performance in constrained environments.
 
-### System Flow
-
-1. **User Input (Frontend)**
-   - Users select available ingredients, preferences, or constraints  
-   - Input is handled via a simple, intuitive UI  
-
-2. **API Request (Frontend → Backend)**
-   - JavaScript sends a request to FastAPI endpoints  
-
-3. **Backend Processing (FastAPI)**
-   - Routes handle incoming requests  
-   - Data is structured and forwarded to the AI layer  
-
-4. **AI Recipe Generation (Groq AI)**
-   - Generates recipes based on:
-     - Available ingredients  
-     - Budget limitations  
-     - Nutritional needs  
-
-5. **Response Delivery**
-   - Backend formats the AI response  
-   - Returns clean, readable data to the frontend  
-
-6. **User Display**
-   - Recipes shown in:
-     - Quick-view format  
-     - Visual/interactive format (optional)  
-
----
-
-###  Architecture Principles
-
-- **Low Bandwidth Friendly** – Minimal dependencies and lightweight requests  
-- **No Persistent User Data** – Ensures privacy and safety  
-- **Modular Backend** – Easy to extend AI routes and features  
-- **Device Agnostic** – Works across shared/public devices  
-
 ---
 
 ##  Extended Impact
 
-NourishHer goes beyond individual nutrition, by promoting community and mutual wellbeing.
+NourishHer is a tool designed to go beyond mere individual nutrition. We want to promote community and mutual wellbeing by being more mindful and inclusive.
 
 ###  Inclusive for Families
-- Designed for women living with children  
-- Game-based learning makes nutrition engaging for all ages  
+- Designed for women living with children .
+- Game-based learning makes nutrition engaging for all ages .
 
 ###  Encourages Healthy Food Relationships
-- Promotes curiosity and exploration  
-- Supports intuitive eating habits  
+- Promotes healthy, nutritionally balanced meals through visual engagement and exploration  
+- Supports intuitive eating habits. 
 
 ###  Supports Mental Wellbeing
 - Balances nourishment with emotional comfort  
