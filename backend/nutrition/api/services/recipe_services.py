@@ -76,8 +76,12 @@ def get_recipes(req: RecipeRequest) -> RecipeResponse:
                 instructions=r["instructions"],
                 macros=[MacroHighlight(**m) for m in r.get("macros", [])],
                 substitutions=r.get("substitutions", {}),
+                # assembly_steps=[
+                #     AssemblyStep(**s) for s in r.get("assembly_steps", [])
+                # ],
                 assembly_steps=[
-                    AssemblyStep(**s) for s in r.get("assembly_steps", [])
+                    AssemblyStep(**s) if isinstance(s, dict) else AssemblyStep(description=s)
+                    for s in r.get("assembly_steps", [])
                 ],
             )
         )
