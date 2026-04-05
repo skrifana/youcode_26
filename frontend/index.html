@@ -21,27 +21,27 @@
     </div>
     <div class="nav-logo">YouCode</div>
     <div class="nav-right">
-        <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
-            <option value="en">🌐 EN</option>
-            <option value="fr">🇫🇷 Français</option>
-            <option value="es">🇪🇸 Español</option>
-            <option value="zh">🇨🇳 中文</option>
-            <option value="ar">🇸🇦 العربية</option>
-            <option value="ja">🇯🇵 日本語</option>
-            <option value="ko">🇰🇷 한국어</option>
-            <option value="vi">🇻🇳 Tiếng Việt</option>
-            <option value="hi">🇮🇳 हिन्दी</option>
-            <option value="tl">🇵🇭 Tagalog</option>
-            <option value="pa">🇮🇳 ਪੰਜਾਬੀ</option>
-            <option value="fa">🇮🇷 فارسی</option>
-            <option value="so">🇸🇴 Soomaali</option>
-        </select>
+      <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
+        <option value="en">🌐 EN</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="zh">🇨🇳 中文</option>
+        <option value="ar">🇸🇦 العربية</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="vi">🇻🇳 Tiếng Việt</option>
+        <option value="hi">🇮🇳 हिन्दी</option>
+        <option value="tl">🇵🇭 Tagalog</option>
+        <option value="pa">🇮🇳 ਪੰਜਾਬੀ</option>
+        <option value="fa">🇮🇷 فارسی</option>
+        <option value="so">🇸🇴 Soomaali</option>
+      </select>
     </div>
   </nav>
 
   <div id="app">
 
-    <!-- Search screen -->
+    <!-- SCREEN 1: SEARCH -->
     <div class="screen active" id="screenSearch">
       <div class="search-hero">
         <h1 class="hero-title" data-i18n="hero_title">YouCode</h1>
@@ -64,153 +64,155 @@
 
     <!-- SCREEN 2: PREFS -->
     <div id="screenPrefs" class="screen">
-        <div class="prefs-hero">
-        <button class="back-btn" style="color:rgba(255,255,255,.8)" onclick="showScreen('screenSearch');setTimeout(()=>map&&map.invalidateSize(),100)">← Back to map</button>
+      <div class="prefs-hero">
+        <button class="back-btn" style="color:rgba(255,255,255,.8)" onclick="showScreen('screenSearch');setTimeout(()=>map&&map.invalidateSize(),100)" data-i18n="back_map">← Back to map</button>
         <h2 id="prefsShelterName">Build your <em>recipe</em></h2>
         <p id="prefsResidentText"></p>
         <div id="prefsPill"></div>
-        </div>
-        <div class="prefs-body">
+      </div>
+      <div class="prefs-body">
         <div class="pantry-col">
-            <h3><em>Pantry</em></h3>
-            <p class="sub">Add what's available — one ingredient works</p>
-            <div class="pantry-tags" id="pantry-tags"></div>
-            <div class="pantry-add">
-            <input id="pantry-input" type="text" placeholder="rice, eggs, lentils…">
-            <button class="btn-add" onclick="addPantryItem()">Add</button>
-            </div>
+          <h3><em data-i18n="pantry_title">Pantry</em></h3>
+          <p class="sub" data-i18n="pantry_sub">Add what's available — one ingredient works</p>
+          <div class="pantry-tags" id="pantry-tags"></div>
+          <div class="pantry-add">
+            <input id="pantry-input" type="text" data-i18n-placeholder="pantry_placeholder" placeholder="rice, eggs, lentils…">
+            <button class="btn-add" onclick="addPantryItem()" data-i18n="btn_add">Add</button>
+          </div>
         </div>
         <div class="prefs-col">
-            <div class="sec-label">Preferences</div>
-            <div class="form-field">
-            <label>Cuisine</label>
+          <div class="sec-label" data-i18n="prefs_label">Preferences</div>
+          <div class="form-field">
+            <label data-i18n="pref_cuisine">Cuisine</label>
             <select id="pref-cuisine">
-                <option value="">Any cuisine</option>
-                <option value="MiddleEast">Middle Eastern</option>
-                <option value="EastAsian">East Asian</option>
-                <option value="SouthAsian">South Asian</option>
-                <option value="SouthAmerican">South American / Mexican</option>
-                <option value="Basics">Simple &amp; quick</option>
+              <option value="" data-i18n="cuisine_any">Any cuisine</option>
+              <option value="MiddleEast" data-i18n="cuisine_me">Middle Eastern</option>
+              <option value="EastAsian" data-i18n="cuisine_ea">East Asian</option>
+              <option value="SouthAsian" data-i18n="cuisine_sa">South Asian</option>
+              <option value="SouthAmerican" data-i18n="cuisine_sam">South American / Mexican</option>
+              <option value="Basics" data-i18n="cuisine_basic">Simple &amp; quick</option>
             </select>
-            </div>
-            <div class="form-field">
-            <label>Kitchen access</label>
+          </div>
+          <div class="form-field">
+            <label data-i18n="pref_kitchen">Kitchen access</label>
             <select id="pref-kitchen">
-                <option value="full">Full kitchen — oven, stove, pantry</option>
-                <option value="partial">Partial — microwave / air fryer / kettle</option>
-                <option value="none">No heat source</option>
+              <option value="full" data-i18n="kitchen_full">Full kitchen — oven, stove, pantry</option>
+              <option value="partial" data-i18n="kitchen_partial">Partial — microwave / air fryer / kettle</option>
+              <option value="none" data-i18n="kitchen_none">No heat source</option>
             </select>
-            </div>
-            <div class="form-field">
-            <label>Serving size</label>
+          </div>
+          <div class="form-field">
+            <label data-i18n="pref_servings">Serving size</label>
             <select id="pref-servings">
-                <option value="1">Just me</option>
-                <option value="3" selected>2–4 people</option>
-                <option value="20">Bulk — many people</option>
+              <option value="1" data-i18n="servings_1">Just me</option>
+              <option value="3" selected data-i18n="servings_3">2–4 people</option>
+              <option value="20" data-i18n="servings_20">Bulk — many people</option>
             </select>
-            </div>
-            <div class="form-field">
-            <label>Dietary needs</label>
+          </div>
+          <div class="form-field">
+            <label data-i18n="pref_dietary">Dietary needs</label>
             <div class="chip-row" id="dietary-chips">
-                <label class="chip"><input type="checkbox" name="diet" value="halal"> Halal</label>
-                <label class="chip"><input type="checkbox" name="diet" value="vegetarian"> Vegetarian</label>
-                <label class="chip"><input type="checkbox" name="diet" value="vegan"> Vegan</label>
-                <label class="chip"><input type="checkbox" name="diet" value="gluten_free"> Gluten-free</label>
+              <label class="chip"><input type="checkbox" name="diet" value="halal"> <span data-i18n="diet_halal">Halal</span></label>
+              <label class="chip"><input type="checkbox" name="diet" value="vegetarian"> <span data-i18n="diet_veg">Vegetarian</span></label>
+              <label class="chip"><input type="checkbox" name="diet" value="vegan"> <span data-i18n="diet_vegan">Vegan</span></label>
+              <label class="chip"><input type="checkbox" name="diet" value="gluten_free"> <span data-i18n="diet_gf">Gluten-free</span></label>
             </div>
-            </div>
-            <div class="divider"></div>
-            <div class="form-field">
-            <label>Recipe mode</label>
+          </div>
+          <div class="divider"></div>
+          <div class="form-field">
+            <label data-i18n="pref_mode">Recipe mode</label>
             <div class="mode-row">
-                <label class="mode-card on" id="mcard-interactive">
+              <label class="mode-card on" id="mcard-interactive">
                 <input type="radio" name="mode" value="interactive" checked onchange="selectMode('interactive')">
-                <div class="mode-title">🧪 Assembly lab</div>
-                <div class="mode-desc">Step-by-step guided cooking</div>
-                </label>
-                <label class="mode-card" id="mcard-static">
+                <div class="mode-title" data-i18n="mode_lab_title">🧪 Assembly lab</div>
+                <div class="mode-desc" data-i18n="mode_lab_desc">Step-by-step guided cooking</div>
+              </label>
+              <label class="mode-card" id="mcard-static">
                 <input type="radio" name="mode" value="static" onchange="selectMode('static')">
-                <div class="mode-title">📋 Recipe card</div>
-                <div class="mode-desc">Full recipe + macro highlights</div>
-                </label>
+                <div class="mode-title" data-i18n="mode_card_title">📋 Recipe card</div>
+                <div class="mode-desc" data-i18n="mode_card_desc">Full recipe + macro highlights</div>
+              </label>
             </div>
-            </div>
-            <div id="error-toast" class="error-toast"></div>
-            <button class="btn-gen" id="btn-gen" onclick="submitPrefs()">
-            Generate my recipe
-            </button>
+          </div>
+          <div id="error-toast" class="error-toast"></div>
+          <button class="btn-gen" id="btn-gen" onclick="submitPrefs()">
+            <span data-i18n="btn_generate">Generate my recipe</span>
+          </button>
         </div>
-        </div>
+      </div>
     </div>
-    
+
     <!-- SCREEN 3: RECIPE GRID -->
     <div id="screenMain" class="screen">
-        <div class="main-container">
-        <button class="back-btn" onclick="showScreen('screenPrefs')">← Adjust preferences</button>
+      <div class="main-container">
+        <button class="back-btn" onclick="showScreen('screenPrefs')" data-i18n="back_prefs">← Adjust preferences</button>
         <div class="shelter-header">
-            <div>
+          <div>
             <h2 id="mainShelterName">Shelter</h2>
             <p data-i18n="custom_nutrition">Customised nutrition plan</p>
-            </div>
-            <div id="kitchenBadge" class="kitchen-badge"></div>
+          </div>
+          <div id="kitchenBadge" class="kitchen-badge"></div>
         </div>
         <div id="recipesGrid" class="recipes-grid"></div>
-        </div>
+      </div>
     </div>
-    
+
     <!-- SCREEN 4: INTERACTIVE LAB -->
     <div id="screenLab" class="screen">
-        <div id="game-wrap">
-        <button class="back-btn" onclick="showScreen('screenMain')">← Back to recipes</button>
+      <div id="game-wrap">
+        <button class="back-btn" onclick="showScreen('screenMain')" data-i18n="back_recipes">← Back to recipes</button>
         <div class="lab-header">
-            <h2 id="lab-title">Cooking <em>Lab</em></h2>
+          <h2 id="lab-title">Cooking <em>Lab</em></h2>
         </div>
         <div id="status-bar">
-            <span class="s-icon">👆</span>
-            <span id="status-text">Click a pantry item to start.</span>
+          <span class="s-icon">👆</span>
+          <span id="status-text" data-i18n="lab_status">Click a pantry item to start.</span>
         </div>
         <div id="game">
-            <div id="pantry-column">
-            <h2>Pantry</h2>
+          <div id="pantry-column">
+            <h2 data-i18n="lab_pantry">Pantry</h2>
             <div id="pantry"></div>
-            </div>
-            <div id="kitchen-grid">
+          </div>
+          <div id="kitchen-grid">
             <div class="kitchen-zone" id="board-area">
-                <h2>Cutting board</h2>
-                <div class="k-item" id="cutting-board">🔪</div>
-                <div class="k-label">cutting board</div>
+              <h2 data-i18n="kitchen_board">Cutting board</h2>
+              <div class="k-item" id="cutting-board">🔪</div>
+              <div class="k-label" data-i18n="kitchen_board_lbl">cutting board</div>
             </div>
             <div class="kitchen-zone" id="stovetop-area">
-                <h2>Stovetop</h2>
-                <div class="k-item" id="stovetop-pan">🍳</div>
-                <div class="k-label">pan</div>
-                <div class="k-item" style="margin-top:.5rem" id="stovetop-pot">🫕</div>
-                <div class="k-label">pot</div>
+              <h2 data-i18n="kitchen_stove">Stovetop</h2>
+              <div class="k-item" id="stovetop-pan">🍳</div>
+              <div class="k-label" data-i18n="kitchen_pan">pan</div>
+              <div class="k-item" style="margin-top:.5rem" id="stovetop-pot">🫕</div>
+              <div class="k-label" data-i18n="kitchen_pot">pot</div>
             </div>
             <div class="kitchen-zone" id="kettle-area">
-                <h2>Kettle</h2>
-                <div class="k-item" id="kettle">☕</div>
-                <div class="k-label">kettle</div>
+              <h2 data-i18n="kitchen_kettle">Kettle</h2>
+              <div class="k-item" id="kettle">☕</div>
+              <div class="k-label" data-i18n="kitchen_kettle_lbl">kettle</div>
             </div>
             <div class="kitchen-zone" id="microwave-area">
-                <h2>Microwave</h2>
-                <div class="k-item" id="microwave">📦</div>
-                <div class="k-label">microwave</div>
+              <h2 data-i18n="kitchen_micro">Microwave</h2>
+              <div class="k-item" id="microwave">📦</div>
+              <div class="k-label" data-i18n="kitchen_micro_lbl">microwave</div>
             </div>
             <div class="kitchen-zone" id="oven-area">
-                <h2>Oven</h2>
-                <div class="k-item" id="oven">🔥</div>
-                <div class="k-label">oven</div>
+              <h2 data-i18n="kitchen_oven">Oven</h2>
+              <div class="k-item" id="oven">🔥</div>
+              <div class="k-label" data-i18n="kitchen_oven_lbl">oven</div>
             </div>
             <div class="kitchen-zone">
-                <h2>Bowl / plate</h2>
-                <div class="k-item" id="bowl">🥣</div>
-                <div class="k-label">bowl</div>
+              <h2 data-i18n="kitchen_bowl">Bowl / plate</h2>
+              <div class="k-item" id="bowl">🥣</div>
+              <div class="k-label" data-i18n="kitchen_bowl_lbl">bowl</div>
             </div>
-            </div>
+          </div>
         </div>
-        <button class="btn-reset" onclick="resetLab()">↺ Reset</button>
+        <button class="btn-reset" onclick="resetLab()" data-i18n="btn_reset">↺ Reset</button>
+      </div>
+    </div>
 
-    <!-- Info screen -->
+    <!-- INFO PANEL -->
     <div class="panel" id="panelInfo">
       <div class="panel-header">
         <button class="back-link" onclick="hidePanel('info')">
@@ -221,21 +223,21 @@
       </div>
       <div class="panel-body">
         <div class="info-block">
-          <h3 data-i18n="info">What is YouCode?</h3>
-          <p data-i18n="info">YouCode is a compassionate tool designed to help women in transition shelters across British Columbia discover nourishing recipes tailored to their shelter's facilities.</p>
+          <h3 data-i18n="info_h1">What is YouCode?</h3>
+          <p data-i18n="info_p1">YouCode is a compassionate tool designed to help women in transition shelters across British Columbia discover nourishing recipes tailored to their shelter's facilities.</p>
         </div>
         <div class="info-block">
-          <h3 data-i18n="info">How it works</h3>
-          <p data-i18n="info">Search for your shelter by name or city. Based on whether your shelter has a shared kitchen, we suggest recipes you can realistically make — full meals if you have a kitchen, or simple no-cook options if you don't.</p>
+          <h3 data-i18n="info_h2">How it works</h3>
+          <p data-i18n="info_p2">Search for your shelter by name or city. Based on whether your shelter has a shared kitchen, we suggest recipes you can realistically make — full meals if you have a kitchen, or simple no-cook options if you don't.</p>
         </div>
         <div class="info-block">
-          <h3 data-i18n="info">Our mission</h3>
-          <p data-i18n="info">Good food is dignity. We believe every woman in a shelter deserves access to simple, culturally-aware, and nutritious meal ideas regardless of their circumstances.</p>
+          <h3 data-i18n="info_h3">Our mission</h3>
+          <p data-i18n="info_p3">Good food is dignity. We believe every woman in a shelter deserves access to simple, culturally-aware, and nutritious meal ideas regardless of their circumstances.</p>
         </div>
       </div>
     </div>
 
-    <!-- Resources screen -->
+    <!-- RESOURCES PANEL -->
     <div class="panel" id="panelResources">
       <div class="panel-header">
         <button class="back-link" onclick="hidePanel('resources')">
@@ -283,7 +285,7 @@
       </div>
     </div>
 
-  </div>
+  </div><!-- end #app -->
 
   <script src="shelters.js"></script>
   <script src="script.js"></script>

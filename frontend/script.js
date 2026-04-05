@@ -8,6 +8,7 @@ const TRANSLATIONS = {
     nav_info: 'Info', nav_resources: 'Resources', back: 'Back',
     hero_sub: 'Find nourishing recipes for your shelter',
     search_placeholder: 'Search by shelter name or city…', search_btn: 'Find',
+    back_map: '← Back to map',
     drop_kitchen: '🍳 Kitchen', drop_no_kitchen: 'No Kitchen',
     badge_kitchen: '🍳 Kitchen Available', badge_no_kitchen: '🚫 No Kitchen',
     pantry_title: 'Pantry',
@@ -63,6 +64,7 @@ const TRANSLATIONS = {
     res3_title: 'BC Housing',           res3_desc: 'Transitional housing support: bchousing.org',
     res4_title: 'VictimLinkBC',         res4_desc: 'Immediate assistance: 1-800-563-0808',
     res5_title: 'HealthLink BC Dietitian', res5_desc: 'Free nutrition advice: 8-1-1',
+    build_recipe: 'build your recipe',
   }
 };
 
@@ -89,17 +91,24 @@ async function googleTranslate(texts, targetCode) {
   }));
 }
 
-function applyTranslations(tMap) {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (tMap[key] !== undefined) el.textContent = tMap[key];
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.getAttribute('data-i18n-placeholder');
-    if (tMap[key] !== undefined) el.setAttribute('placeholder', tMap[key]);
-  });
-  if (selectedShelter) updateKitchenBadge(tMap);
-}
+function applyTranslations(tMap) {  
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (tMap[key] !== undefined) el.textContent = tMap[key];
+    });
+  
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (tMap[key] !== undefined) el.setAttribute('placeholder', tMap[key]);
+    });
+  
+    document.querySelectorAll('option[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (tMap[key] !== undefined) el.textContent = tMap[key];
+    });
+  
+    if (selectedShelter) updateKitchenBadge(tMap);
+  }
 
 function updateKitchenBadge(tMap) {
   const badge = document.getElementById('kitchenBadge');
@@ -303,7 +312,7 @@ function selectShelter(shelter) {
 
   // Update prefs hero
   document.getElementById('prefsShelterName').innerHTML =
-    `${shelter.name} — <em>${t('pantry_title') !== 'Pantry' ? '' : ''}build your recipe</em>`;
+    `${shelter.name} — <em>${t('build_recipe')}</em>`;
   document.getElementById('prefsResidentText').textContent = '';
   document.getElementById('prefsPill').innerHTML =
     `<span class="shelter-meta-pill">📍 ${shelter.city}</span>`;
