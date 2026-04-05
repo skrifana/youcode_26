@@ -21,15 +21,8 @@ We provide an **interactive, accessible digital experience** that transforms nut
 ##  The Solution
 
 NourishHer is a **low-barrier, intuitive web platform** designed specifically for shelter environments, where access, time, and privacy are limited. We want this to go far behind a nutritional tool to a holistic well-being tool. 
-At its core, the tool enables users to:
-
-Generate nutritious, filling, and cost-efficient recipes based on realistic constraints such as limited ingredients, shared kitchens, and tight budgets.
-Explore an interactive virtual kitchen that makes learning about food engaging, visual, and approachable.
-Understand macronutrients in a simple, meaningful way. 
-Reduce decision fatigue and help women gain more self-control and reclaim their identity.
 
 
----
 
 ##  Core Features
 
@@ -146,7 +139,7 @@ NourishHer follows a **lightweight, modular client-server architecture** optimiz
 
 ##  Extended Impact
 
-NourishHer goes beyond individual nutrition—it supports families and communities.
+NourishHer goes beyond individual nutrition, by promoting community and mutual wellbeing.
 
 ###  Inclusive for Families
 - Designed for women living with children  
@@ -168,7 +161,7 @@ NourishHer goes beyond individual nutrition—it supports families and communiti
 
 ##  Vision
 
-NourishHer is more than a tool—it is a step toward restoring **dignity, autonomy, and wellbeing** in environments where these are often compromised.
+NourishHer is more than a mere recipe generation tool—it is a step toward restoring **dignity, autonomy, and wellbeing** in environments where these are often compromised.
 
 By meeting women where they are, we empower them to take small, meaningful steps toward a healthier and more confident future.
 
@@ -185,9 +178,8 @@ By meeting women where they are, we empower them to take small, meaningful steps
 
 ##  Why It Matters
 
-Access to nutrition is not just about food—it’s about **equity, dignity, and empowerment**.
+Access to nutrition is not just about food—it’s about **equity, dignity, and empowerment**. NourishHer ensures that women in shelters regain their sense of agency and live their best, noursihed selves. 
 
-NourishHer ensures women in shelters are not just surviving, but **thriving**.
 
 
 
