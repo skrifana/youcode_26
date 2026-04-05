@@ -1670,6 +1670,7 @@ function showError(msg){
 async function submitPrefs(){
   const pantry=getPantry();
   applyKitchenAccessRules();
+  drawKitchen();
   if(!selectedShelter){alert('Please select a shelter first.');showScreen('screenSearch');return}
   if(!pantry.length){showError('Please add at least one pantry ingredient.');return}
 
@@ -1961,31 +1962,53 @@ document.addEventListener('DOMContentLoaded',()=>{
   initMap();applyTranslations();
   document.getElementById('pantry-input').addEventListener('keydown',e=>{if(e.key==='Enter')addPantryItem()});
 });
-
+const kitchenSprites = {
+  cuttingBoard: { src: '/static/sprites/board_icon.png', isAvailable: false },
+  stovePan: { src: '/static/sprites/pan_icon.png', isAvailable: false },
+  stovePot: { src: '/static/sprites/pot_icon.png', isAvailable: false },
+  microwave: { src: '/static/sprites/microwave_icon.png', isAvailable: false },
+  kettle: { src: '/static/sprites/kettle_icon.png', isAvailable: false }
+};
 function applyKitchenAccessRules() {
-  // 1. Get the selected kitchen access mode
   const kitchenMode = document.getElementById('pref-kitchen').value;
 
-  // 2. Target your specific kitchen equipment elements
-  const cuttingBoard = document.getElementById('cutting-board');
-  const stovePan = document.getElementById('stovetop-pan');
-  const stovePot = document.getElementById('stovetop-pot');
-
-  // 3. Enforce the "Full kitchen" rule
+  // Enforce "Full kitchen" rule
   if (kitchenMode === 'full') {
-    // Ensure they are fully accessible by removing the locked class
-    cuttingBoard.classList.remove('locked-kitchen');
-    stovePan.classList.remove('locked-kitchen');
-    stovePot.classList.remove('locked-kitchen');
-  } else {
-    // Optional: Add logic here for what gets locked during 'partial' or 'none'
-    // stovePan.classList.add('locked-kitchen');
-    // stovePot.classList.add('locked-kitchen');
+    kitchenSprites.cuttingBoard.isAvailable = true;
+    kitchenSprites.stovePan.isAvailable = true;
+    kitchenSprites.stovePot.isAvailable = true;
+    kitchenSprites.microwave.isAvailable = true;
+    kitchenSprites.kettle.isAvailable = true;
+  }
+  else if (kitchenMode === 'partial') {
+    kitchenSprites.cuttingBoard.isAvailable = true;
+    kitchenSprites.microwave.isAvailable = true;
+    kitchenSprites.kettle.isAvailable = true;
+    // Stove items remain locked
+    kitchenSprites.stovePan.isAvailable = false;
+    kitchenSprites.stovePot.isAvailable = false;
+  }
+  else if (kitchenMode === 'none') {
+    // Only basic prep allowed
+    kitchenSprites.cuttingBoard.isAvailable = true;
+    kitchenSprites.stovePan.isAvailable = false;
+    kitchenSprites.stovePot.isAvailable = false;
+    kitchenSprites.microwave.isAvailable = false;
+    kitchenSprites.kettle.isAvailable = false;
   }
 }
 
-// Make sure to call this function right before you transition to the lab screen
-// or whenever the user clicks "Generate my recipe" (your submitPrefs() function).
+// 3. Inside your render function or game loop, check the state:
+function drawKitchen() {
+  Object.values(kitchenSprites).forEach(sprite => {
+    if (sprite.isAvailable) {
+      // Draw normally (e.g., ctx.globalAlpha = 1.0)
+    } else {
+      // Draw as locked (e.g., ctx.globalAlpha = 0.35 or skip drawing)
+    }
+  });
+}
+
 
 
 </script>
