@@ -13,7 +13,7 @@
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- Navigation bar -->
   <nav class="top-nav" id="topNav">
     <div class="nav-left">
       <button class="nav-btn" onclick="showPanel('info')" data-i18n="nav_info">Info</button>
@@ -41,7 +41,7 @@
 
   <div id="app">
 
-    <!-- ===== SEARCH SCREEN ===== -->
+    <!-- Search screen -->
     <div class="screen active" id="screenSearch">
       <div class="search-hero">
         <h1 class="hero-title" data-i18n="hero_title">YouCode</h1>
@@ -62,7 +62,7 @@
       <div id="map"></div>
     </div>
 
-    <!-- ===== MAIN SCREEN ===== -->
+    <!-- Main screen -->
     <div class="screen" id="screenMain">
       <div class="main-header">
         <button class="back-link" onclick="goBack('screenSearch')">
@@ -77,7 +77,7 @@
       <div id="recipesGrid" class="recipes-grid"></div>
     </div>
 
-    <!-- ===== INFO PANEL ===== -->
+    <!-- Info screen -->
     <div class="panel" id="panelInfo">
       <div class="panel-header">
         <button class="back-link" onclick="hidePanel('info')">
@@ -102,7 +102,7 @@
       </div>
     </div>
 
-    <!-- ===== RESOURCES PANEL ===== -->
+    <!-- Resources screen -->
     <div class="panel" id="panelResources">
       <div class="panel-header">
         <button class="back-link" onclick="hidePanel('resources')">
@@ -150,7 +150,7 @@
       </div>
     </div>
 
-  </div><!-- #app -->
+  </div>
 
   <script src="shelters.js"></script>
   <script src="script.js"></script>

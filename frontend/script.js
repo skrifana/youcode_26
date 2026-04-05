@@ -1,15 +1,9 @@
-/* ====================================================
-   YouCode — main script
-   ==================================================== */
 const API = "http://localhost:8000";
-// ── State ──────────────────────────────────────────
 let selectedShelter = null;
 let currentLang = 'en';
 let previousScreen = 'screenSearch';
 let map, markersLayer;
 
-// ── Translations ───────────────────────────────────
-// ── Translations ───────────────────────────────────
 const TRANSLATIONS = {
     en: {
       nav_info: 'Info', nav_resources: 'Resources', back: 'Back',
@@ -38,8 +32,6 @@ const TRANSLATIONS = {
     }
   };
 
-// ── Language config ─────────────────────────────────
-// Maps app lang code → Google Translate lang code
 const LANG_CODES = {
   fr: 'fr', es: 'es', zh: 'zh-CN', ar: 'ar',
   ja: 'ja', ko: 'ko', vi: 'vi', hi: 'hi',
@@ -48,7 +40,6 @@ const LANG_CODES = {
 
 const translationCache = { en: TRANSLATIONS.en };
 
-// ── Google Translate (unofficial, free, no key needed) ──
 async function googleTranslate(texts, targetCode) {
     const results = await Promise.all(
       texts.map(async text => {
@@ -62,7 +53,6 @@ async function googleTranslate(texts, targetCode) {
     return results;
   }
 
-// ── applyTranslations ──────────────────────────────
 function applyTranslations(t) {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
@@ -72,7 +62,6 @@ function applyTranslations(t) {
     const key = el.getAttribute('data-i18n-placeholder');
     if (t[key] !== undefined) el.setAttribute('placeholder', t[key]);
   });
-  // Only update the badge text, don't reload recipes
   if (selectedShelter) updateKitchenBadge(t);
 }
 
@@ -88,7 +77,6 @@ function updateKitchenBadge(t) {
   }
 }
 
-// ── changeLanguage ──────────────────────────────────
 async function changeLanguage(lang) {
   currentLang = lang;
 
@@ -106,10 +94,8 @@ async function changeLanguage(lang) {
   const entries = Object.entries(TRANSLATIONS.en);
   const values = entries.map(([, v]) => v);
 
-  // Keys that are purely numeric/emoji/URLs — skip translation
   const SKIP_REGEX = /^[\d\s\-:/.🍳🚫📞🆘🥗🏠🍎]+$/;
 
-  // Split into translatable vs skip
   const toTranslate = [];
   const toTranslateIdx = [];
   values.forEach((v, i) => {
@@ -117,7 +103,7 @@ async function changeLanguage(lang) {
   });
 
   try {
-    const translated = [...values]; // start with originals
+    const translated = [...values]; 
     const results = await googleTranslate(toTranslate, targetCode);
     toTranslateIdx.forEach((origIdx, i) => {
       translated[origIdx] = results[i] ?? values[origIdx];
@@ -143,7 +129,6 @@ async function changeLanguage(lang) {
     return names[code] || 'English';
   }
 
-// ── Map ─────────────────────────────────────────────
 function initMap() {
   map = L.map('map', { zoomControl: true });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -152,7 +137,6 @@ function initMap() {
   }).addTo(map);
   markersLayer = L.layerGroup().addTo(map);
 
-  // Default view: BC
   map.setView([53.7, -127.6], 5);
 
   if (navigator.geolocation) {
@@ -191,7 +175,6 @@ async function updateNearbyDropdown() {
     else closeDropdown();
   }
 
-// ── Search ──────────────────────────────────────────
 async function translateToEnglish(text) {
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(text)}`;
     const res = await fetch(url);
@@ -212,7 +195,6 @@ async function onSearchInput() {
     const q = document.getElementById('searchInput').value.trim();
     if (!q) { updateNearbyDropdown(); return; }
   
-    // Translate query to English for matching
     const qEn = currentLang === 'en' ? q.toLowerCase() : (await translateToEnglish(q)).toLowerCase();
   
     const results = SHELTERS.filter(s =>
@@ -250,7 +232,6 @@ async function doSearch() {
     const t = translationCache[currentLang] || TRANSLATIONS.en;
     const targetCode = LANG_CODES[currentLang];
   
-    // Translate shelter names and cities if not English
     const translated = await Promise.all(
       items.map(async s => {
         if (!targetCode) return { name: s.name, city: s.city };
@@ -286,13 +267,11 @@ document.addEventListener('click', e => {
   if (!e.target.closest('.search-wrap')) closeDropdown();
 });
 
-// ── Shelter Selection ───────────────────────────────
 function selectShelter(shelter) {
   selectedShelter = shelter;
   closeDropdown();
   document.getElementById('searchInput').value = shelter.name;
 
-  // Fly to marker if has coords
   if (shelter.lat && shelter.lng) {
     map.flyTo([shelter.lat, shelter.lng], 13, { duration: 1 });
   }
@@ -302,7 +281,6 @@ function selectShelter(shelter) {
 
 }
 
-// ── Main Screen ─────────────────────────────────────
 function buildMainScreen() {
     const t = translationCache[currentLang] || TRANSLATIONS.en;
     document.getElementById('mainShelterName').textContent = selectedShelter.name;
@@ -314,17 +292,15 @@ async function loadRecipes() {
   const grid = document.getElementById('recipesGrid');
   const t = translationCache[currentLang] || TRANSLATIONS.en;
 
-  // Show loading state
   grid.innerHTML = `
     <div class="recipe-loading">
       <div class="spinner"></div>
       <p>${t.loading_recipes || 'Finding recipes for you…'}</p>
     </div>`;
 
-  // Map your JS data to your FastAPI Pydantic Model
   const requestBody = {
     shelter_id: selectedShelter.id,
-    ingredients: ["rice", "beans", "canned tomatoes", "onions"], // Update this from a UI input later!
+    ingredients: ["rice", "beans", "canned tomatoes", "onions"],
     cuisine: "Basics",
     servings: 4,
     kitchen_access: selectedShelter.hasKitchen ? "full" : "none",
@@ -333,7 +309,6 @@ async function loadRecipes() {
   };
 
   try {
-    // 1. Call YOUR backend instead of Anthropic directly
     const res = await fetch(`${API}/recommend`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -344,8 +319,6 @@ async function loadRecipes() {
 
     const data = await res.json();
 
-    // 2. Map your backend's RecipeResponse to your UI
-    // Assuming your backend returns { recipes: [...] }
     renderRecipes(data.recipes);
 
   } catch (e) {
@@ -408,7 +381,6 @@ function closeModal() {
   if (window.__modal) { window.__modal.remove(); window.__modal = null; }
 }
 
-// ── Screen Navigation ───────────────────────────────
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const el = document.getElementById(id);
@@ -419,12 +391,10 @@ function showScreen(id) {
 function goBack(target) {
   showScreen(target);
   if (target === 'screenSearch') {
-    // Re-init map size after show
     setTimeout(() => map && map.invalidateSize(), 100);
   }
 }
 
-// ── Panel Navigation ────────────────────────────────
 function showPanel(name) {
   document.getElementById('panelInfo').classList.remove('open');
   document.getElementById('panelResources').classList.remove('open');
@@ -435,7 +405,6 @@ function hidePanel(name) {
   document.getElementById(`panel${name.charAt(0).toUpperCase() + name.slice(1)}`).classList.remove('open');
 }
 
-// ── Init ────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   showScreen('screenSearch');
   initMap();
