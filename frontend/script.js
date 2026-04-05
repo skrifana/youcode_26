@@ -43,14 +43,20 @@ async function changeLanguage(lang) {
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'x-api-key': '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',       
+        'anthropic-version': '2023-06-01',        
+        'anthropic-dangerous-direct-browser-access': 'true' 
+       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-5',
         max_tokens: 1000,
         messages: [{ role: 'user', content: prompt }]
       })
     });
     const data = await res.json();
+    console.log('Translation API response:', data);  // ← add this
     const text = data.content.map(b => b.text || '').join('');
     const clean = text.replace(/```json|```/g, '').trim();
     const translated = JSON.parse(clean);
@@ -291,18 +297,39 @@ async function loadRecipes() {
     // 1. Call YOUR backend instead of Anthropic directly
     const res = await fetch(`${API}/recommend`, {
       method: 'POST',
+<<<<<<< HEAD
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestBody)
+=======
+      headers: { 
+        'Content-Type': 'application/json',
+        'x-api-key': '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',        
+        'anthropic-version': '2023-06-01',      
+        'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-5',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+>>>>>>> 344ac10 (update)
     });
 
     if (!res.ok) throw new Error('Backend server error');
 
     const data = await res.json();
+<<<<<<< HEAD
 
     // 2. Map your backend's RecipeResponse to your UI
     // Assuming your backend returns { recipes: [...] }
     renderRecipes(data.recipes);
 
+=======
+    console.log('Translation API response:', data);  // ← add this
+    const text = data.content.map(b => b.text || '').join('');
+    const clean = text.replace(/```json|```/g, '').trim();
+    const recipes = JSON.parse(clean);
+    renderRecipes(recipes);
+>>>>>>> 344ac10 (update)
   } catch (e) {
     grid.innerHTML = `
       <div class="recipe-loading">
