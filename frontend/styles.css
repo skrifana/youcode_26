@@ -5,13 +5,12 @@
   }
   
   :root {
-    --black: #0d0d0d;
-    --white: #fafaf8;
-    --yellow: #f5e642;
-    --yellow-dim: #f5e64288;
-    --grey: #e8e7e2;
-    --mid: #9c9b94;
-    --border: #d6d5cf;
+    --nav-bar: #92487A;
+    --background: #FFD3D5;
+    --button: #540863;
+    --text1: #FFFFFF;
+    --text2: #3C2A21;
+    --subtext: #715A5A;
     --green: #2e7a4f;
     --green-light: #d6f0e2;
     --red: #c0392b;
@@ -23,8 +22,8 @@
   
   body {
     font-family: 'DM Sans', sans-serif;
-    background: var(--white);
-    color: var(--black);
+    background: var(--background);
+    color: var(--text1);
     min-height: 100vh;
     overflow-x: hidden;
   }
@@ -38,7 +37,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    background: var(--white);
+    background: var(--nav-bar);
     border-bottom: 1.5px solid var(--border);
   }
   
@@ -48,7 +47,7 @@
     font-size: 22px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--black);
+    color: var(--text1);
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -62,10 +61,9 @@
     font-size: 12px;
     letter-spacing: 0.8px;
     text-transform: uppercase;
-    color: var(--black);
+    color: var(--text1);
     background: transparent;
-    border: 1.5px solid var(--border);
-    border-radius: 50px;
+    border: none;
     padding: 7px 16px;
     cursor: pointer;
     transition: all 0.15s;
@@ -74,6 +72,7 @@
     background: var(--black);
     color: var(--yellow);
     border-color: var(--black);
+    text-decoration: underline;
   }
   
   .lang-select {
@@ -81,7 +80,7 @@
     font-weight: 600;
     font-size: 12px;
     color: var(--black);
-    background: var(--white);
+    background: var(--nav-bar);
     border: 1.5px solid var(--border);
     border-radius: 50px;
     padding: 7px 14px;
@@ -91,7 +90,10 @@
     -webkit-appearance: none;
     transition: all 0.15s;
   }
-  .lang-select:hover { background: var(--black); color: var(--white); }
+  .lang-select:hover { 
+    background: var(--black); 
+    color: var(--text2); 
+}
 
   #app {
     padding-top: var(--nav-h);
@@ -124,7 +126,7 @@
   .hero-title {
     font-family: 'Syne', sans-serif;
     font-weight: 800;
-    font-size: 200;
+    font-size: 300;
     letter-spacing: 6px;
     text-transform: uppercase;
     line-height: 1;
@@ -154,7 +156,7 @@
   .search-input {
     flex: 1;
     background: var(--white);
-    border: 1.5px solid var(--border);
+    border: 1.5px solid var(--text1);
     border-radius: 50px;
     padding: 14px 22px;
     font-family: 'DM Sans', sans-serif;
@@ -163,14 +165,14 @@
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .search-input::placeholder { color: var(--mid); }
+  .search-input::placeholder { color: var(--subtext); }
   .search-input:focus {
-    border-color: var(--black);
-    box-shadow: 0 0 0 3px var(--yellow);
+    border-color: var(--text1);
+    box-shadow: 0 0 0 3px var(--subtext);
   }
   
   .search-btn {
-    background: var(--yellow);
+    background: var(--nav-bar);
     border: none;
     border-radius: 50px;
     padding: 14px 28px;
@@ -185,7 +187,7 @@
     white-space: nowrap;
   }
   .search-btn:hover {
-    box-shadow: 0 4px 20px var(--yellow-dim);
+    box-shadow: 0 4px 20px var(--button);
     transform: translateY(-1px);
   }
   
@@ -193,7 +195,7 @@
     position: absolute;
     top: calc(100% + 8px);
     left: 0; right: 0;
-    background: var(--white);
+    background: var(--background);
     border: 1.5px solid var(--border);
     border-radius: 16px;
     overflow: hidden;
@@ -203,7 +205,10 @@
     max-height: 300px;
     overflow-y: auto;
   }
-  .dropdown.open { display: block; }
+  .dropdown.open { 
+    display: block;
+    background: var(--background);
+}
   
   .drop-item {
     padding: 11px 20px;
@@ -214,6 +219,8 @@
     gap: 8px;
     border-bottom: 1px solid var(--grey);
     transition: background 0.12s;
+    background: var(--background);
+    color: var(--text2);
   }
   .drop-item:last-child { border-bottom: none; }
   .drop-item:hover { background: var(--grey); }
@@ -264,7 +271,10 @@
     margin-bottom: 14px;
     transition: color 0.15s;
   }
-  .back-link:hover { color: var(--black); }
+  .back-link:hover { 
+    color: var(--black); 
+    text-decoration: underline;
+}
   
   .shelter-info {
     display: flex;
@@ -431,7 +441,6 @@
     margin-top: 1px;
   }
   
-  /* Loading spinner for AI recipes */
   .recipe-loading {
     grid-column: 1 / -1;
     display: flex;
@@ -455,11 +464,12 @@
     position: fixed;
     inset: 0;
     top: var(--nav-h);
-    background: var(--white);
+    background: var(--background);
     z-index: 150;
     flex-direction: column;
     animation: fadeUp 0.3s ease forwards;
     overflow-y: auto;
+    color: var(--text2);
   }
   .panel.open { display: flex; }
   
@@ -471,7 +481,7 @@
     border-bottom: 1.5px solid var(--border);
     position: sticky;
     top: 0;
-    background: var(--white);
+    background: var(--background);
     z-index: 10;
     position: relative;
     justify-content: center;
@@ -498,17 +508,19 @@
   
   .about-block {
     margin-bottom: 28px;
+    color: var(--text2);
   }
   .about-block h3 {
     font-family: 'Syne', sans-serif;
     font-weight: 700;
     font-size: 16px;
     margin-bottom: 8px;
+    color: var(--text2);
   }
   .about-block p {
     font-size: 15px;
     line-height: 1.7;
-    color: #444;
+    color: var(--text2)
   }
   
   .resource-card {
@@ -519,10 +531,26 @@
     border-bottom: 1.5px solid var(--border);
   }
   .resource-card:last-child { border-bottom: none; }
-  .rc-icon { font-size: 28px; flex-shrink: 0; }
-  .resource-card strong { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; display: block; margin-bottom: 4px; }
-  .resource-card p { font-size: 14px; color: #444; }
-  .resource-card a { color: var(--black); font-weight: 500; }
+  .rc-icon { 
+    font-size: 28px; 
+    flex-shrink: 0; 
+}
+  .resource-card strong { 
+    font-family: 'Syne', sans-serif; 
+    font-weight: 700; 
+    font-size: 15px; 
+    display: block; 
+    margin-bottom: 4px; 
+    color: var(--text2);
+}
+  .resource-card p { 
+    font-size: 14px; 
+    color: #444; 
+}
+  .resource-card a { 
+    color: var(--black); 
+    font-weight: 500; 
+}
   
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
