@@ -1,83 +1,134 @@
-/* ====================================================
-   YouCode — main script
-   ==================================================== */
 const API = "http://localhost:8000";
-// ── State ──────────────────────────────────────────
 let selectedShelter = null;
 let currentLang = 'en';
 let previousScreen = 'screenSearch';
 let map, markersLayer;
 
-// ── Translations ───────────────────────────────────
 const TRANSLATIONS = {
-  en: {
-    nav_about: 'About', nav_resources: 'Resources', back: 'Back',
-    hero_title: 'YouCode', hero_sub: 'Find nourishing recipes for your shelter',
-    search_placeholder: 'Search by shelter name or city…', search_btn: 'Find',
-    kitchen_yes: '🍳 Shared Kitchen Available', kitchen_no: '🚫 No Shared Kitchen',
-    about_h1: 'What is YouCode?', about_p1: 'YouCode is a compassionate tool designed to help women in transition shelters across British Columbia discover nourishing recipes tailored to their shelter\'s facilities.',
-    about_h2: 'How it works', about_p2: 'Search for your shelter by name or city. Based on whether your shelter has a shared kitchen, we suggest recipes you can realistically make — full meals if you have a kitchen, or simple no-cook options if you don\'t.',
-    about_h3: 'Our mission', about_p3: 'Good food is dignity. We believe every woman in a shelter deserves access to simple, culturally-aware, and nutritious meal ideas regardless of their circumstances.',
-    res1_title: 'BC Crisis Line', res1_desc: '24/7 support: 1-800-784-2433',
-    res2_title: 'Food Banks BC', res2_desc: 'Find your nearest food bank: foodbanksbc.com',
-    res3_title: 'BC Housing', res3_desc: 'Transitional housing support: bchousing.org',
-    res4_title: 'VictimLinkBC', res4_desc: 'Immediate assistance: 1-800-563-0808',
-    res5_title: 'HealthLink BC Dietitian', res5_desc: 'Free nutrition advice: 8-1-1',
-    loading_recipes: 'Finding recipes for you…',
-    badge_kitchen: '🍳 Kitchen Available', badge_no_kitchen: '🚫 No Kitchen',
-    drop_kitchen: '🍳 Kitchen', drop_no_kitchen: 'No Kitchen',
-  }
+    en: {
+      nav_info: 'Info', nav_resources: 'Resources', back: 'Back',
+      hero_sub: 'Find nourishing recipes for your shelter',
+      search_placeholder: 'Search by shelter name or city…', search_btn: 'Find',
+      kitchen_yes: '🍳 Shared Kitchen Available', kitchen_no: '🚫 No Shared Kitchen',
+      info_h1: 'What is YouCode?',
+      info_p1: 'YouCode is a compassionate tool designed to help women in transition shelters across British Columbia discover nourishing recipes tailored to their shelter\'s facilities.',
+      info_h2: 'How it works',
+      info_p2: 'Search for your shelter by name or city. Based on whether your shelter has a shared kitchen, we suggest recipes you can realistically make — full meals if you have a kitchen, or simple no-cook options if you don\'t.',
+      info_h3: 'Our mission',
+      info_p3: 'Good food is dignity. We believe every woman in a shelter deserves access to simple, culturally-aware, and nutritious meal ideas regardless of their circumstances.',
+      res1_title: 'BC Crisis Line', res1_desc: '24/7 support: 1-800-784-2433',
+      res2_title: 'Food Banks BC', res2_desc: 'Find your nearest food bank: foodbanksbc.com',
+      res3_title: 'BC Housing', res3_desc: 'Transitional housing support: bchousing.org',
+      res4_title: 'VictimLinkBC', res4_desc: 'Immediate assistance: 1-800-563-0808',
+      res5_title: 'HealthLink BC Dietitian', res5_desc: 'Free nutrition advice: 8-1-1',
+      loading_recipes: 'Finding recipes for you…',
+      badge_kitchen: '🍳 Kitchen Available', badge_no_kitchen: '🚫 No Kitchen',
+      drop_kitchen: '🍳 Kitchen', drop_no_kitchen: 'No Kitchen',
+      modal_servings: 'servings',
+      modal_ingredients: 'Ingredients',
+      modal_steps: 'Steps',
+      recipe_error: 'Could not load recipes. Please try again.',
+      nearby_label: 'Nearby shelters',
+    }
+  };
+
+const LANG_CODES = {
+  fr: 'fr', es: 'es', zh: 'zh-CN', ar: 'ar',
+  ja: 'ja', ko: 'ko', vi: 'vi', hi: 'hi',
+  tl: 'tl', pa: 'pa', fa: 'fa', so: 'so',
 };
 
-// ── i18n via Claude API ─────────────────────────────
 const translationCache = { en: TRANSLATIONS.en };
+
+async function googleTranslate(texts, targetCode) {
+    const results = await Promise.all(
+      texts.map(async text => {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetCode}&dt=t&q=${encodeURIComponent(text)}`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`Google Translate HTTP ${res.status}`);
+        const data = await res.json();
+        return data[0].map(chunk => chunk[0]).join('');
+      })
+    );
+    return results;
+  }
+
+function applyTranslations(t) {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.setAttribute('placeholder', t[key]);
+  });
+  if (selectedShelter) updateKitchenBadge(t);
+}
+
+function updateKitchenBadge(t) {
+  const badge = document.getElementById('kitchenBadge');
+  if (!badge) return;
+  if (selectedShelter.hasKitchen) {
+    badge.textContent = t.badge_kitchen || '🍳 Kitchen Available';
+    badge.className = 'kitchen-badge has';
+  } else {
+    badge.textContent = t.badge_no_kitchen || '🚫 No Kitchen';
+    badge.className = 'kitchen-badge no';
+  }
+}
 
 async function changeLanguage(lang) {
   currentLang = lang;
+
+  if (lang === 'en' || !LANG_CODES[lang]) {
+    applyTranslations(TRANSLATIONS.en);
+    return;
+  }
+
   if (translationCache[lang]) {
     applyTranslations(translationCache[lang]);
     return;
   }
-  const keys = TRANSLATIONS.en;
-  const prompt = `Translate the following JSON values into ${getLangName(lang)}. Return ONLY valid JSON with the same keys, no markdown, no extra text.\n${JSON.stringify(keys, null, 2)}`;
+
+  const targetCode = LANG_CODES[lang];
+  const entries = Object.entries(TRANSLATIONS.en);
+  const values = entries.map(([, v]) => v);
+
+  const SKIP_REGEX = /^[\d\s\-:/.🍳🚫📞🆘🥗🏠🍎]+$/;
+
+  const toTranslate = [];
+  const toTranslateIdx = [];
+  values.forEach((v, i) => {
+    if (!SKIP_REGEX.test(v)) { toTranslate.push(v); toTranslateIdx.push(i); }
+  });
+
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
+    const translated = [...values]; 
+    const results = await googleTranslate(toTranslate, targetCode);
+    toTranslateIdx.forEach((origIdx, i) => {
+      translated[origIdx] = results[i] ?? values[origIdx];
     });
-    const data = await res.json();
-    const text = data.content.map(b => b.text || '').join('');
-    const clean = text.replace(/```json|```/g, '').trim();
-    const translated = JSON.parse(clean);
-    translationCache[lang] = translated;
-    applyTranslations(translated);
+
+    const translatedMap = {};
+    entries.forEach(([key], i) => { translatedMap[key] = translated[i]; });
+
+    translationCache[lang] = translatedMap;
+    applyTranslations(translatedMap);
   } catch (e) {
-    console.warn('Translation failed, using English', e);
+    console.warn('Translation failed, falling back to English:', e);
     applyTranslations(TRANSLATIONS.en);
   }
 }
+   
+  function getLangName(code) {
+    const names = {
+      en: 'English', fr: 'French', es: 'Spanish', zh: 'Simplified Chinese',
+      ar: 'Arabic', ja: 'Japanese', ko: 'Korean', vi: 'Vietnamese', hi: 'Hindi', 
+      tl: 'Tagalog', pa: 'Punjabi', fa: 'Farsi', so: 'Somali',
+    };
+    return names[code] || 'English';
+  }
 
-function getLangName(code) {
-  return { fr: 'French', es: 'Spanish', zh: 'Simplified Chinese' }[code] || 'English';
-}
-
-function applyTranslations(t) {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.dataset.i18n;
-    if (t[key]) el.textContent = t[key];
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.dataset.i18nPlaceholder;
-    if (t[key]) el.placeholder = t[key];
-  });
-}
-
-// ── Map ─────────────────────────────────────────────
 function initMap() {
   map = L.map('map', { zoomControl: true });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -86,7 +137,6 @@ function initMap() {
   }).addTo(map);
   markersLayer = L.layerGroup().addTo(map);
 
-  // Default view: BC
   map.setView([53.7, -127.6], 5);
 
   if (navigator.geolocation) {
@@ -116,60 +166,96 @@ function plotAllMarkers() {
   });
 }
 
-function updateNearbyDropdown() {
-  const q = document.getElementById('searchInput').value.trim();
-  if (q) return; // only show nearby when search is empty
-  const bounds = map.getBounds();
-  const nearby = SHELTERS.filter(s => s.lat && s.lng && bounds.contains([s.lat, s.lng])).slice(0, 8);
-  if (nearby.length) renderDropdown(nearby, true);
-  else closeDropdown();
-}
+async function updateNearbyDropdown() {
+    const q = document.getElementById('searchInput').value.trim();
+    if (q) return;
+    const bounds = map.getBounds();
+    const nearby = SHELTERS.filter(s => s.lat && s.lng && bounds.contains([s.lat, s.lng])).slice(0, 8);
+    if (nearby.length) await renderDropdown(nearby, true);
+    else closeDropdown();
+  }
 
-// ── Search ──────────────────────────────────────────
-function onSearchInput() {
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  if (!q) { updateNearbyDropdown(); return; }
-  const results = SHELTERS.filter(s =>
-    s.name.toLowerCase().includes(q) || s.city.toLowerCase().includes(q)
-  ).slice(0, 10);
-  if (results.length) renderDropdown(results, false);
-  else closeDropdown();
-}
+async function translateToEnglish(text) {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(text)}`;
+    const res = await fetch(url);
+    if (!res.ok) return text;
+    const data = await res.json();
+    return data[0].map(chunk => chunk[0]).join('');
+  }
+  
+  async function translateSingle(text, targetCode) {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetCode}&dt=t&q=${encodeURIComponent(text)}`;
+    const res = await fetch(url);
+    if (!res.ok) return text;
+    const data = await res.json();
+    return data[0].map(chunk => chunk[0]).join('');
+  }
+
+async function onSearchInput() {
+    const q = document.getElementById('searchInput').value.trim();
+    if (!q) { updateNearbyDropdown(); return; }
+  
+    const qEn = currentLang === 'en' ? q.toLowerCase() : (await translateToEnglish(q)).toLowerCase();
+  
+    const results = SHELTERS.filter(s =>
+      s.name.toLowerCase().includes(qEn) || s.city.toLowerCase().includes(qEn)
+    ).slice(0, 10);
+  
+    if (results.length) await renderDropdown(results, false);
+    else closeDropdown();
+  }
 
 function onSearchKey(e) {
   if (e.key === 'Enter') doSearch();
   if (e.key === 'Escape') closeDropdown();
 }
 
-function doSearch() {
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  if (!q) return;
-  const found = SHELTERS.filter(s =>
-    s.name.toLowerCase().includes(q) || s.city.toLowerCase().includes(q)
-  );
-  if (found.length === 1) {
-    selectShelter(found[0]);
-  } else if (found.length > 1) {
-    renderDropdown(found.slice(0, 10), false);
+async function doSearch() {
+    const q = document.getElementById('searchInput').value.trim();
+    if (!q) return;
+  
+    const qEn = currentLang === 'en' ? q.toLowerCase() : (await translateToEnglish(q)).toLowerCase();
+  
+    const found = SHELTERS.filter(s =>
+      s.name.toLowerCase().includes(qEn) || s.city.toLowerCase().includes(qEn)
+    );
+  
+    if (found.length === 1) {
+      selectShelter(found[0]);
+    } else if (found.length > 1) {
+      await renderDropdown(found.slice(0, 10), false);
+    }
   }
-}
 
-function renderDropdown(items, isNearby) {
-  const dd = document.getElementById('dropdown');
-  const t = translationCache[currentLang] || TRANSLATIONS.en;
-  dd.innerHTML = items.map(s => `
-    <div class="drop-item" onclick="selectShelter(window.__shelterById('${s.id}'))">
-      <div>
-        <div class="drop-name">${s.name}</div>
-        <div class="drop-city">${s.city}</div>
+  async function renderDropdown(items, isNearby) {
+    const dd = document.getElementById('dropdown');
+    const t = translationCache[currentLang] || TRANSLATIONS.en;
+    const targetCode = LANG_CODES[currentLang];
+  
+    const translated = await Promise.all(
+      items.map(async s => {
+        if (!targetCode) return { name: s.name, city: s.city };
+        const [name, city] = await Promise.all([
+          translateSingle(s.name, targetCode),
+          translateSingle(s.city, targetCode)
+        ]);
+        return { name, city };
+      })
+    );
+  
+    dd.innerHTML = items.map((s, i) => `
+      <div class="drop-item" onclick="selectShelter(window.__shelterById('${s.id}'))">
+        <div>
+          <div class="drop-name">${translated[i].name}</div>
+          <div class="drop-city">${translated[i].city}</div>
+        </div>
+        <span class="drop-badge ${s.hasKitchen ? 'kitchen' : 'no-kitchen'}">
+          ${s.hasKitchen ? (t.drop_kitchen || '🍳 Kitchen') : (t.drop_no_kitchen || 'No Kitchen')}
+        </span>
       </div>
-      <span class="drop-badge ${s.hasKitchen ? 'kitchen' : 'no-kitchen'}">
-        ${s.hasKitchen ? (t.drop_kitchen || '🍳 Kitchen') : (t.drop_no_kitchen || 'No Kitchen')}
-      </span>
-    </div>
-  `).join('');
-  dd.classList.add('open');
-}
+    `).join('');
+    dd.classList.add('open');
+  }
 
 window.__shelterById = id => SHELTERS.find(s => s.id === id);
 
@@ -181,13 +267,11 @@ document.addEventListener('click', e => {
   if (!e.target.closest('.search-wrap')) closeDropdown();
 });
 
-// ── Shelter Selection ───────────────────────────────
 function selectShelter(shelter) {
   selectedShelter = shelter;
   closeDropdown();
   document.getElementById('searchInput').value = shelter.name;
 
-  // Fly to marker if has coords
   if (shelter.lat && shelter.lng) {
     map.flyTo([shelter.lat, shelter.lng], 13, { duration: 1 });
   }
@@ -197,89 +281,26 @@ function selectShelter(shelter) {
 
 }
 
-// ── Main Screen ─────────────────────────────────────
 function buildMainScreen() {
-  const t = translationCache[currentLang] || TRANSLATIONS.en;
-  document.getElementById('mainShelterName').textContent = selectedShelter.name;
-  const badge = document.getElementById('kitchenBadge');
-  if (selectedShelter.hasKitchen) {
-    badge.textContent = t.badge_kitchen || '🍳 Kitchen Available';
-    badge.className = 'kitchen-badge has';
-  } else {
-    badge.textContent = t.badge_no_kitchen || '🚫 No Kitchen';
-    badge.className = 'kitchen-badge no';
+    const t = translationCache[currentLang] || TRANSLATIONS.en;
+    document.getElementById('mainShelterName').textContent = selectedShelter.name;
+    updateKitchenBadge(t);
+    loadRecipes();
   }
-  loadRecipes();
-}
-
-// async function loadRecipes() {
-//   const grid = document.getElementById('recipesGrid');
-//   grid.innerHTML = `<div class="recipe-loading"><div class="spinner"></div><p>${(translationCache[currentLang] || TRANSLATIONS.en).loading_recipes || 'Finding recipes for you…'}</p></div>`;
-//
-//   const langName = getLangName(currentLang);
-//   const kitchenCtx = selectedShelter.hasKitchen
-//     ? 'The shelter HAS a shared kitchen with stove, oven, and basic cookware.'
-//     : 'The shelter has NO shared kitchen. All recipes must require NO cooking — only microwave, kettle, or no heat at all.';
-//
-//   const prompt = `You are a compassionate recipe assistant for women in transition shelters in British Columbia, Canada.
-//
-// Context: ${kitchenCtx}
-// Shelter: ${selectedShelter.name}, ${selectedShelter.city}
-// Language for all text: ${langName}
-//
-// Generate exactly 8 diverse, practical, and culturally-aware recipes appropriate for shelter cooking.
-// ${selectedShelter.hasKitchen ? 'Include a mix of breakfast, lunch, dinner, and snack recipes.' : 'All recipes MUST be no-cook: salads, wraps, overnight oats, fruit bowls, etc.'}
-//
-// Respond ONLY with a JSON array of 8 recipe objects. No markdown, no preamble. Schema:
-// [
-//   {
-//     "emoji": "🍲",
-//     "title": "Recipe Name in ${langName}",
-//     "time": "20 min",
-//     "servings": "4",
-//     "difficulty": "Easy",
-//     "desc": "One-sentence description in ${langName}",
-//     "ingredients": ["ingredient 1", "ingredient 2"],
-//     "steps": ["Step 1", "Step 2", "Step 3"]
-//   }
-// ]`;
-//
-//   try {
-//     const res = await fetch('https://api.anthropic.com/v1/messages', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({
-//         model: 'claude-sonnet-4-20250514',
-//         max_tokens: 1000,
-//         messages: [{ role: 'user', content: prompt }]
-//       })
-//     });
-//     const data = await res.json();
-//     const text = data.content.map(b => b.text || '').join('');
-//     const clean = text.replace(/```json|```/g, '').trim();
-//     const recipes = JSON.parse(clean);
-//     renderRecipes(recipes);
-//   } catch (e) {
-//     grid.innerHTML = `<div class="recipe-loading"><p>Could not load recipes. Please try again.</p></div>`;
-//     console.error(e);
-//   }
-// }
 
 async function loadRecipes() {
   const grid = document.getElementById('recipesGrid');
   const t = translationCache[currentLang] || TRANSLATIONS.en;
 
-  // Show loading state
   grid.innerHTML = `
     <div class="recipe-loading">
       <div class="spinner"></div>
       <p>${t.loading_recipes || 'Finding recipes for you…'}</p>
     </div>`;
 
-  // Map your JS data to your FastAPI Pydantic Model
   const requestBody = {
     shelter_id: selectedShelter.id,
-    ingredients: ["rice", "beans", "canned tomatoes", "onions"], // Update this from a UI input later!
+    ingredients: ["rice", "beans", "canned tomatoes", "onions"],
     cuisine: "Basics",
     servings: 4,
     kitchen_access: selectedShelter.hasKitchen ? "full" : "none",
@@ -288,7 +309,6 @@ async function loadRecipes() {
   };
 
   try {
-    // 1. Call YOUR backend instead of Anthropic directly
     const res = await fetch(`${API}/recommend`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -299,8 +319,6 @@ async function loadRecipes() {
 
     const data = await res.json();
 
-    // 2. Map your backend's RecipeResponse to your UI
-    // Assuming your backend returns { recipes: [...] }
     renderRecipes(data.recipes);
 
   } catch (e) {
@@ -363,7 +381,6 @@ function closeModal() {
   if (window.__modal) { window.__modal.remove(); window.__modal = null; }
 }
 
-// ── Screen Navigation ───────────────────────────────
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const el = document.getElementById(id);
@@ -374,14 +391,12 @@ function showScreen(id) {
 function goBack(target) {
   showScreen(target);
   if (target === 'screenSearch') {
-    // Re-init map size after show
     setTimeout(() => map && map.invalidateSize(), 100);
   }
 }
 
-// ── Panel Navigation ────────────────────────────────
 function showPanel(name) {
-  document.getElementById('panelAbout').classList.remove('open');
+  document.getElementById('panelInfo').classList.remove('open');
   document.getElementById('panelResources').classList.remove('open');
   document.getElementById(`panel${name.charAt(0).toUpperCase() + name.slice(1)}`).classList.add('open');
 }
@@ -390,7 +405,6 @@ function hidePanel(name) {
   document.getElementById(`panel${name.charAt(0).toUpperCase() + name.slice(1)}`).classList.remove('open');
 }
 
-// ── Init ────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   showScreen('screenSearch');
   initMap();

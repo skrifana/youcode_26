@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouCode — Shelter Recipe Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation bar -->
+  <nav class="top-nav" id="topNav">
+    <div class="nav-left">
+      <button class="nav-btn" onclick="showPanel('info')" data-i18n="nav_info">Info</button>
+      <button class="nav-btn" onclick="showPanel('resources')" data-i18n="nav_resources">Resources</button>
+    </div>
+    <div class="nav-logo">YouCode</div>
+    <div class="nav-right">
+        <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
+            <option value="en">🌐 EN</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="zh">🇨🇳 中文</option>
+            <option value="ar">🇸🇦 العربية</option>
+            <option value="ja">🇯🇵 日本語</option>
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+            <option value="hi">🇮🇳 हिन्दी</option>
+            <option value="tl">🇵🇭 Tagalog</option>
+            <option value="pa">🇮🇳 ਪੰਜਾਬੀ</option>
+            <option value="fa">🇮🇷 فارسی</option>
+            <option value="so">🇸🇴 Soomaali</option>
+        </select>
+    </div>
+  </nav>
+
+  <div id="app">
+
+    <!-- Search screen -->
+    <div class="screen active" id="screenSearch">
+      <div class="search-hero">
+        <h1 class="hero-title" data-i18n="hero_title">YouCode</h1>
+        <p class="hero-sub" data-i18n="hero_sub">Find nourishing recipes for your shelter</p>
+        <div class="search-wrap">
+          <div class="search-row">
+            <input class="search-input" id="searchInput" type="text"
+              data-i18n-placeholder="search_placeholder"
+              placeholder="Search by shelter name or city…"
+              autocomplete="off"
+              oninput="onSearchInput()"
+              onkeydown="onSearchKey(event)">
+            <button class="search-btn" onclick="doSearch()" data-i18n="search_btn">Find</button>
+          </div>
+          <div class="dropdown" id="dropdown"></div>
+        </div>
+      </div>
+      <div id="map"></div>
+    </div>
+
+    <!-- Main screen -->
+    <div class="screen" id="screenMain">
+      <div class="main-header">
+        <button class="back-link" onclick="goBack('screenSearch')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          <span data-i18n="back">Back</span>
+        </button>
+        <div class="shelter-info">
+          <h2 id="mainShelterName" class="shelter-name"></h2>
+          <div id="kitchenBadge" class="kitchen-badge"></div>
+        </div>
+      </div>
+      <div id="recipesGrid" class="recipes-grid"></div>
+    </div>
+
+    <!-- Info screen -->
+    <div class="panel" id="panelInfo">
+      <div class="panel-header">
+        <button class="back-link" onclick="hidePanel('info')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          <span data-i18n="back">Back</span>
+        </button>
+        <h2 data-i18n="nav_info">Info</h2>
+      </div>
+      <div class="panel-body">
+        <div class="info-block">
+          <h3 data-i18n="info">What is YouCode?</h3>
+          <p data-i18n="info">YouCode is a compassionate tool designed to help women in transition shelters across British Columbia discover nourishing recipes tailored to their shelter's facilities.</p>
+        </div>
+        <div class="info-block">
+          <h3 data-i18n="info">How it works</h3>
+          <p data-i18n="info">Search for your shelter by name or city. Based on whether your shelter has a shared kitchen, we suggest recipes you can realistically make — full meals if you have a kitchen, or simple no-cook options if you don't.</p>
+        </div>
+        <div class="info-block">
+          <h3 data-i18n="info">Our mission</h3>
+          <p data-i18n="info">Good food is dignity. We believe every woman in a shelter deserves access to simple, culturally-aware, and nutritious meal ideas regardless of their circumstances.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resources screen -->
+    <div class="panel" id="panelResources">
+      <div class="panel-header">
+        <button class="back-link" onclick="hidePanel('resources')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          <span data-i18n="back">Back</span>
+        </button>
+        <h2 data-i18n="nav_resources">Resources</h2>
+      </div>
+      <div class="panel-body">
+        <div class="resource-card">
+          <div class="rc-icon">🆘</div>
+          <div>
+            <strong data-i18n="res1_title">BC Crisis Line</strong>
+            <p data-i18n="res1_desc">24/7 support: <a href="tel:1-800-784-2433">1-800-784-2433</a></p>
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="rc-icon">🥗</div>
+          <div>
+            <strong data-i18n="res2_title">Food Banks BC</strong>
+            <p data-i18n="res2_desc">Find your nearest food bank: <a href="https://foodbanksbc.com" target="_blank">foodbanksbc.com</a></p>
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="rc-icon">🏠</div>
+          <div>
+            <strong data-i18n="res3_title">BC Housing</strong>
+            <p data-i18n="res3_desc">Transitional housing support: <a href="https://www.bchousing.org" target="_blank">bchousing.org</a></p>
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="rc-icon">📞</div>
+          <div>
+            <strong data-i18n="res4_title">VictimLinkBC</strong>
+            <p data-i18n="res4_desc">Immediate assistance: <a href="tel:1-800-563-0808">1-800-563-0808</a></p>
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="rc-icon">🍎</div>
+          <div>
+            <strong data-i18n="res5_title">HealthLink BC Dietitian</strong>
+            <p data-i18n="res5_desc">Free nutrition advice: <a href="tel:8-1-1">8-1-1</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="shelters.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -29,7 +29,6 @@
     overflow-x: hidden;
   }
   
-  /* ========== NAV ========== */
   .top-nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -56,7 +55,6 @@
   }
   
   .nav-left { display: flex; gap: 6px; }
-  .nav-right {}
   
   .nav-btn {
     font-family: 'Syne', sans-serif;
@@ -94,22 +92,19 @@
     transition: all 0.15s;
   }
   .lang-select:hover { background: var(--black); color: var(--white); }
-  
-  /* ========== APP ========== */
+
   #app {
     padding-top: var(--nav-h);
     min-height: 100vh;
     position: relative;
   }
-  
-  /* ========== SCREENS ========== */
+
   .screen {
     display: none;
     min-height: calc(100vh - var(--nav-h));
   }
   .screen.active { display: flex; flex-direction: column; }
-  
-  /* ========== SEARCH SCREEN ========== */
+
   #screenSearch {
     flex-direction: column;
     align-items: center;
@@ -122,8 +117,8 @@
     align-items: center;
     padding: 60px 20px 32px;
     text-align: center;
-    position: relative;   /* ← add this */
-    z-index: 10;          /* ← add this */
+    position: relative; 
+    z-index: 10;        
   }
   
   .hero-title {
@@ -202,7 +197,7 @@
     border: 1.5px solid var(--border);
     border-radius: 16px;
     overflow: hidden;
-    z-index: 1000;          /* ← raise this (was 100) */
+    z-index: 1000;
     display: none;
     box-shadow: 0 12px 40px rgba(0,0,0,0.12);
     max-height: 300px;
@@ -235,7 +230,6 @@
   .drop-badge.kitchen { background: var(--green-light); color: var(--green); }
   .drop-badge.no-kitchen { background: var(--red-light); color: var(--red); }
   
-  /* Map */
   #map {
     width: 100%;
     max-width: 600px;
@@ -244,8 +238,7 @@
     border: 1px solid black;
     z-index: 0;
   }
-  
-  /* ========== MAIN SCREEN ========== */
+
   #screenMain {
     padding: 24px 20px 48px;
     max-width: 900px;
@@ -296,7 +289,6 @@
   .kitchen-badge.has { background: var(--green-light); color: var(--green); }
   .kitchen-badge.no { background: var(--red-light); color: var(--red); }
   
-  /* Recipes Grid */
   .recipes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -458,7 +450,6 @@
     animation: spin 0.8s linear infinite;
   }
   
-  /* ========== PANELS ========== */
   .panel {
     display: none;
     position: fixed;
@@ -505,7 +496,6 @@
     margin: 0 auto;
   }
   
-  /* About blocks */
   .about-block {
     margin-bottom: 28px;
   }
@@ -521,7 +511,6 @@
     color: #444;
   }
   
-  /* Resource cards */
   .resource-card {
     display: flex;
     gap: 16px;
@@ -535,7 +524,6 @@
   .resource-card p { font-size: 14px; color: #444; }
   .resource-card a { color: var(--black); font-weight: 500; }
   
-  /* ========== ANIMATIONS ========== */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: translateY(0); }
@@ -552,32 +540,8 @@
     to { transform: rotate(360deg); }
   }
   
-  /* ========== RESPONSIVE ========== */
   @media (max-width: 480px) {
     .nav-logo { font-size: 18px; }
     .staff-options { flex-direction: column; align-items: center; }
     .modal { border-radius: 16px; padding: 20px; }
   }
-  .search-hero {
-  padding: 40px 24px;
-  background: var(--warm);
-}
-
-.search-row {
-  display: flex;
-  gap: 10px;
-}
-
-.search-input {
-  flex: 1;
-  padding: 10px;
-}
-
-.search-btn {
-  background: var(--terr);
-  color: white;
-}
-
-#map {
-  height: 400px;
-}
