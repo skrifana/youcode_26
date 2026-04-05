@@ -59,7 +59,7 @@ body {
 }
 
 .nav-logo {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Lucida Handwriting', 'cursive';
   font-weight: 800;
   font-size: 22px;
   letter-spacing: 3px;
@@ -73,7 +73,7 @@ body {
 .nav-left { display: flex; gap: 6px; }
 
 .nav-btn {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Lucida Handwriting', 'cursive' ;
   font-weight: 600;
   font-size: 12px;
   letter-spacing: 0.8px;
