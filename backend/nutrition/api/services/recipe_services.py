@@ -1,6 +1,6 @@
 import json
 import os
-#0import google.generativeai as genai
+# 0import google.generativeai as genai
 
 
 from backend.nutrition.api.models import (
@@ -11,20 +11,19 @@ from backend.nutrition.api.prompts.recipe_prompt import (
     SYSTEM_PROMPT, build_static_prompt, build_interactive_prompt
 )
 from fastapi import HTTPException
-rom groq import Groq
+from groq import Groq
 
 _client = Groq(api_key="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")
 
-#_API_KEY = os.environ.get("GEMINI_API_KEY", "AIzaSyBfFUewXDRMSKvxFPAuNmUi3hTvLPuFkRI")
+# _API_KEY = os.environ.get("GEMINI_API_KEY", "AIzaSyBfFUewXDRMSKvxFPAuNmUi3hTvLPuFkRI")
 
-#genai.configure(api_key=_API_KEY)
-
+# genai.configure(api_key=_API_KEY)
 
 
 LEVEL_NOTES = {
-    "full":    None,
+    "full": None,
     "partial": "Recipes adapted for microwave/kettle use.",
-    "none":    "No cooking required — simple assembly recipes only.",
+    "none": "No cooking required — simple assembly recipes only.",
 }
 
 
@@ -56,24 +55,19 @@ def get_recipes(req: RecipeRequest) -> RecipeResponse:
         )
 
     try:
-        model = genai.GenerativeModel(
-            model_name="gemini-2.0-flash",
-            system_instruction=SYSTEM_PROMPT,
+
+        response = _client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=3000,
         )
-       response = _client.chat.completions.create(
-       model="llama-3.3-70b-versatile",
-       messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": prompt}
-        ],
-        max_tokens=3000,
-      )
-      raw = response.choices[0].message.content
+        raw = response.choices[0].message.content
 
-    except Exception as e:
-        raise HTTPException(status_code=502, detail=f"Gemini API error: {str(e)}")
 
-    data = _parse_json(raw)
+        data = _parse_json(raw)
 
     recipes = []
     for r in data.get("recipes", []):
