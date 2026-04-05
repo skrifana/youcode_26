@@ -245,59 +245,6 @@
     z-index: 0;
   }
   
-  /* ========== STAFF SCREEN ========== */
-  #screenStaff {
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .staff-card {
-    text-align: center;
-    padding: 40px 24px;
-    animation: fadeUp 0.4s ease forwards;
-  }
-  
-  .staff-label {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 26px;
-    margin-bottom: 40px;
-    color: var(--black);
-  }
-  
-  .staff-options {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .staff-btn {
-    background: var(--white);
-    border: 2px solid var(--border);
-    border-radius: 20px;
-    padding: 32px 40px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.2s;
-    min-width: 160px;
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 15px;
-    color: var(--black);
-  }
-  .staff-btn:hover {
-    border-color: var(--black);
-    background: var(--yellow);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-  }
-  
-  .staff-icon { font-size: 44px; }
-  
   /* ========== MAIN SCREEN ========== */
   #screenMain {
     padding: 24px 20px 48px;
@@ -535,11 +482,20 @@
     top: 0;
     background: var(--white);
     z-index: 10;
+    position: relative;
+    justify-content: center;
   }
+
+  .panel-header .back-link {
+    position: absolute;   
+    left: 24px;          
+  }
+
   .panel-header h2 {
     font-family: 'Syne', sans-serif;
     font-weight: 700;
     font-size: 20px;
+    align-items: center;
   }
   
   .panel-body {

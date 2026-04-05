@@ -4,7 +4,6 @@
 
 // ── State ──────────────────────────────────────────
 let selectedShelter = null;
-let isStaff = false;
 let currentLang = 'en';
 let previousScreen = 'screenSearch';
 let map, markersLayer;
@@ -15,7 +14,6 @@ const TRANSLATIONS = {
     nav_about: 'About', nav_resources: 'Resources', back: 'Back',
     hero_title: 'YouCode', hero_sub: 'Find nourishing recipes for your shelter',
     search_placeholder: 'Search by shelter name or city…', search_btn: 'Find',
-    staff_q: 'Are you a staff member?', staff_yes: 'Yes, I\'m staff', staff_no: 'No, I\'m a resident',
     kitchen_yes: '🍳 Shared Kitchen Available', kitchen_no: '🚫 No Shared Kitchen',
     about_h1: 'What is YouCode?', about_p1: 'YouCode is a compassionate tool designed to help women in transition shelters across British Columbia discover nourishing recipes tailored to their shelter\'s facilities.',
     about_h2: 'How it works', about_p2: 'Search for your shelter by name or city. Based on whether your shelter has a shared kitchen, we suggest recipes you can realistically make — full meals if you have a kitchen, or simple no-cook options if you don\'t.',
@@ -194,14 +192,9 @@ function selectShelter(shelter) {
     map.flyTo([shelter.lat, shelter.lng], 13, { duration: 1 });
   }
 
-  // Show staff screen
-  showScreen('screenStaff');
-}
-
-function selectStaff(staff) {
-  isStaff = staff;
   showScreen('screenMain');
   buildMainScreen();
+
 }
 
 // ── Main Screen ─────────────────────────────────────
@@ -232,7 +225,6 @@ async function loadRecipes() {
 
 Context: ${kitchenCtx}
 Shelter: ${selectedShelter.name}, ${selectedShelter.city}
-User role: ${isStaff ? 'staff member (can access more complex recipes)' : 'resident'}
 Language for all text: ${langName}
 
 Generate exactly 8 diverse, practical, and culturally-aware recipes appropriate for shelter cooking.
